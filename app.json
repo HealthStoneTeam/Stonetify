@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "SpotStats",
+    "scheme": "spotstats",
     "slug": "SpotStats",
     "version": "1.0.0",
     "orientation": "portrait",
