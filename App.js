@@ -1,6 +1,11 @@
 import "react-native-gesture-handler";
 import Routes from "./src/routes";
+import { NativeBaseProvider } from 'native-base';
 
 export default function App() {
-  return <Routes />;
+  return (
+    <NativeBaseProvider>
+      <Routes />
+    </NativeBaseProvider>
+  );
 }
