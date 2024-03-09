@@ -1,12 +1,62 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View, Pressable } from "react-native";
+import * as AppAuth from "expo-auth-session";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../../config/auth";
 
 export default function Login() {
+  const { authenticate, logout, getStoredAccessToken } =
+    useContext(AuthContext);
+
+  //TODO Fazer UseEffect para refresh token  e login
+  useEffect(() => {
+    const accessToken = getStoredAccessToken();
+    console.log("Chegou aqui", accessToken);
+  });
+  //
   return (
     <View style={styles.container}>
-      <Text style={{ color: "#FFF" }}>TELA DE LOGIN</Text>
+      <Text style={{ color: "#FFF" }}>CAI DENTRO</Text>
+      <Pressable
+        onPress={authenticate}
+        style={{
+          backgroundColor: "#1DB954",
+          padding: 10,
+          marginLeft: "auto",
+          marginRight: "auto",
+          width: 300,
+          borderRadius: 25,
+          alignItems: "center",
+          justifyContent: "center",
+          marginVertical: 10,
+        }}
+      >
+        <Text>VAI ENCARAR?</Text>
+      </Pressable>
+      <StatusBar style="auto" />
+      <Text style={{ color: "#FFF" }}>CAI FORA</Text>
+      <Pressable
+        onPress={logout}
+        style={{
+          backgroundColor: "#1DB954",
+          padding: 10,
+          marginLeft: "auto",
+          marginRight: "auto",
+          width: 300,
+          borderRadius: 25,
+          alignItems: "center",
+          justifyContent: "center",
+          marginVertical: 10,
+        }}
+      >
+        <Text>VAI ARREGAR?</Text>
+      </Pressable>
+      <StatusBar style="auto" />
     </View>
   );
 }
+
+// Authorization token that must have been created previously. See : https://developer.spotify.com/documentation/web-api/concepts/authorization
 
 const styles = StyleSheet.create({
   container: {
