@@ -5,7 +5,7 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "../../config/auth";
 
 export default function Login() {
-  const { authenticate, logout, getStoredAccessToken } =
+  const { authenticate, logout, getStoredAccessToken, renewAuthentication } =
     useContext(AuthContext);
 
   //TODO Fazer UseEffect para refresh token  e login
@@ -50,6 +50,24 @@ export default function Login() {
         }}
       >
         <Text>VAI ARREGAR?</Text>
+      </Pressable>
+      <StatusBar style="auto" />
+      <Text style={{ color: "#FFF" }}>CAI E LEVANTA</Text>
+      <Pressable
+        onPress={renewAuthentication}
+        style={{
+          backgroundColor: "#1DB954",
+          padding: 10,
+          marginLeft: "auto",
+          marginRight: "auto",
+          width: 300,
+          borderRadius: 25,
+          alignItems: "center",
+          justifyContent: "center",
+          marginVertical: 10,
+        }}
+      >
+        <Text>VAI DESISTIR?</Text>
       </Pressable>
       <StatusBar style="auto" />
     </View>

@@ -20,7 +20,7 @@ export async function getAccessToken(clientId, code, verifier, redirectUri) {
 }
 
 //TODO Terminar de fazer chamada refresh Token
-export async function getRefreshToken(clientId, refreshToken) {
+export async function getRefreshedToken(clientId, refreshToken) {
   const params = new URLSearchParams();
   params.append("client_id", clientId);
   params.append("grant_type", "refresh_token");

@@ -1,5 +1,5 @@
 //Logica
-import { getAccessToken } from "../services/auth";
+import { getAccessToken, getRefreshedToken } from "../services/auth";
 import { createContext } from "react";
 import * as AppAuth from "expo-auth-session";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -9,6 +9,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 export const AuthContext = createContext({});
+const clientId = "68028a1d5ff847c694cfb49e4dfd4fb7";
 
 function AuthProvider({ children }) {
   //TODO Fazer fallback
@@ -16,7 +17,6 @@ function AuthProvider({ children }) {
     const discorery = await AppAuth.fetchDiscoveryAsync(
       "https://accounts.spotify.com"
     );
-    const clientId = "68028a1d5ff847c694cfb49e4dfd4fb7";
     const config = {
       clientId: clientId,
       scopes: [
@@ -49,8 +49,17 @@ function AuthProvider({ children }) {
       );
       console.log("alegria: ", objToken);
       storeAccessToken(objToken.access_token)
+      storeRefreshToken(objToken.refresh_token)
       getStoredAccessToken()
+      getStoredRefreshToken()
     }
+  }
+
+  //TODO Continuar a lógica da renovação da autenticação
+  //TODO Conferir se estou usando a lógica do asyncStorage do jeito certo
+  async function renewAuthentication(){
+    const refreshToken = getStoredRefreshToken()
+    console.log("Return???", refreshToken)
   }
 
   async function logout(){
@@ -83,12 +92,36 @@ function AuthProvider({ children }) {
     }
   };
 
+  const storeRefreshToken = async (value) => {
+    try {
+      await AsyncStorage.setItem('refresh-token', value);
+    } catch (e) {
+      console.log(e)
+    }
+  };
+
+  const getStoredRefreshToken = async () => {
+    try {
+      const value = await AsyncStorage.getItem('refresh-token');
+      if (value) {
+        console.log("felicitationsRefresh", value);
+        return value;
+      }
+      else{
+        console.log("Not so felicitationsRefresh", value)
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
         authenticate,
         logout,
-        getStoredAccessToken
+        getStoredAccessToken,
+        renewAuthentication
       }}
     >
       {children}
