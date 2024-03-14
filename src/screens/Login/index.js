@@ -5,14 +5,18 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "../../config/auth";
 
 export default function Login() {
-  const { authenticate, logout, getStoredAccessToken, renewAuthentication } =
+  const { authenticate, logout, getAccessToken, renewAuthentication } =
     useContext(AuthContext);
 
-  //TODO Fazer UseEffect para refresh token  e login
+  //TODO Se tiver o token vai pra próxima tela, se não vai pra tela de login
   useEffect(() => {
-    const accessToken = getStoredAccessToken();
-    console.log("Chegou aqui", accessToken);
-  });
+    async function teste(){
+      const accessToken = await getAccessToken();
+      console.log("Chegou aqui", accessToken);
+    }
+    teste()
+    
+  },[]);
   //
   return (
     <View style={styles.container}>

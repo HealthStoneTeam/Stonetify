@@ -1,11 +1,11 @@
 //Logica
-import { getAccessToken, getRefreshedToken } from "../services/auth";
+import { getAccessTokenFromAPI, getRefreshedTokenFromAPI } from "../services/auth";
 import { createContext } from "react";
 import * as AppAuth from "expo-auth-session";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-//TODO Terminar de fazer chamada refresh Token
+//TODO Refatorar a chamada para ir para a camada de service
 
 
 export const AuthContext = createContext({});
@@ -41,32 +41,95 @@ function AuthProvider({ children }) {
       const code = result.params.code;
       const { redirectUri, codeVerifier } = request;
       console.log("O code ta na mão: ", code);
-      const objToken = await getAccessToken(
+      const objToken = await getAccessTokenFromAPI(
         clientId,
         code,
         codeVerifier,
         redirectUri
       );
       console.log("alegria: ", objToken);
+      storeTokens(objToken);
+      getStoredTokens();
       storeAccessToken(objToken.access_token)
-      storeRefreshToken(objToken.refresh_token)
-      getStoredAccessToken()
-      getStoredRefreshToken()
     }
   }
 
-  //TODO Continuar a lógica da renovação da autenticação
-  //TODO Conferir se estou usando a lógica do asyncStorage do jeito certo
   async function renewAuthentication(){
-    const refreshToken = getStoredRefreshToken()
-    console.log("Return???", refreshToken)
+    // const refreshToken = await getStoredRefreshToken()
+    // console.log('LLULULUUL', await getRefreshedTokenFromAPI(clientId,refreshToken));
+    // console.log("Return???", refreshToken)
   }
 
   async function logout(){
     console.log("Entrou no logout")
-    storeAccessToken("")
-    getStoredAccessToken()
+    storeTokens({})
   }
+
+  async function getAccessToken(){
+    try{
+      const tokensRaw = await getStoredTokens()
+      if (tokensRaw && tokensRaw.access_token && tokensRaw.saved_time && tokensRaw.refresh_token && tokensRaw.expires_in){
+        const accessToken = tokensRaw.access_token;
+        const refreshToken = tokensRaw.refresh_token;
+        const savedTime = tokensRaw.saved_time;
+        const expirationTime = tokensRaw.expires_in;
+
+        if (await validateAccessToken(savedTime, expirationTime)){
+          console.log("Deu Nice", accessToken)
+          return accessToken;
+        } else {
+          const tokensRawRefreshed = await getRefreshedTokenFromAPI(clientId,refreshToken);
+          if (tokensRawRefreshed && tokensRawRefreshed.access_token && tokensRawRefreshed.refresh_token && tokensRawRefreshed.expires_in){
+            storeTokens(tokensRawRefreshed)
+            console.log("Deu refresh ok", tokensRawRefreshed.access_token)
+            return tokensRawRefreshed.access_token
+          }
+        }
+      }
+      console.log("Deu mal")
+      return null
+    } catch (e) {
+      console.log(e)
+    }
+    
+  }
+
+  async function validateAccessToken(savedTime,expirationTime){
+    const currentTime = new Date().getTime();
+    const safeExpirationTime = Number(expirationTime)  * 0.9
+    savedTime = new Date(savedTime).getTime();
+    const differenceInSeconds = (currentTime - savedTime) / 1000;
+    console.log(differenceInSeconds)
+    return (safeExpirationTime >= differenceInSeconds)
+  }
+
+  
+  const storeTokens = async (tokenData) => {
+    try {
+      const savedTime = new Date().toISOString();
+      const tokenDataToStore = { ...tokenData, 'saved_time': savedTime };
+      console.log("Tokenzada", tokenDataToStore)
+      await AsyncStorage.setItem('tokens', JSON.stringify(tokenDataToStore));
+
+    } catch (e) {
+      console.log(e)
+    }
+  };
+
+  const getStoredTokens = async () => {
+    try {
+      const jsonValue  = await AsyncStorage.getItem('tokens');
+      if (jsonValue ) {
+        console.log("felicitations", jsonValue );
+        return jsonValue != null ? JSON.parse(jsonValue) : null;
+      }
+      else{
+        console.log("Not so felicitations", jsonValue )
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  };
 
   const storeAccessToken = async (value) => {
     try {
@@ -77,51 +140,13 @@ function AuthProvider({ children }) {
     }
   };
 
-  const getStoredAccessToken = async () => {
-    try {
-      const value = await AsyncStorage.getItem('access-token');
-      if (value) {
-        console.log("felicitations", value);
-        return value;
-      }
-      else{
-        console.log("Not so felicitations", value)
-      }
-    } catch (e) {
-      console.log(e)
-    }
-  };
-
-  const storeRefreshToken = async (value) => {
-    try {
-      await AsyncStorage.setItem('refresh-token', value);
-    } catch (e) {
-      console.log(e)
-    }
-  };
-
-  const getStoredRefreshToken = async () => {
-    try {
-      const value = await AsyncStorage.getItem('refresh-token');
-      if (value) {
-        console.log("felicitationsRefresh", value);
-        return value;
-      }
-      else{
-        console.log("Not so felicitationsRefresh", value)
-      }
-    } catch (e) {
-      console.log(e)
-    }
-  };
-
   return (
     <AuthContext.Provider
       value={{
         authenticate,
         logout,
-        getStoredAccessToken,
-        renewAuthentication
+        renewAuthentication,
+        getAccessToken
       }}
     >
       {children}

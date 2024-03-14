@@ -1,7 +1,7 @@
 //Chamadas
 //TODO Fazer fallback
 
-export async function getAccessToken(clientId, code, verifier, redirectUri) {
+export async function getAccessTokenFromAPI(clientId, code, verifier, redirectUri) {
   const params = new URLSearchParams();
   params.append("client_id", clientId);
   params.append("grant_type", "authorization_code");
@@ -19,8 +19,7 @@ export async function getAccessToken(clientId, code, verifier, redirectUri) {
   return await result.json();
 }
 
-//TODO Terminar de fazer chamada refresh Token
-export async function getRefreshedToken(clientId, refreshToken) {
+export async function getRefreshedTokenFromAPI(clientId, refreshToken) {
   const params = new URLSearchParams();
   params.append("client_id", clientId);
   params.append("grant_type", "refresh_token");
