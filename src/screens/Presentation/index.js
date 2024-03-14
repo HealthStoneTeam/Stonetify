@@ -1,13 +1,12 @@
 import { Text, View, TouchableOpacity } from "react-native";
-import { Icon } from "native-base";
 import styles from "./styles";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Profile from "../../components/profile";
 import Dropdown from "../../components/dropdown";
-import ItemsList from "../../components/ItemsList";
+import ItemsList from "../../components/itemsList";
+import Logout from "../../components/logout";
 
 export default function Presentation() {
-  const metricOptions = ["Top Tracks", "Top Artist", "Top Genres", "Stats"];
+  const metricOptions = ["Top Tracks", "Top Artist"];
   const periodOptions = ["Last Month", "Last 6 Months", "All Time"];
   const profileData = {
     uri: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
@@ -36,12 +35,7 @@ export default function Presentation() {
     <View style={styles.container}>
       <View style={styles.header}>
         <Profile data={profileData} />
-        <Icon
-          as={MaterialCommunityIcons}
-          name="logout"
-          size={10}
-          color={"blue.400"}
-        />
+        <Logout />
       </View>
       <View style={styles.filterSection}>
         <Dropdown options={metricOptions} onSelect={() => {}} />

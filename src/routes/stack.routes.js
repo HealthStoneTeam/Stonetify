@@ -16,13 +16,13 @@ export default function StackRoutes() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Presentation"
-        component={Presentation}
+        name="Login"
+        component={Login}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Login"
-        component={Login}
+        name="Presentation"
+        component={Presentation}
         options={{ headerShown: false }}
       />
       <Stack.Screen name="About" component={About} options={headerStyle} />
