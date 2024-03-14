@@ -6,6 +6,7 @@ import Presentation from "../screens/Presentation";
 const Stack = createStackNavigator();
 const headerStyle = {
   headerTitle: "",
+  headerTintColor: '#FFF',
   headerTitleStyle: {
     color: "#FFF",
   },
