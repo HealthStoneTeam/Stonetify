@@ -1,7 +1,6 @@
 //Logica
-import { getAccessTokenFromAPI, getRefreshedTokenFromAPI } from "../services/auth";
+import { getAccessTokenFromAPI, getRefreshedTokenFromAPI, getAccessCodeFromAPI } from "../services/auth";
 import { createContext } from "react";
-import * as AppAuth from "expo-auth-session";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
@@ -14,38 +13,27 @@ const clientId = "68028a1d5ff847c694cfb49e4dfd4fb7";
 function AuthProvider({ children }) {
   //TODO Fazer fallback
   async function authenticate() {
-    const discorery = await AppAuth.fetchDiscoveryAsync(
-      "https://accounts.spotify.com"
-    );
-    const config = {
-      clientId: clientId,
-      scopes: [
-        "user-read-email",
-        "user-library-read",
-        "user-read-recently-played",
-        "user-top-read",
-        "playlist-read-private",
-        "playlist-read-collaborative",
-        "playlist-modify-public", // or "playlist-modify-private"
-      ],
-      redirectUri: AppAuth.makeRedirectUri({
-        scheme: "spotstats",
-        path: "callback",
-      }),
-    };
-    const request = await AppAuth.loadAsync(config, discorery);
-    console.log("construção do primeiro request: ", request);
-    const result = await request.promptAsync();
-    console.log("resultado primeiro request: ", result);
-    if (result.params.code) {
-      const code = result.params.code;
-      const { redirectUri, codeVerifier } = request;
-      console.log("O code ta na mão: ", code);
+    const scopes = [
+      "user-read-email",
+      "user-library-read",
+      "user-read-recently-played",
+      "user-top-read",
+      "playlist-read-private",
+      "playlist-read-collaborative",
+      "playlist-modify-public", // or "playlist-modify-private"
+    ]
+    const scheme = "spotstats";
+    const path = "callback";
+
+    const accessCode = await getAccessCodeFromAPI(clientId, scopes, scheme, path)
+
+    if (accessCode) {
+      console.log("O code ta na mão: ", accessCode);
       const objToken = await getAccessTokenFromAPI(
         clientId,
-        code,
-        codeVerifier,
-        redirectUri
+        accessCode.code,
+        accessCode.codeVerifier,
+        accessCode.redirectUri
       );
       console.log("alegria: ", objToken);
       storeTokens(objToken);
@@ -54,11 +42,6 @@ function AuthProvider({ children }) {
     }
   }
 
-  async function renewAuthentication(){
-    // const refreshToken = await getStoredRefreshToken()
-    // console.log('LLULULUUL', await getRefreshedTokenFromAPI(clientId,refreshToken));
-    // console.log("Return???", refreshToken)
-  }
 
   async function logout(){
     console.log("Entrou no logout")
@@ -145,8 +128,7 @@ function AuthProvider({ children }) {
       value={{
         authenticate,
         logout,
-        renewAuthentication,
-        getAccessToken
+        getAccessToken 
       }}
     >
       {children}

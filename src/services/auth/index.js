@@ -1,5 +1,32 @@
+import * as AppAuth from "expo-auth-session";
+
 //Chamadas
 //TODO Fazer fallback
+
+export async function getAccessCodeFromAPI(clientId, scopes, scheme, path) {
+  const discorery = await AppAuth.fetchDiscoveryAsync(
+    "https://accounts.spotify.com"
+  );
+  const config = {
+    clientId,
+    scopes,
+    redirectUri: AppAuth.makeRedirectUri({
+      scheme,
+      path,
+    }),
+  };
+  const request = await AppAuth.loadAsync(config, discorery);
+  console.log("construção do primeiro request: ", request);
+  const result = await request.promptAsync();
+  console.log("resultado primeiro request: ", result);
+  if (result.params.code) {
+    const code = result.params.code;
+    const { redirectUri, codeVerifier } = request;
+    return { code, redirectUri, codeVerifier }
+    
+  }
+}
+
 
 export async function getAccessTokenFromAPI(clientId, code, verifier, redirectUri) {
   const params = new URLSearchParams();
