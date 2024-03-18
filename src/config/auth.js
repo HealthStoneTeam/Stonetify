@@ -74,6 +74,7 @@ function AuthProvider({ children }) {
       return null
     } catch (e) {
       console.log(e)
+      return null
     }
     
   }
