@@ -38,8 +38,9 @@ function AuthProvider({ children }) {
       console.log("alegria: ", objToken);
       storeTokens(objToken);
       getStoredTokens();
-      storeAccessToken(objToken.access_token)
+      return true
     }
+    return false
   }
 
 
@@ -114,14 +115,6 @@ function AuthProvider({ children }) {
     }
   };
 
-  const storeAccessToken = async (value) => {
-    try {
-      await AsyncStorage.setItem('access-token', value);
-
-    } catch (e) {
-      console.log(e)
-    }
-  };
 
   return (
     <AuthContext.Provider
