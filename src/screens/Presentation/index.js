@@ -50,6 +50,22 @@ export default function Presentation() {
         </Text>
       </View>
       <ItemsList data={musicData} />
+
+      <Text style={{ color: "#FFF" }}>IH</Text>
+      <Pressable
+        onPress={false}
+        style={{
+          backgroundColor: "#1DB954",
+          padding: 10,
+          marginLeft: "auto",
+          marginRight: "auto",
+          width: 300,
+          borderRadius: 25,
+          alignItems: "center",
+          justifyContent: "center",
+          marginVertical: 10,
+        }}
+      ></Pressable>
     </View>
   );
 }
