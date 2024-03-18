@@ -14,7 +14,5 @@ export default function App() {
       <Routes />
     </AuthProvider>
     </NativeBaseProvider>
-
-    
   );
   }
