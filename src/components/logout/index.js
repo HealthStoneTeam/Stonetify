@@ -1,13 +1,23 @@
-import { useRef, useState } from "react";
-import { Text } from "react-native";
+import { useRef, useState, useContext } from "react";
 import { Icon, AlertDialog, Button } from "native-base";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import styles from "./styles";
+import { AuthContext } from "../../contexts/auth";
 
-export default function Logout() {
+export default function Logout({ navigation }) {
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => setIsOpen(false);
   const cancelRef = useRef(null);
+  const { logout } = useContext(AuthContext);
+
+  async function loggingOut() {
+    try {
+      await logout();
+      onClose();
+      navigation.navigate("Login");
+    } catch (error) {
+      console.log("Alguma coisa no logout deu ruim");
+    }
+  }
 
   return (
     <>
@@ -34,7 +44,7 @@ export default function Logout() {
               <Button variant={"unstyled"} onPress={onClose} ref={cancelRef}>
                 Cancel
               </Button>
-              <Button bg="#1DB954" onPress={onClose}>
+              <Button bg="#1DB954" onPress={loggingOut}>
                 Confirm
               </Button>
             </Button.Group>

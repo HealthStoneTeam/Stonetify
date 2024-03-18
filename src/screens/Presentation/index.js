@@ -5,7 +5,7 @@ import Dropdown from "../../components/dropdown";
 import ItemsList from "../../components/itemsList";
 import Logout from "../../components/logout";
 
-export default function Presentation() {
+export default function Presentation({ navigation }) {
   const metricOptions = ["Top Tracks", "Top Artist"];
   const periodOptions = ["Last Month", "Last 6 Months", "All Time"];
   const profileData = {
@@ -35,7 +35,7 @@ export default function Presentation() {
     <View style={styles.container}>
       <View style={styles.header}>
         <Profile data={profileData} />
-        <Logout />
+        <Logout navigation={navigation} />
       </View>
       <View style={styles.filterSection}>
         <Dropdown options={metricOptions} onSelect={() => {}} />
