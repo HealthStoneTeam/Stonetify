@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import * as NB from 'native-base';
 
 export default StyleSheet.create({
   container: {
@@ -6,35 +7,38 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#121212",
-    padding: 10,
+    padding: 10, 
   },
   card: {
     backgroundColor: "#282828",
     borderRadius: 10,
-    padding: 20,
+    padding: 20, 
     width: '90%', 
     marginBottom: 10, 
   },
   title: {
     color: "#FFFFFF",
-    fontSize: 30,
+    fontSize: 24,
     marginBottom: 10,
     textAlign: "left", 
   },
   text: {
     color: "#FFFFFF",
-    marginBottom: 30,
-    fontSize: 20, 
+    marginBottom: 10,
+    fontSize: 16, 
   },
   center: {
     justifyContent: 'center',
     alignItems: 'center',
   },
+  linkText: {
+    color: "#FFFFFF",
+    textDecorationLine: 'underline', 
+  },
   link: {
     color: "#1DB954",
     textAlign: "center",
-    fontSize: 20, 
-    marginBottom: 15,
+    fontSize: 16,
   },
   centeredView: {
     flex: 1,
@@ -62,19 +66,21 @@ export default StyleSheet.create({
     marginBottom: 15,
     color: "#FFFFFF",
     fontSize: 16,
+    textAlign: "left", 
   },
   closeButton: {
     backgroundColor: '#1DB954',
     borderRadius: 28,
-    padding: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 13,
     elevation: 2,
     marginTop: 15,
-    width: '80%', 
+    
   },
   closeButtonText: {
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
-    fontSize: 18, 
+    fontSize: 18,
   }
 });
