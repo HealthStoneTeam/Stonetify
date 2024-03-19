@@ -3,7 +3,7 @@ import { AuthContext } from "../../contexts/auth";
 import { Text, View, Image, TouchableOpacity, Alert } from "react-native";
 import styles from "./styles";
 import I18n from "../../../translations";
-import Loading from '../../components/loading';
+import Loading from "../../components/loading";
 
 export default function Login({ navigation }) {
   const [loading, setLoading] = useState(true);
@@ -45,25 +45,21 @@ export default function Login({ navigation }) {
   return (
     <View style={styles.container}>
       <Loading isLoading={loading} />
-      {!loading && (
-        <>
-          <Image style={styles.logo} source={require("../../../assets/logo.png")} />
-          <TouchableOpacity style={styles.loginButton} onPress={goLogin}>
-            <Text style={styles.buttonText}>{I18n.t("loginWithSpotify")}</Text>
-          </TouchableOpacity>
+      <Image style={styles.logo} source={require("../../../assets/logo.png")} />
+      <TouchableOpacity style={styles.loginButton} onPress={goLogin}>
+        <Text style={styles.buttonText}>{I18n.t("loginWithSpotify")}</Text>
+      </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.aboutButton}
-            onPress={() => navigation.navigate("About")}
-          >
-            <Text style={styles.buttonText}>{I18n.t("about")}</Text>
-          </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.aboutButton}
+        onPress={() => navigation.navigate("About")}
+      >
+        <Text style={styles.buttonText}>{I18n.t("about")}</Text>
+      </TouchableOpacity>
 
-          <View style={styles.watermarkContainer}>
-            <Text style={styles.watermarkText}>{I18n.t("madeBy")}</Text>
-          </View>
-        </>
-      )}
+      <View style={styles.watermarkContainer}>
+        <Text style={styles.watermarkText}>{I18n.t("madeBy")}</Text>
+      </View>
     </View>
   );
 }

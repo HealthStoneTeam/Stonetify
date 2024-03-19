@@ -50,18 +50,24 @@ export default function ItemsList({ data }) {
       <View style={styles.details}>
         <View>
           <Text style={styles.title}>{item.title}</Text>
-          <Text style={styles.subtitle}>{item.subtitle}</Text>
+          {item.subtitle && (
+            <Text style={styles.subtitle}>{item.subtitle}</Text>
+          )}
         </View>
         <Text style={styles.subtitle}>{item.extraInfo}</Text>
       </View>
     </View>
   );
 
-  return (
+  return finalArray?.length ? (
     <FlatList
       data={finalArray}
       renderItem={renderItem}
       keyExtractor={(item, index) => index?.toString()}
     />
+  ) : (
+    <View style={styles.notFoundContainer}>
+      <Text style={styles.notFoundText}>No data found</Text>
+    </View>
   );
 }

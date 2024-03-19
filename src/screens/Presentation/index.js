@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { Text, View, TouchableOpacity, StatusBar } from "react-native";
+import React, { useEffect, useState, useContext } from "react";
+import { Text, View, TouchableOpacity, StatusBar, Alert } from "react-native";
 import styles from "./styles";
 import Profile from "../../components/profile";
 import Dropdown from "../../components/dropdown";
 import ItemsList from "../../components/itemsList";
 import Logout from "../../components/logout";
 import { getProfile, getTopItems } from "../../domains/user";
-import { useContext } from "react";
 import { AuthContext } from "../../contexts/auth";
+import Loading from "../../components/loading";
 
 export default function Presentation({ navigation }) {
+  const [loading, setLoading] = useState(false);
   const { getAccessToken } = useContext(AuthContext);
 
   const metricOptions = [
@@ -46,10 +47,15 @@ export default function Presentation({ navigation }) {
   useEffect(() => {
     async function getProfileData() {
       try {
+        setLoading(true);
         const response = await getProfile(getAccessToken);
+        setLoading(false);
         setProfileData(response);
       } catch (error) {
         setLoading(false);
+        Alert.alert(
+          "An error occurred while fetching your data. Please try again later"
+        );
       }
     }
 
@@ -58,6 +64,7 @@ export default function Presentation({ navigation }) {
 
   async function getItems() {
     try {
+      setLoading(true);
       setData(null);
       const defaultData = {
         limit: 10,
@@ -70,10 +77,14 @@ export default function Presentation({ navigation }) {
       };
 
       const response = await getTopItems(getAccessToken, filterData);
+      setLoading(false);
 
       setData(response);
     } catch (error) {
-      console.log("Erro ao buscar as informações");
+      setLoading(false);
+      Alert.alert(
+        "An error occurred while fetching your data. Please try again later"
+      );
     }
   }
 
@@ -81,6 +92,7 @@ export default function Presentation({ navigation }) {
     <View
       style={[styles.container, { paddingTop: StatusBar.currentHeight + 15 }]}
     >
+      <Loading isLoading={loading} />
       <View style={styles.header}>
         <Profile data={profileData} />
         <Logout navigation={navigation} />
