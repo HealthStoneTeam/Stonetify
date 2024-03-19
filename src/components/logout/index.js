@@ -1,15 +1,16 @@
-import { useRef, useState, useContext } from "react";
-import { Icon, AlertDialog, Button } from "native-base";
+import { useState, useContext } from "react";
+import { View, Text, TouchableOpacity, Modal } from "react-native";
+import { Icon } from "native-base";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AuthContext } from "../../contexts/auth";
+import styles from "./styles";
 
 export default function Logout({ navigation }) {
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => setIsOpen(false);
-  const cancelRef = useRef(null);
   const { logout } = useContext(AuthContext);
 
-  async function loggingOut() {
+  async function onLogout() {
     try {
       await logout();
       onClose();
@@ -28,29 +29,34 @@ export default function Logout({ navigation }) {
         color={"blue.400"}
         onPress={() => setIsOpen(!isOpen)}
       />
-      <AlertDialog
-        leastDestructiveRef={cancelRef}
-        isOpen={isOpen}
-        onClose={onClose}
+      <Modal
+        animationType="none"
+        transparent={true}
+        visible={isOpen}
+        onRequestClose={onClose}
       >
-        <AlertDialog.Content>
-          <AlertDialog.CloseButton />
-          <AlertDialog.Header>Logout</AlertDialog.Header>
-          <AlertDialog.Body>
-            Are you sure that you want to leave ?
-          </AlertDialog.Body>
-          <AlertDialog.Footer>
-            <Button.Group space={2}>
-              <Button variant={"unstyled"} onPress={onClose} ref={cancelRef}>
-                Cancel
-              </Button>
-              <Button bg="#1DB954" onPress={loggingOut}>
-                Confirm
-              </Button>
-            </Button.Group>
-          </AlertDialog.Footer>
-        </AlertDialog.Content>
-      </AlertDialog>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>
+              Are you sure that you want to leave?
+            </Text>
+            <View style={styles.containerButtons}>
+              <TouchableOpacity
+                style={{ ...styles.button, ...styles.confirmButton }}
+                onPress={onLogout}
+              >
+                <Text style={styles.textStyle}>Confirm</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{ ...styles.button, ...styles.cancelButton }}
+                onPress={onClose}
+              >
+                <Text style={styles.textStyle}>Cancel</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </>
   );
 }

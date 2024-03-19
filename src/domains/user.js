@@ -33,14 +33,12 @@ export async function getTopItems(getAccessToken, filterData) {
       limit,
       offset
     );
-    console.log(topItemsRaw);
     if (topItemsRaw) {
-      // if ((type === "artists")) {
-      //   artistsInfo = await extractArtistsInfo(topItemsRaw);
-      //   console.log(artistsInfo);
-      //   return artistsInfo;
-      // } else
-      if (type === "tracks") {
+      if (type === "artists") {
+        artistsInfo = await extractArtistsInfo(topItemsRaw);
+        console.log(artistsInfo);
+        return artistsInfo;
+      } else if (type === "tracks") {
         tracksInfo = await extractTracksInfo(topItemsRaw);
         console.log(tracksInfo);
         return tracksInfo;
@@ -72,6 +70,10 @@ async function extractUserInfo(jsonData) {
   };
 
   return userInfo;
+}
+
+function extractArtistsInfo(jsonData) {
+  return jsonData;
 }
 
 function extractTracksInfo(jsonData) {
