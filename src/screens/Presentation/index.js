@@ -80,12 +80,10 @@ export default function Presentation({ navigation }) {
     <View
       style={[styles.container, { paddingTop: StatusBar.currentHeight + 15 }]}
     >
-      {profileData && (
-        <View style={styles.header}>
-          <Profile data={profileData} />
-          <Logout navigation={navigation} />
-        </View>
-      )}
+      <View style={styles.header}>
+        <Profile data={profileData} />
+        <Logout navigation={navigation} />
+      </View>
       <View style={styles.filterSection}>
         <Dropdown
           options={metricOptions}

@@ -41,7 +41,7 @@ export default function Dropdown({ options, onSelect, selected }) {
                 key={index.toString()}
                 onPress={() => handleSelectOption(item)}
               >
-                <Text style={styles.textOptionsField}>{item}</Text>
+                <Text style={styles.textOptionsField}>{item?.value}</Text>
               </TouchableOpacity>
             </>
           )}
