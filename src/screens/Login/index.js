@@ -1,9 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../contexts/auth";
-import { Text, View, Image, TouchableOpacity } from "react-native";
+import { Text, View, Image, TouchableOpacity, Alert } from "react-native";
 import styles from "./styles";
 import I18n from "../../../translations";
-import { useEffect } from "react";
+import Loading from '../../components/loading';
 
 export default function Login({ navigation }) {
   const [loading, setLoading] = useState(true);
@@ -19,10 +19,7 @@ export default function Login({ navigation }) {
         }
       } catch (error) {
         setLoading(false);
-        console.log(
-          "Alguma coisa deu ruim, mas vou acreditar q não ta logado",
-          error
-        );
+        Alert.alert(I18n.t("error"), I18n.t("validationError"));
       }
     }
 
@@ -37,31 +34,36 @@ export default function Login({ navigation }) {
       if (isLogged) {
         navigation.navigate("Presentation");
       } else {
-        console.log("Alguma coisa n deu bom");
+        Alert.alert(I18n.t("error"), I18n.t("authError"));
       }
     } catch (error) {
       setLoading(false);
-      console.log("Alguma outra coisa n deu bom", error);
+      Alert.alert(I18n.t("error"), I18n.t("authError"));
     }
   }
 
   return (
     <View style={styles.container}>
-      <Image style={styles.logo} source={require("../../../assets/logo.png")} />
-      <TouchableOpacity style={styles.loginButton} onPress={goLogin}>
-        <Text style={styles.buttonText}>{I18n.t("loginWithSpotify")}</Text>
-      </TouchableOpacity>
+      <Loading isLoading={loading} />
+      {!loading && (
+        <>
+          <Image style={styles.logo} source={require("../../../assets/logo.png")} />
+          <TouchableOpacity style={styles.loginButton} onPress={goLogin}>
+            <Text style={styles.buttonText}>{I18n.t("loginWithSpotify")}</Text>
+          </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.aboutButton}
-        onPress={() => navigation.navigate("About")}
-      >
-        <Text style={styles.buttonText}>{I18n.t("about")}</Text>
-      </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.aboutButton}
+            onPress={() => navigation.navigate("About")}
+          >
+            <Text style={styles.buttonText}>{I18n.t("about")}</Text>
+          </TouchableOpacity>
 
-      <View style={styles.watermarkContainer}>
-        <Text style={styles.watermarkText}>{I18n.t("madeBy")}</Text>
-      </View>
+          <View style={styles.watermarkContainer}>
+            <Text style={styles.watermarkText}>{I18n.t("madeBy")}</Text>
+          </View>
+        </>
+      )}
     </View>
   );
 }

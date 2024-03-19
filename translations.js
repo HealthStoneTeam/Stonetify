@@ -14,6 +14,9 @@ I18n.translations = {
     loginWithSpotify: 'Login with Spotify',
     about: 'About',
     madeBy: 'Made 🏃‍♂️💨 by Healthsthone Team',
+    authError: "Error authenticating, please try again.",
+    validationError: "Error validating authentication, please try again.",
+    error: "Error",
   },
   pt: {
     aboutTitle: 'Sobre o Stonetify',
@@ -28,6 +31,9 @@ I18n.translations = {
     loginWithSpotify: 'Entrar com Spotify',
     about: 'Sobre',
     madeBy: 'Feito 🏃‍♂️💨 por Healthsthone Team',
+    authError: "Erro ao autenticar, por favor tente novamente.",
+    validationError: "Erro ao validar autenticação, por favor tente novamente.",
+    error: "Error",
   },
 };
 
