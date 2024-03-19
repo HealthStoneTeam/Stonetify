@@ -8,7 +8,7 @@ import Logout from "../../components/logout";
 import { getProfile, getTopItems } from "../../domains/user";
 import { AuthContext } from "../../contexts/auth";
 import Loading from "../../components/loading";
-import I18n from 'react-native-i18n';
+import I18n from "../../../translations";
 
 export default function Presentation({ navigation }) {
   const [loading, setLoading] = useState(false);

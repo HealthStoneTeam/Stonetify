@@ -4,8 +4,7 @@ import { Icon } from "native-base";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AuthContext } from "../../contexts/auth";
 import styles from "./styles";
-import I18n from 'react-native-i18n';
-
+import I18n from "../../../translations";
 
 export default function Logout({ navigation }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,9 +38,7 @@ export default function Logout({ navigation }) {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>
-              {I18n.t("leaveConfirmation")}
-            </Text>
+            <Text style={styles.modalText}>{I18n.t("leaveConfirmation")}</Text>
             <View style={styles.containerButtons}>
               <TouchableOpacity
                 style={{ ...styles.button, ...styles.confirmButton }}

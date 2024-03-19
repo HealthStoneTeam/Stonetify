@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./styles";
 import { View, FlatList, Text } from "react-native";
 import { Image } from "native-base";
+import I18n from "../../../translations";
 
 export default function ItemsList({ data }) {
   const [finalArray, setFinalArray] = useState(null);
@@ -67,6 +68,7 @@ export default function ItemsList({ data }) {
     />
   ) : (
     <View style={styles.notFoundContainer}>
-      <Text style={styles.notFoundText}>{I18n.t("noDataFound")}</Text>    </View>
+      <Text style={styles.notFoundText}>{I18n.t("noDataFound")}</Text>{" "}
+    </View>
   );
 }
