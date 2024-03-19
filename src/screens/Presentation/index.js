@@ -1,11 +1,16 @@
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, Pressable } from "react-native";
 import styles from "./styles";
 import Profile from "../../components/profile";
 import Dropdown from "../../components/dropdown";
 import ItemsList from "../../components/itemsList";
 import Logout from "../../components/logout";
+import { getProfile, getTopItems } from "../../domains/user";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/auth";
 
 export default function Presentation({ navigation }) {
+  const { getAccessToken } = useContext(AuthContext);
+
   const metricOptions = ["Top Tracks", "Top Artist"];
   const periodOptions = ["Last Month", "Last 6 Months", "All Time"];
   const profileData = {
@@ -30,6 +35,12 @@ export default function Presentation({ navigation }) {
         "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
     },
   ];
+  const filterData = {
+    type: "tracks",
+    range: "short_term",
+    limit: 10,
+    offset: 0,
+  };
 
   return (
     <View style={styles.container}>
@@ -51,9 +62,10 @@ export default function Presentation({ navigation }) {
       </View>
       <ItemsList data={musicData} />
 
-      <Text style={{ color: "#FFF" }}>IH</Text>
       <Pressable
-        onPress={false}
+        onPress={async () => {
+          await getProfile(getAccessToken);
+        }}
         style={{
           backgroundColor: "#1DB954",
           padding: 10,
@@ -65,7 +77,28 @@ export default function Presentation({ navigation }) {
           justifyContent: "center",
           marginVertical: 10,
         }}
-      ></Pressable>
+      >
+        <Text>Perfilzim?</Text>
+      </Pressable>
+
+      <Pressable
+        onPress={async () => {
+          await getTopItems(getAccessToken, filterData);
+        }}
+        style={{
+          backgroundColor: "#1DB954",
+          padding: 10,
+          marginLeft: "auto",
+          marginRight: "auto",
+          width: 300,
+          borderRadius: 25,
+          alignItems: "center",
+          justifyContent: "center",
+          marginVertical: 10,
+        }}
+      >
+        <Text>Topzim?</Text>
+      </Pressable>
     </View>
   );
 }
