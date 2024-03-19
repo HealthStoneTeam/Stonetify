@@ -1,9 +1,11 @@
 import { useState, useContext } from "react";
-import { View, Text, TouchableOpacity, Modal } from "react-native";
+import { View, Text, TouchableOpacity, Modal, Alert } from "react-native";
 import { Icon } from "native-base";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AuthContext } from "../../contexts/auth";
 import styles from "./styles";
+import I18n from 'react-native-i18n';
+
 
 export default function Logout({ navigation }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,7 +18,7 @@ export default function Logout({ navigation }) {
       onClose();
       navigation.navigate("Login");
     } catch (error) {
-      console.log("Alguma coisa no logout deu ruim");
+      Alert.alert(I18n.t("error"), I18n.t("logoutError"));
     }
   }
 
@@ -38,20 +40,20 @@ export default function Logout({ navigation }) {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>
-              Are you sure that you want to leave?
+              {I18n.t("leaveConfirmation")}
             </Text>
             <View style={styles.containerButtons}>
               <TouchableOpacity
                 style={{ ...styles.button, ...styles.confirmButton }}
                 onPress={onLogout}
               >
-                <Text style={styles.textStyle}>Confirm</Text>
+                <Text style={styles.textStyle}>{I18n.t("confirm")}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={{ ...styles.button, ...styles.cancelButton }}
                 onPress={onClose}
               >
-                <Text style={styles.textStyle}>Cancel</Text>
+                <Text style={styles.textStyle}>{I18n.t("cancel")}</Text>
               </TouchableOpacity>
             </View>
           </View>

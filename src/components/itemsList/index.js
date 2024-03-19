@@ -67,7 +67,6 @@ export default function ItemsList({ data }) {
     />
   ) : (
     <View style={styles.notFoundContainer}>
-      <Text style={styles.notFoundText}>No data found</Text>
-    </View>
+      <Text style={styles.notFoundText}>{I18n.t("noDataFound")}</Text>    </View>
   );
 }

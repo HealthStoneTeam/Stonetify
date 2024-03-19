@@ -8,6 +8,7 @@ import Logout from "../../components/logout";
 import { getProfile, getTopItems } from "../../domains/user";
 import { AuthContext } from "../../contexts/auth";
 import Loading from "../../components/loading";
+import I18n from 'react-native-i18n';
 
 export default function Presentation({ navigation }) {
   const [loading, setLoading] = useState(false);
@@ -16,26 +17,26 @@ export default function Presentation({ navigation }) {
   const metricOptions = [
     {
       keyValue: "tracks",
-      value: "Top Tracks",
+      value: I18n.t("topTracks"),
     },
     {
       keyValue: "artists",
-      value: "Top Artist",
+      value: I18n.t("topArtist"),
     },
   ];
 
   const periodOptions = [
     {
       keyValue: "short_term",
-      value: "Last Month",
+      value: I18n.t("lastMonth"),
     },
     {
       keyValue: "medium_term",
-      value: "Last 6 Months",
+      value: I18n.t("last6Months"),
     },
     {
       keyValue: "long_term",
-      value: "All Time",
+      value: I18n.t("allTime"),
     },
   ];
 
@@ -53,9 +54,7 @@ export default function Presentation({ navigation }) {
         setProfileData(response);
       } catch (error) {
         setLoading(false);
-        Alert.alert(
-          "An error occurred while fetching your data. Please try again later"
-        );
+        Alert.alert(I18n.t("error"), I18n.t("validationError"));
       }
     }
 
@@ -82,9 +81,7 @@ export default function Presentation({ navigation }) {
       setData(response);
     } catch (error) {
       setLoading(false);
-      Alert.alert(
-        "An error occurred while fetching your data. Please try again later"
-      );
+      Alert.alert(I18n.t("error"), I18n.t("validationError"));
     }
   }
 
@@ -109,7 +106,7 @@ export default function Presentation({ navigation }) {
           onSelect={(option) => setRange(option)}
         />
         <TouchableOpacity onPress={getItems} style={styles.searchButton}>
-          <Text style={styles.textSearchButton}>Search</Text>
+          <Text style={styles.textSearchButton}>{I18n.t("search")}</Text>
         </TouchableOpacity>
       </View>
       {data && (

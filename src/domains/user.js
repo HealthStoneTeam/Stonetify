@@ -1,5 +1,8 @@
 //Fazer a chamada do perfil e das músicas
 import { getProfileFromAPI, getTopItemsFromAPI } from "../services/user/index";
+import { Alert } from 'react-native';
+import I18n from 'react-native-i18n';
+
 
 export async function getProfile(getAccessToken) {
   try {
@@ -48,7 +51,7 @@ export async function getTopItems(getAccessToken, filterData) {
       }
     }
   } catch (error) {
-    console.log(error);
+    Alert.alert(I18n.t("error"), I18n.t("loadDataError"));
     return null;
   }
 }

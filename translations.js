@@ -17,6 +17,18 @@ I18n.translations = {
     authError: "Error authenticating, please try again.",
     validationError: "Error validating authentication, please try again.",
     error: "Error",
+    topTracks: "Top Tracks",
+    topArtist: "Top Artist",
+    lastMonth: "Last Month",
+    last6Months: "Last 6 Months",
+    allTime: "All Time",
+    fetchError: "An error occurred while fetching your data. Please try again later.",
+    search: "Search",
+    logoutError: "Something went wrong with the logout. Please try again later.",
+    leaveConfirmation: "Are you sure that you want to leave?",
+    confirm: "Confirm",
+    cancel: "Cancel",
+    noDataFound: "No data found",
   },
   pt: {
     aboutTitle: 'Sobre o Stonetify',
@@ -34,6 +46,19 @@ I18n.translations = {
     authError: "Erro ao autenticar, por favor tente novamente.",
     validationError: "Erro ao validar autenticação, por favor tente novamente.",
     error: "Error",
+    topTracks: "Melhores Faixas",
+    topArtist: "Melhor Artista",
+    lastMonth: "Último Mês",
+    last6Months: "Últimos 6 Meses",
+    allTime: "Todo o Tempo",
+    fetchError: "Ocorreu um erro ao buscar seus dados. Por favor, tente novamente mais tarde.",
+    search: "Pesquisar",
+    logoutError: "Algo deu errado com o logout. Por favor, tente novamente mais tarde.",
+    leaveConfirmation: "Você tem certeza de que quer sair?",
+    confirm: "Confirmar",
+    cancel: "Cancelar",
+    noDataFound: "Nenhum dado encontrado"
+
   },
 };
 
