@@ -35,13 +35,14 @@ export async function getTopItems(getAccessToken, filterData) {
     );
     if (topItemsRaw) {
       if (type === "artists") {
+        console.log("topitemsraw:", topItemsRaw);
         artistsInfo = await extractArtistsInfo(topItemsRaw);
-        console.log(artistsInfo);
-        return { ...artistsInfo, type };
+        console.log({ data: artistsInfo, type });
+        return { data: artistsInfo, type };
       } else if (type === "tracks") {
         tracksInfo = await extractTracksInfo(topItemsRaw);
-        console.log(tracksInfo);
-        return { ...tracksInfo, type };
+        console.log({ data: tracksInfo, type });
+        return { data: tracksInfo, type };
       } else {
         return null;
       }

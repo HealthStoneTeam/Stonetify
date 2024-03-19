@@ -58,6 +58,7 @@ export default function Presentation({ navigation }) {
 
   async function getItems() {
     try {
+      setData(null);
       const defaultData = {
         limit: 10,
         offset: 0,
@@ -100,13 +101,15 @@ export default function Presentation({ navigation }) {
         </TouchableOpacity>
       </View>
       {data && (
-        <View style={styles.titleList}>
-          <Text style={styles.textTitleList}>
-            {profileData?.username} {type?.value}
-          </Text>
-        </View>
+        <>
+          <View style={styles.titleList}>
+            <Text style={styles.textTitleList}>
+              {profileData?.username} {type?.value}
+            </Text>
+          </View>
+          <ItemsList data={data} />
+        </>
       )}
-      <ItemsList data={data} />
     </View>
   );
 }

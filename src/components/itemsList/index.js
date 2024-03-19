@@ -4,14 +4,19 @@ import { View, FlatList, Text } from "react-native";
 import { Image } from "native-base";
 
 export default function ItemsList({ data }) {
-  const [finalObject, setFinalObject] = useState(null);
+  const [finalArray, setFinalArray] = useState(null);
 
   useEffect(() => {
     function objectMapper() {
-      if (data?.type == "tracks") {
-        objectMapperTracks();
-      } else if (data?.type == "artist") {
-        objectMapperArtist();
+      console.log("renderizar o trem: ", data);
+      if (data?.data?.length) {
+        if (data?.type == "tracks") {
+          setFinalArray(objectMapperTracks());
+        } else if (data?.type == "artists") {
+          setFinalArray(objectMapperArtist());
+        }
+      } else {
+        setFinalArray([]);
       }
     }
 
@@ -19,22 +24,24 @@ export default function ItemsList({ data }) {
   }, []);
 
   function objectMapperTracks() {
-    const object = {
-      image: data?.albumCover,
-      title: data?.title,
-      subtitle: data?.artist,
-      extraInfo: data?.time,
-    };
-    setFinalObject(object);
+    return data?.data?.map((track) => {
+      return {
+        image: track?.albumCover,
+        title: track?.title,
+        subtitle: track?.artist,
+        extraInfo: track?.time,
+      };
+    });
   }
 
   function objectMapperArtist() {
-    const object = {
-      image: data?.artistCover,
-      title: data?.title,
-      extraInfo: data?.popularity,
-    };
-    setFinalObject(object);
+    return data?.data?.map((artist) => {
+      return {
+        image: artist?.artistCover,
+        title: artist?.title,
+        extraInfo: artist?.popularity,
+      };
+    });
   }
 
   const renderItem = ({ item }) => (
@@ -52,9 +59,9 @@ export default function ItemsList({ data }) {
 
   return (
     <FlatList
-      data={finalObject}
+      data={finalArray}
       renderItem={renderItem}
-      keyExtractor={(item) => item.id.toString()}
+      keyExtractor={(item, index) => index?.toString()}
     />
   );
 }

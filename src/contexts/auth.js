@@ -52,7 +52,7 @@ function AuthProvider({ children }) {
 
   async function logout() {
     console.log("Entrou no logout");
-    storeTokens({});
+    await AsyncStorage.clear();
   }
 
   async function getAccessToken() {
