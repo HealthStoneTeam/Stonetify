@@ -52,7 +52,7 @@ export default function ItemsList({ data }) {
           <Text style={styles.title}>{item.title}</Text>
           <Text style={styles.subtitle}>{item.subtitle}</Text>
         </View>
-        <Text style={styles.subtitle}>{item.popularity}</Text>
+        <Text style={styles.subtitle}>{item.extraInfo}</Text>
       </View>
     </View>
   );

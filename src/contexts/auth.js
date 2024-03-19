@@ -24,7 +24,7 @@ function AuthProvider({ children }) {
       "playlist-read-collaborative",
       "playlist-modify-public", // or "playlist-modify-private"
     ];
-    const scheme = "spotstats";
+    const scheme = "stonetify";
     const path = "callback";
 
     const accessCode = await getAccessCodeFromAPI(
