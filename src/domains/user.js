@@ -37,11 +37,11 @@ export async function getTopItems(getAccessToken, filterData) {
       if (type === "artists") {
         artistsInfo = await extractArtistsInfo(topItemsRaw);
         console.log(artistsInfo);
-        return artistsInfo;
+        return { ...artistsInfo, type };
       } else if (type === "tracks") {
         tracksInfo = await extractTracksInfo(topItemsRaw);
         console.log(tracksInfo);
-        return tracksInfo;
+        return { ...tracksInfo, type };
       } else {
         return null;
       }
@@ -73,7 +73,24 @@ async function extractUserInfo(jsonData) {
 }
 
 function extractArtistsInfo(jsonData) {
-  return jsonData;
+  const artistInfo = [];
+
+  if (jsonData && jsonData.items && Array.isArray(jsonData.items)) {
+    jsonData.items.forEach((item, index) => {
+      const title = item.name || "";
+      const popularity = item.popularity || 0;
+      const artistCover = getCover(item);
+
+      artistInfo.push({
+        id: index + 1,
+        title,
+        popularity,
+        artistCover,
+      });
+    });
+  }
+
+  return artistInfo;
 }
 
 function extractTracksInfo(jsonData) {
@@ -88,7 +105,7 @@ function extractTracksInfo(jsonData) {
       const time = item.duration_ms
         ? millisecondsToMinutesAndSeconds(item.duration_ms)
         : "";
-      const albumCover = getAlbumCover(item.album);
+      const albumCover = getCover(item.album);
 
       trackInfo.push({
         id: index + 1,
@@ -109,11 +126,11 @@ function millisecondsToMinutesAndSeconds(ms) {
   return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 }
 
-function getAlbumCover(album) {
-  if (album && album.images && Array.isArray(album.images)) {
-    for (let i = 0; i < album.images.length; i++) {
-      if (album.images[i].height === 640) {
-        return album.images[i].url;
+function getCover(cover) {
+  if (cover && cover.images && Array.isArray(cover.images)) {
+    for (let i = 0; i < cover.images.length; i++) {
+      if (cover.images[i].height === 640) {
+        return cover.images[i].url;
       }
     }
   }

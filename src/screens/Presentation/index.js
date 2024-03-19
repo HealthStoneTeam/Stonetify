@@ -43,7 +43,7 @@ export default function Presentation({ navigation }) {
     },
   ];
   const filterData = {
-    type: "tracks",
+    type: "artists",
     range: "short_term",
     limit: 10,
     offset: 0,
