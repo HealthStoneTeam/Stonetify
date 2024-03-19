@@ -1,11 +1,5 @@
-import React from "react";
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  StatusBar,
-  Pressable,
-} from "react-native";
+import React, { useEffect, useState } from "react";
+import { Text, View, TouchableOpacity, StatusBar } from "react-native";
 import styles from "./styles";
 import Profile from "../../components/profile";
 import Dropdown from "../../components/dropdown";
@@ -18,96 +12,103 @@ import { AuthContext } from "../../contexts/auth";
 export default function Presentation({ navigation }) {
   const { getAccessToken } = useContext(AuthContext);
 
-  const metricOptions = ["Top Tracks", "Top Artist"];
-  const periodOptions = ["Last Month", "Last 6 Months", "All Time"];
-  const profileData = {
-    uri: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    username: "Matlops027",
-  };
-  const musicData = [
+  const metricOptions = [
     {
-      id: 1,
-      title: "Song Title 1",
-      artist: "Artist 1",
-      time: "5:55",
-      albumCover:
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+      keyValue: "tracks",
+      value: "Top Tracks",
     },
     {
-      id: 2,
-      title: "Song Title 2",
-      artist: "Artist 2",
-      time: "5:55",
-      albumCover:
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+      keyValue: "artists",
+      value: "Top Artist",
     },
   ];
-  const filterData = {
-    type: "artists",
-    range: "short_term",
-    limit: 10,
-    offset: 0,
-  };
+
+  const periodOptions = [
+    {
+      keyValue: "short_term",
+      value: "Last Month",
+    },
+    {
+      keyValue: "medium_term",
+      value: "Last 6 Months",
+    },
+    {
+      keyValue: "long_term",
+      value: "All Time",
+    },
+  ];
+
+  const [type, setType] = useState(metricOptions[0]);
+  const [range, setRange] = useState(periodOptions[0]);
+  const [profileData, setProfileData] = useState(null);
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    async function getProfileData() {
+      try {
+        const response = await getProfile(getAccessToken);
+        setProfileData(response);
+      } catch (error) {
+        setLoading(false);
+      }
+    }
+
+    getProfileData();
+  }, []);
+
+  async function getItems() {
+    try {
+      const defaultData = {
+        limit: 10,
+        offset: 0,
+      };
+
+      const filterData = {
+        ...defaultData,
+        ...{ type: type?.keyValue, range: range?.keyValue },
+      };
+
+      const response = await getTopItems(getAccessToken, filterData);
+
+      setData(response);
+    } catch (error) {
+      console.log("Erro ao buscar as informações");
+    }
+  }
 
   return (
     <View
       style={[styles.container, { paddingTop: StatusBar.currentHeight + 15 }]}
     >
-      <View style={styles.header}>
-        <Profile data={profileData} />
-        <Logout navigation={navigation} />
-      </View>
+      {profileData && (
+        <View style={styles.header}>
+          <Profile data={profileData} />
+          <Logout navigation={navigation} />
+        </View>
+      )}
       <View style={styles.filterSection}>
-        <Dropdown options={metricOptions} onSelect={() => {}} />
-        <Dropdown options={periodOptions} onSelect={() => {}} />
-        <TouchableOpacity style={styles.searchButton}>
+        <Dropdown
+          options={metricOptions}
+          selected={metricOptions[0]}
+          onSelect={(option) => setType(option)}
+        />
+        <Dropdown
+          options={periodOptions}
+          selected={periodOptions[0]}
+          onSelect={(option) => setRange(option)}
+        />
+        <TouchableOpacity onPress={getItems} style={styles.searchButton}>
           <Text style={styles.textSearchButton}>Search</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.titleList}>
-        <Text style={styles.textTitleList}>
-          {profileData.username} Top Tracks
-        </Text>
-      </View>
-      <ItemsList data={musicData} />
-
-      <Pressable
-        onPress={async () => {
-          await getProfile(getAccessToken);
-        }}
-        style={{
-          backgroundColor: "#1DB954",
-          padding: 10,
-          marginLeft: "auto",
-          marginRight: "auto",
-          width: 300,
-          borderRadius: 25,
-          alignItems: "center",
-          justifyContent: "center",
-          marginVertical: 10,
-        }}
-      >
-        <Text>Perfilzim?</Text>
-      </Pressable>
-
-      <Pressable
-        onPress={async () => {
-          await getTopItems(getAccessToken, filterData);
-        }}
-        style={{
-          backgroundColor: "#1DB954",
-          padding: 10,
-          marginLeft: "auto",
-          marginRight: "auto",
-          width: 300,
-          borderRadius: 25,
-          alignItems: "center",
-          justifyContent: "center",
-          marginVertical: 10,
-        }}
-      >
-        <Text>Topzim?</Text>
-      </Pressable>
+      {data && (
+        <View style={styles.titleList}>
+          <Text style={styles.textTitleList}>
+            {profileData?.username} {type?.value}
+          </Text>
+        </View>
+      )}
+      <ItemsList data={data} />
     </View>
   );
 }

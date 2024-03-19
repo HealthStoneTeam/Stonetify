@@ -4,9 +4,9 @@ import { Text, TouchableOpacity, FlatList, View } from "react-native";
 import { Icon, Divider } from "native-base";
 import { Entypo } from "@expo/vector-icons";
 
-export default function Dropdown({ options, onSelect }) {
+export default function Dropdown({ options, onSelect, selected }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(selected);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -21,9 +21,7 @@ export default function Dropdown({ options, onSelect }) {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.selectField} onPress={toggleDropdown}>
-        <Text style={styles.textSelectField}>
-          {selectedOption || "Selecionar uma opção"}
-        </Text>
+        <Text style={styles.textSelectField}>{selectedOption?.value}</Text>
 
         {isOpen ? (
           <Icon as={Entypo} name="chevron-thin-up" size={5} color={"#FFF"} />

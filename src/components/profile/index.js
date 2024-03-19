@@ -8,7 +8,7 @@ export default function Profile({ data }) {
       <Avatar
         size="md"
         source={{
-          uri: data?.uri,
+          uri: data?.userImage,
         }}
       />
       <Text style={styles.username}>{data?.username}</Text>

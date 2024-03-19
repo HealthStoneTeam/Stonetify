@@ -7,14 +7,14 @@ export async function getProfile(getAccessToken) {
     if (!accessToken) {
       return null;
     }
-    profileRaw = await getProfileFromAPI(accessToken);
+    const profileRaw = await getProfileFromAPI(accessToken);
     if (profileRaw) {
       userInfo = await extractUserInfo(profileRaw);
       console.log(userInfo);
       return userInfo;
     }
   } catch (error) {
-    console.log(error);
+    console.log("deu ruim aqui ", error);
   }
 }
 
@@ -53,6 +53,7 @@ export async function getTopItems(getAccessToken, filterData) {
 }
 
 async function extractUserInfo(jsonData) {
+  console.log("isso foi o que veio aqui: ", jsonData);
   const { display_name, id, images } = jsonData;
   let userImage;
 
