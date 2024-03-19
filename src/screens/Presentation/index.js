@@ -1,4 +1,5 @@
-import { Text, View, TouchableOpacity } from "react-native";
+import React from "react";
+import { Text, View, TouchableOpacity, StatusBar } from "react-native";
 import styles from "./styles";
 import Profile from "../../components/profile";
 import Dropdown from "../../components/dropdown";
@@ -32,7 +33,9 @@ export default function Presentation({ navigation }) {
   ];
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[styles.container, { paddingTop: StatusBar.currentHeight + 15 }]}
+    >
       <View style={styles.header}>
         <Profile data={profileData} />
         <Logout navigation={navigation} />
