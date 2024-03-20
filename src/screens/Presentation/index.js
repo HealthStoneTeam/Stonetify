@@ -1,5 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Text, View, TouchableOpacity, StatusBar, Alert, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  StatusBar,
+  Alert,
+  ScrollView,
+} from "react-native";
 import styles from "./styles";
 import Profile from "../../components/profile";
 import Dropdown from "../../components/dropdown";
@@ -86,43 +93,42 @@ export default function Presentation({ navigation }) {
   }
 
   return (
-    <ScrollView
-      contentContainerStyle={{ paddingBottom: StatusBar.currentHeight + 15 }}
-      style={[
-        styles.container,
-        { paddingTop: StatusBar.currentHeight + 15 },
-      ]}
-    >
+    <>
       <Loading isLoading={loading} />
-      <View style={styles.header}>
-        <Profile data={profileData} />
-        <Logout navigation={navigation} />
-      </View>
-      <View style={styles.filterSection}>
-        <Dropdown
-          options={metricOptions}
-          selected={metricOptions[0]}
-          onSelect={(option) => setType(option)}
-        />
-        <Dropdown
-          options={periodOptions}
-          selected={periodOptions[0]}
-          onSelect={(option) => setRange(option)}
-        />
-        <TouchableOpacity onPress={getItems} style={styles.searchButton}>
-          <Text style={styles.textSearchButton}>{I18n.t("search")}</Text>
-        </TouchableOpacity>
-      </View>
-      {data && (
-        <>
-          <View style={styles.titleList}>
-            <Text style={styles.textTitleList}>
-              {profileData?.username} {type?.value}
-            </Text>
-          </View>
-          <ItemsList data={data} />
-        </>
-      )}
-    </ScrollView>
+      <ScrollView
+        contentContainerStyle={{ paddingBottom: StatusBar.currentHeight + 15 }}
+        style={[styles.container, { paddingTop: StatusBar.currentHeight + 15 }]}
+      >
+        <View style={styles.header}>
+          <Profile data={profileData} />
+          <Logout navigation={navigation} />
+        </View>
+        <View style={styles.filterSection}>
+          <Dropdown
+            options={metricOptions}
+            selected={metricOptions[0]}
+            onSelect={(option) => setType(option)}
+          />
+          <Dropdown
+            options={periodOptions}
+            selected={periodOptions[0]}
+            onSelect={(option) => setRange(option)}
+          />
+          <TouchableOpacity onPress={getItems} style={styles.searchButton}>
+            <Text style={styles.textSearchButton}>{I18n.t("search")}</Text>
+          </TouchableOpacity>
+        </View>
+        {data && (
+          <>
+            <View style={styles.titleList}>
+              <Text style={styles.textTitleList}>
+                {profileData?.username} {type?.value}
+              </Text>
+            </View>
+            <ItemsList data={data} />
+          </>
+        )}
+      </ScrollView>
+    </>
   );
 }
