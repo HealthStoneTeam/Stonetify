@@ -13,10 +13,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
+  titleContainer: {
+    flex: 1,
+  },
   title: {
     fontSize: 16,
     fontWeight: "bold",
     color: "#FFF",
+    flexShrink: 1,
   },
   subtitle: {
     fontSize: 14,

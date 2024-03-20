@@ -10,7 +10,7 @@ export async function getProfile(getAccessToken) {
     const profileRaw = await getProfileFromAPI(accessToken);
     if (profileRaw) {
       userInfo = await extractUserInfo(profileRaw);
-      console.log(userInfo);
+
       return userInfo;
     }
   } catch (error) {
@@ -35,13 +35,10 @@ export async function getTopItems(getAccessToken, filterData) {
     );
     if (topItemsRaw) {
       if (type === "artists") {
-        console.log("topitemsraw:", topItemsRaw);
         artistsInfo = await extractArtistsInfo(topItemsRaw);
-        console.log({ data: artistsInfo, type });
         return { data: artistsInfo, type };
       } else if (type === "tracks") {
         tracksInfo = await extractTracksInfo(topItemsRaw);
-        console.log({ data: tracksInfo, type });
         return { data: tracksInfo, type };
       } else {
         return null;
@@ -53,7 +50,6 @@ export async function getTopItems(getAccessToken, filterData) {
 }
 
 async function extractUserInfo(jsonData) {
-  console.log("isso foi o que veio aqui: ", jsonData);
   const { display_name, id, images } = jsonData;
   let userImage;
 

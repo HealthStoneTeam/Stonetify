@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles";
-import { View, FlatList, Text } from "react-native";
+import { View, ScrollView, Text } from "react-native";
 import { Image } from "native-base";
 import I18n from "../../../translations";
 
@@ -9,7 +9,6 @@ export default function ItemsList({ data }) {
 
   useEffect(() => {
     function objectMapper() {
-      console.log("renderizar o trem: ", data);
       if (data?.data?.length) {
         if (data?.type == "tracks") {
           setFinalArray(objectMapperTracks());
@@ -49,10 +48,10 @@ export default function ItemsList({ data }) {
     <View style={styles.item}>
       <Image source={{ uri: item.image }} size={"sm"} alt="Ilustration" />
       <View style={styles.details}>
-        <View>
-          <Text style={styles.title}>{item.title}</Text>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title} numberOfLines={1} ellipsizeMode='tail'>{item.title}</Text>
           {item.subtitle && (
-            <Text style={styles.subtitle}>{item.subtitle}</Text>
+            <Text style={styles.subtitle} numberOfLines={1} ellipsizeMode='tail'>{item.subtitle}</Text>
           )}
         </View>
         <Text style={styles.subtitle}>{item.extraInfo}</Text>
@@ -61,11 +60,13 @@ export default function ItemsList({ data }) {
   );
 
   return finalArray?.length ? (
-    <FlatList
-      data={finalArray}
-      renderItem={renderItem}
-      keyExtractor={(item, index) => index?.toString()}
-    />
+    <ScrollView>
+      {finalArray.map((item, index) => (
+        <View key={index}>
+          {renderItem({ item, index })}
+        </View>
+      ))}
+    </ScrollView>
   ) : (
     <View style={styles.notFoundContainer}>
       <Text style={styles.notFoundText}>{I18n.t("noDataFound")}</Text>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Text, View, TouchableOpacity, StatusBar, Alert } from "react-native";
+import { Text, View, TouchableOpacity, StatusBar, Alert, ScrollView } from "react-native";
 import styles from "./styles";
 import Profile from "../../components/profile";
 import Dropdown from "../../components/dropdown";
@@ -86,8 +86,12 @@ export default function Presentation({ navigation }) {
   }
 
   return (
-    <View
-      style={[styles.container, { paddingTop: StatusBar.currentHeight + 15 }]}
+    <ScrollView
+      contentContainerStyle={{ paddingBottom: StatusBar.currentHeight + 15 }}
+      style={[
+        styles.container,
+        { paddingTop: StatusBar.currentHeight + 15 },
+      ]}
     >
       <Loading isLoading={loading} />
       <View style={styles.header}>
@@ -119,6 +123,6 @@ export default function Presentation({ navigation }) {
           <ItemsList data={data} />
         </>
       )}
-    </View>
+    </ScrollView>
   );
 }

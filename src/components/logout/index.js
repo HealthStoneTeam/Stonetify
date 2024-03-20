@@ -27,7 +27,7 @@ export default function Logout({ navigation }) {
         as={MaterialCommunityIcons}
         name="logout"
         size={10}
-        color={"blue.400"}
+        color={"#1DB954"}
         onPress={() => setIsOpen(!isOpen)}
       />
       <Modal

@@ -6,6 +6,8 @@ import {
 } from "../services/auth";
 import { createContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Alert } from 'react-native';
+import i18n from 'i18n-js';
 
 //TODO Refatorar a chamada para ir para a camada de service
 
@@ -35,14 +37,12 @@ function AuthProvider({ children }) {
     );
 
     if (accessCode) {
-      console.log("O code ta na mão: ", accessCode);
       const objToken = await getAccessTokenFromAPI(
         clientId,
         accessCode.code,
         accessCode.codeVerifier,
         accessCode.redirectUri
       );
-      console.log("alegria: ", objToken);
       storeTokens(objToken);
       getStoredTokens();
       return true;
@@ -71,7 +71,6 @@ function AuthProvider({ children }) {
         const expirationTime = tokensRaw.expires_in;
 
         if (await validateAccessToken(savedTime, expirationTime)) {
-          console.log("Deu Nice", accessToken);
           return accessToken;
         } else {
           const tokensRawRefreshed = await getRefreshedTokenFromAPI(
@@ -103,7 +102,6 @@ function AuthProvider({ children }) {
     const safeExpirationTime = Number(expirationTime) * 0.9;
     savedTime = new Date(savedTime).getTime();
     const differenceInSeconds = (currentTime - savedTime) / 1000;
-    console.log(differenceInSeconds);
     return safeExpirationTime >= differenceInSeconds;
   }
 
@@ -111,10 +109,9 @@ function AuthProvider({ children }) {
     try {
       const savedTime = new Date().toISOString();
       const tokenDataToStore = { ...tokenData, saved_time: savedTime };
-      console.log("Tokenzada", tokenDataToStore);
       await AsyncStorage.setItem("tokens", JSON.stringify(tokenDataToStore));
     } catch (e) {
-      console.log(e);
+      Alert.alert(I18n.t("error"), i18n.t("fetchError"));
     }
   };
 
@@ -122,10 +119,10 @@ function AuthProvider({ children }) {
     try {
       const jsonValue = await AsyncStorage.getItem("tokens");
       if (jsonValue) {
-        console.log("felicitations", jsonValue);
         return jsonValue != null ? JSON.parse(jsonValue) : null;
       } else {
-        console.log("Not so felicitations", jsonValue);
+        Alert.alert(I18n.t("error"), i18n.t("fetchError"));
+
       }
     } catch (e) {
       console.log(e);

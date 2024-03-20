@@ -4,7 +4,6 @@ export async function getProfileFromAPI(accessToken) {
       Authorization: "Bearer " + accessToken,
     },
   });
-  console.log("oq veio no profile: ", await response);
   return await response.json();
 }
 

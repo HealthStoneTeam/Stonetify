@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./styles";
-import { Text, TouchableOpacity, FlatList, View } from "react-native";
+import { Text, TouchableOpacity, ScrollView, View } from "react-native";
 import { Icon, Divider } from "native-base";
 import { Entypo } from "@expo/vector-icons";
 
@@ -30,22 +30,16 @@ export default function Dropdown({ options, onSelect, selected }) {
         )}
       </TouchableOpacity>
       {isOpen && (
-        <FlatList
-          style={styles.optionsField}
-          ItemSeparatorComponent={<Divider my="2" bg="#7B7B7B" />}
-          data={options}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item, index }) => (
-            <>
-              <TouchableOpacity
-                key={index.toString()}
-                onPress={() => handleSelectOption(item)}
-              >
+        <ScrollView style={styles.optionsField}>
+          {options.map((item, index) => (
+            <View key={index.toString()}>
+              <TouchableOpacity onPress={() => handleSelectOption(item)}>
                 <Text style={styles.textOptionsField}>{item?.value}</Text>
               </TouchableOpacity>
-            </>
-          )}
-        />
+              {index < options.length - 1 && <Divider my="2" bg="#7B7B7B" />}
+            </View>
+          ))}
+        </ScrollView>
       )}
     </View>
   );

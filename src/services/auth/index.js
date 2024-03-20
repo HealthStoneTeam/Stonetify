@@ -16,9 +16,7 @@ export async function getAccessCodeFromAPI(clientId, scopes, scheme, path) {
     }),
   };
   const request = await AppAuth.loadAsync(config, discorery);
-  console.log("construção do primeiro request: ", request);
   const result = await request.promptAsync();
-  console.log("resultado primeiro request: ", result);
   if (result.params.code) {
     const code = result.params.code;
     const { redirectUri, codeVerifier } = request;
@@ -35,7 +33,6 @@ export async function getAccessTokenFromAPI(clientId, code, verifier, redirectUr
   params.append("code", code);
   params.append("redirect_uri", redirectUri);
   params.append("code_verifier", verifier);
-  console.log("parametros: ", params.toString());
 
   const result = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
