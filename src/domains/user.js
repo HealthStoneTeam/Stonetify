@@ -124,12 +124,20 @@ function millisecondsToMinutesAndSeconds(ms) {
 }
 
 function getCover(cover) {
-  if (cover && cover.images && Array.isArray(cover.images)) {
-    for (let i = 0; i < cover.images.length; i++) {
-      if (cover.images[i].height === 640) {
-        return cover.images[i].url;
+  let largestImage = null;
+
+  if (
+    cover &&
+    cover.images &&
+    Array.isArray(cover.images) &&
+    cover.images.length > 0
+  ) {
+    largestImage = cover.images.reduce((prevImage, currentImage) => {
+      if (prevImage.height < currentImage.height) {
+        return currentImage;
       }
-    }
+      return prevImage;
+    });
   }
-  return null;
+  return largestImage ? largestImage.url : null;
 }
