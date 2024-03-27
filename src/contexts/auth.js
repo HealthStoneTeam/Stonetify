@@ -6,8 +6,8 @@ import {
 } from "../services/auth";
 import { createContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Alert } from 'react-native';
-import i18n from 'i18n-js';
+import { Alert } from "react-native";
+import i18n from "i18n-js";
 
 //TODO Refatorar a chamada para ir para a camada de service
 
@@ -51,7 +51,6 @@ function AuthProvider({ children }) {
   }
 
   async function logout() {
-    console.log("Entrou no logout");
     await AsyncStorage.clear();
   }
 
@@ -84,15 +83,12 @@ function AuthProvider({ children }) {
             tokensRawRefreshed.expires_in
           ) {
             storeTokens(tokensRawRefreshed);
-            console.log("Deu refresh ok", tokensRawRefreshed.access_token);
             return tokensRawRefreshed.access_token;
           }
         }
       }
-      console.log("Deu mal");
       return null;
     } catch (e) {
-      console.log(e);
       return null;
     }
   }
@@ -122,10 +118,9 @@ function AuthProvider({ children }) {
         return jsonValue != null ? JSON.parse(jsonValue) : null;
       } else {
         Alert.alert(I18n.t("error"), i18n.t("fetchError"));
-
       }
     } catch (e) {
-      console.log(e);
+      return null;
     }
   };
 

@@ -14,7 +14,7 @@ export async function getProfile(getAccessToken) {
       return userInfo;
     }
   } catch (error) {
-    console.log("deu ruim aqui ", error);
+    return null;
   }
 }
 

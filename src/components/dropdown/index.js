@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styles from "./styles";
-import { Text, TouchableOpacity, ScrollView, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { Icon, Divider } from "native-base";
 import { Entypo } from "@expo/vector-icons";
 
-export default function Dropdown({ options, onSelect, selected }) {
+export default function Dropdown({ options, onSelect }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(selected);
+  const [selectedOption, setSelectedOption] = useState(null);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -21,7 +21,9 @@ export default function Dropdown({ options, onSelect, selected }) {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.selectField} onPress={toggleDropdown}>
-        <Text style={styles.textSelectField}>{selectedOption?.value}</Text>
+        <Text style={styles.textSelectField}>
+          {selectedOption?.value || "Selecione uma opção"}
+        </Text>
 
         {isOpen ? (
           <Icon as={Entypo} name="chevron-thin-up" size={5} color={"#FFF"} />
@@ -30,7 +32,7 @@ export default function Dropdown({ options, onSelect, selected }) {
         )}
       </TouchableOpacity>
       {isOpen && (
-        <ScrollView style={styles.optionsField}>
+        <View style={styles.optionsField}>
           {options.map((item, index) => (
             <View key={index.toString()}>
               <TouchableOpacity onPress={() => handleSelectOption(item)}>
@@ -39,7 +41,7 @@ export default function Dropdown({ options, onSelect, selected }) {
               {index < options.length - 1 && <Divider my="2" bg="#7B7B7B" />}
             </View>
           ))}
-        </ScrollView>
+        </View>
       )}
     </View>
   );

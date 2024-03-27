@@ -6,22 +6,20 @@
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#1D1B1B"
+      "backgroundColor": "#121212"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#1D1B1B"
+        "backgroundColor": "#121212"
       },
       "package": "br.com.healthstoneteam.Stonetify"
     },
@@ -32,6 +30,9 @@
       "eas": {
         "projectId": "b1e8fb66-5b74-4706-ba3d-b3b5dc8c0344"
       }
+    },
+    "androidNavigationBar": {
+      "visible": false
     }
   }
 }

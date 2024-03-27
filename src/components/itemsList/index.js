@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles";
-import { View, ScrollView, Text } from "react-native";
+import { View, Text } from "react-native";
 import { Image } from "native-base";
 import I18n from "../../../translations";
 
@@ -68,11 +68,11 @@ export default function ItemsList({ data }) {
   );
 
   return finalArray?.length ? (
-    <ScrollView>
+    <View>
       {finalArray.map((item, index) => (
         <View key={index}>{renderItem({ item, index })}</View>
       ))}
-    </ScrollView>
+    </View>
   ) : (
     <View style={styles.notFoundContainer}>
       <Text style={styles.notFoundText}>{I18n.t("noDataFound")}</Text>

@@ -7,6 +7,7 @@ import {
   Alert,
   ScrollView,
 } from "react-native";
+import { useToast } from "native-base";
 import styles from "./styles";
 import Profile from "../../components/profile";
 import Dropdown from "../../components/dropdown";
@@ -20,6 +21,8 @@ import I18n from "../../../translations";
 export default function Presentation({ navigation }) {
   const [loading, setLoading] = useState(false);
   const { getAccessToken } = useContext(AuthContext);
+  const toast = useToast();
+  const toastId = "alert-toast";
 
   const metricOptions = [
     {
@@ -47,8 +50,8 @@ export default function Presentation({ navigation }) {
     },
   ];
 
-  const [type, setType] = useState(metricOptions[0]);
-  const [range, setRange] = useState(periodOptions[0]);
+  const [type, setType] = useState(null);
+  const [range, setRange] = useState(null);
   const [profileData, setProfileData] = useState(null);
   const [data, setData] = useState(null);
 
@@ -70,22 +73,31 @@ export default function Presentation({ navigation }) {
 
   async function getItems() {
     try {
-      setLoading(true);
-      setData(null);
-      const defaultData = {
-        limit: 10,
-        offset: 0,
-      };
+      if (type && range) {
+        setLoading(true);
+        setData(null);
+        const defaultData = {
+          limit: 10,
+          offset: 0,
+        };
 
-      const filterData = {
-        ...defaultData,
-        ...{ type: type?.keyValue, range: range?.keyValue },
-      };
+        const filterData = {
+          ...defaultData,
+          ...{ type: type?.keyValue, range: range?.keyValue },
+        };
 
-      const response = await getTopItems(getAccessToken, filterData);
-      setLoading(false);
+        const response = await getTopItems(getAccessToken, filterData);
+        setLoading(false);
 
-      setData(response);
+        setData(response);
+      } else {
+        if (!toast.isActive(toastId)) {
+          toast.show({
+            id: toastId,
+            description: I18n.t("incompleteRequest"),
+          });
+        }
+      }
     } catch (error) {
       setLoading(false);
       Alert.alert(I18n.t("error"), I18n.t("validationError"));
@@ -96,8 +108,8 @@ export default function Presentation({ navigation }) {
     <>
       <Loading isLoading={loading} />
       <ScrollView
-        contentContainerStyle={{ paddingBottom: StatusBar.currentHeight + 15 }}
-        style={[styles.container, { paddingTop: StatusBar.currentHeight + 15 }]}
+        contentContainerStyle={{ paddingTop: StatusBar.currentHeight + 5 }}
+        style={[styles.container]}
       >
         <View style={styles.header}>
           <Profile data={profileData} />
@@ -106,12 +118,10 @@ export default function Presentation({ navigation }) {
         <View style={styles.filterSection}>
           <Dropdown
             options={metricOptions}
-            selected={metricOptions[0]}
             onSelect={(option) => setType(option)}
           />
           <Dropdown
             options={periodOptions}
-            selected={periodOptions[0]}
             onSelect={(option) => setRange(option)}
           />
           <TouchableOpacity onPress={getItems} style={styles.searchButton}>

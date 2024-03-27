@@ -20,13 +20,16 @@ export async function getAccessCodeFromAPI(clientId, scopes, scheme, path) {
   if (result.params.code) {
     const code = result.params.code;
     const { redirectUri, codeVerifier } = request;
-    return { code, redirectUri, codeVerifier }
-    
+    return { code, redirectUri, codeVerifier };
   }
 }
 
-
-export async function getAccessTokenFromAPI(clientId, code, verifier, redirectUri) {
+export async function getAccessTokenFromAPI(
+  clientId,
+  code,
+  verifier,
+  redirectUri
+) {
   const params = new URLSearchParams();
   params.append("client_id", clientId);
   params.append("grant_type", "authorization_code");
@@ -48,7 +51,6 @@ export async function getRefreshedTokenFromAPI(clientId, refreshToken) {
   params.append("client_id", clientId);
   params.append("grant_type", "refresh_token");
   params.append("refresh_token", refreshToken);
-  console.log("parametros: ", params.toString());
 
   const result = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
@@ -58,5 +60,3 @@ export async function getRefreshedTokenFromAPI(clientId, refreshToken) {
 
   return await result.json();
 }
-
-
