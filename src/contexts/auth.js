@@ -8,11 +8,15 @@ import { createContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "react-native";
 import i18n from "i18n-js";
+import Constants from "expo-constants";
 
 //TODO Refatorar a chamada para ir para a camada de service
 
 export const AuthContext = createContext({});
-const clientId = "68028a1d5ff847c694cfb49e4dfd4fb7";
+const clientId =
+  process.env.NODE_ENV === "development"
+    ? process.env.SPOTIFY_CLIENT_ID
+    : Constants.expoConfig.extra.SPOTIFY_CLIENT_ID;
 
 function AuthProvider({ children }) {
   //TODO Fazer fallback
