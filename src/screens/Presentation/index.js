@@ -132,7 +132,7 @@ export default function Presentation({ navigation }) {
           <>
             <View style={styles.titleList}>
               <Text style={styles.textTitleList}>
-                {profileData?.username} {type?.value}
+                {profileData?.username}: {type?.value}
               </Text>
             </View>
             <ItemsList data={data} />

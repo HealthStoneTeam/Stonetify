@@ -8,11 +8,11 @@ I18n.translations = {
     privacyPolicyLink: "Privacy Policy",
     privacyPolicyTitle: "Privacy Policy",
     privacyPolicyText1:
-      "Spotify was developed as an open source app powered by the developer.spotify Web API. By choosing to use this app, you agree to the use of your Spotify account username and data for your top artists and tracks.",
+      "Stonetify was developed as an open source app powered by the developer.spotify Web API. By choosing to use this app, you agree to the use of your Spotify account username and data for your top artists and tracks.",
     privacyPolicyText2:
-      "None of the data used by Stonetify is stored or collected anywhere, and it is NOT shared with any third parties. All information is used solely for displaying your Stonetify.",
+      "None of the data used by Stonetify is stored or collected anywhere, and it is NOT shared with any third parties. All information is used solely for displaying your lists.",
     privacyPolicyText3:
-      'Although you can rest assured that your data is not being stored or used maliciously, if you would like to revoke Stonetify\'s permissions, you can visit your apps page and click "REMOVE ACCESS" on Stonetify.',
+      "Although you can rest assured that your data is not being stored or used maliciously, if you would like to revoke Stonetify's permissions, you can visit your apps page and click 'REMOVE ACCESS' on Stonetify.",
     detailedGuide: "Here is a more detailed guide for doing so.",
     close: "Close",
     loginWithSpotify: "Login with Spotify",
@@ -22,7 +22,7 @@ I18n.translations = {
     validationError: "Error validating authentication, please try again.",
     error: "Error",
     topTracks: "Top Tracks",
-    topArtist: "Top Artist",
+    topArtist: "Top Artists",
     lastMonth: "Last Month",
     last6Months: "Last 6 Months",
     allTime: "All Time",
@@ -37,17 +37,18 @@ I18n.translations = {
     noDataFound: "No data found",
     incompleteRequest: "Please, fill out all fields",
     redirectError: "Error while loading the site",
+    selectOption: "Select an option",
   },
   pt: {
     aboutTitle: "Sobre o Stonetify",
     aboutText:
-      "Inspirado por @Receiptify, Stonetify é uma ferramenta que exibe as 10 faixas mais tocadas de um usuário no último mês, últimos 6 meses e de todos os tempos em uma lista amigável. Você pode compartilhar e contar a todas as pessoas sobre suas métricas.",
+      "Inspirado por @Receiptify, Stonetify é uma aplicação que exibe as 10 músicas mais tocadas de um usuário no último mês, últimos 6 meses e de todos os tempos em uma lista. Você pode compartilhar e contar a todas as pessoas sobre tudo que você descobriu aqui.",
     privacyPolicyLink: "Política de Privacidade",
     privacyPolicyTitle: "Política de Privacidade",
     privacyPolicyText1:
-      "Spotify foi desenvolvido como um aplicativo de código aberto alimentado pela API Web developer.spotify. Ao escolher usar este aplicativo, você concorda com o uso do seu nome de usuário e dados da sua conta Spotify para seus artistas e faixas mais tocados.",
+      "Stonetify foi desenvolvido como um aplicativo de código aberto alimentado pela API Web developer.spotify. Ao escolher usar este aplicativo, você concorda com o uso do seu nome de usuário e dados da sua conta Spotify para seus artistas e músicas mais tocados.",
     privacyPolicyText2:
-      "Nenhum dos dados usados pelo Stonetify é armazenado ou coletado em qualquer lugar, e NÃO é compartilhado com terceiros. Todas as informações são usadas apenas para exibir seus Stonetify.",
+      "Nenhum dos dados usados pelo Stonetify é armazenado ou coletado em qualquer lugar, e NÃO é compartilhado com terceiros. Todas as informações são usadas apenas para exibir suas listas.",
     privacyPolicyText3:
       'Embora você possa ficar tranquilo que seus dados não estão sendo armazenados ou usados de forma maliciosa, se você quiser revogar as permissões do Stonetify, você pode visitar a página de seus aplicativos e clicar em "REMOVER ACESSO" no Stonetify.',
     detailedGuide: "Aqui está um guia mais detalhado para fazer isso.",
@@ -58,11 +59,11 @@ I18n.translations = {
     authError: "Erro ao autenticar, por favor tente novamente.",
     validationError: "Erro ao validar autenticação, por favor tente novamente.",
     error: "Error",
-    topTracks: "Melhores Faixas",
-    topArtist: "Melhor Artista",
+    topTracks: "Melhores Músicas",
+    topArtist: "Melhores Artistas",
     lastMonth: "Último Mês",
     last6Months: "Últimos 6 Meses",
-    allTime: "Todo o Tempo",
+    allTime: "Desde o início",
     fetchError:
       "Ocorreu um erro ao buscar seus dados. Por favor, tente novamente mais tarde.",
     search: "Pesquisar",
@@ -74,6 +75,7 @@ I18n.translations = {
     noDataFound: "Nenhum dado encontrado",
     incompleteRequest: "Por favor, preencha todos os campos",
     redirectError: "Não é possível abrir o site",
+    selectOption: "Selecione uma opção",
   },
 };
 

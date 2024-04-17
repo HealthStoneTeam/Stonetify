@@ -3,6 +3,7 @@ import styles from "./styles";
 import { Text, TouchableOpacity, View } from "react-native";
 import { Icon, Divider } from "native-base";
 import { Entypo } from "@expo/vector-icons";
+import I18n from "../../../translations";
 
 export default function Dropdown({ options, onSelect }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +23,7 @@ export default function Dropdown({ options, onSelect }) {
     <View style={styles.container}>
       <TouchableOpacity style={styles.selectField} onPress={toggleDropdown}>
         <Text style={styles.textSelectField}>
-          {selectedOption?.value || "Selecione uma opção"}
+          {selectedOption?.value || I18n.t("selectOption")}
         </Text>
 
         {isOpen ? (
