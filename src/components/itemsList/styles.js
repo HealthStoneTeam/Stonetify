@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 10,
+    paddingVertical: 10,
     columnGap: 10,
   },
   details: {
@@ -34,6 +34,19 @@ const styles = StyleSheet.create({
   notFoundText: {
     fontSize: 16,
     color: "white",
+  },
+  containerSpotify: {
+    flexDirection: "row",
+    columnGap: 5,
+    alignItems: "center",
+  },
+  iconSpotify: {
+    width: 15,
+    height: 15,
+  },
+  textSpotify: {
+    fontSize: 16,
+    color: "#FFF",
   },
 });
 

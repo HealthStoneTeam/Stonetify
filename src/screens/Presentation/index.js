@@ -6,6 +6,7 @@ import {
   StatusBar,
   Alert,
   ScrollView,
+  Image,
 } from "react-native";
 import { useToast } from "native-base";
 import styles from "./styles";
@@ -134,6 +135,13 @@ export default function Presentation({ navigation }) {
               <Text style={styles.textTitleList}>
                 {profileData?.username}: {type?.value}
               </Text>
+            </View>
+            <View>
+              <Image
+                style={styles.logoSpotify}
+                source={require("../../../assets/spotifyLogo.png")}
+                alt="Spotify"
+              />
             </View>
             <ItemsList data={data} />
           </>

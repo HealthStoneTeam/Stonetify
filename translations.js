@@ -38,6 +38,7 @@ I18n.translations = {
     incompleteRequest: "Please, fill out all fields",
     redirectError: "Error while loading the site",
     selectOption: "Select an option",
+    clickAndListen: "Click and listen on spotify",
   },
   pt: {
     aboutTitle: "Sobre o Stonetify",
@@ -76,6 +77,7 @@ I18n.translations = {
     incompleteRequest: "Por favor, preencha todos os campos",
     redirectError: "Não é possível abrir o site",
     selectOption: "Selecione uma opção",
+    clickAndListen: "Clique e ouça no spotify",
   },
 };
 

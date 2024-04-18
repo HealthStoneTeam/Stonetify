@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity, Linking } from "react-native";
 import { Image } from "native-base";
 import I18n from "../../../translations";
 
@@ -44,8 +44,20 @@ export default function ItemsList({ data }) {
     });
   }
 
+  function redirectSpotify(item) {
+    if (item.uri || item.link) {
+      Linking.canOpenURL(item.uri).then((supported) => {
+        if (supported) {
+          Linking.openURL(item.uri);
+        } else {
+          Linking.openURL(item.link);
+        }
+      });
+    }
+  }
+
   const renderItem = ({ item }) => (
-    <View style={styles.item}>
+    <TouchableOpacity style={styles.item} onPress={() => redirectSpotify(item)}>
       <Image source={{ uri: item.image }} size={"sm"} alt="Ilustration" />
       <View style={styles.details}>
         <View style={styles.titleContainer}>
@@ -61,10 +73,18 @@ export default function ItemsList({ data }) {
               {item.subtitle}
             </Text>
           )}
+          <View style={styles.containerSpotify}>
+            <Image
+              style={styles.iconSpotify}
+              source={require("../../../assets/spotifyIcon.png")}
+              alt="Spotify"
+            />
+            <Text style={styles.textSpotify}>{I18n.t("clickAndListen")}</Text>
+          </View>
         </View>
         <Text style={styles.subtitle}>{item.extraInfo}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return finalArray?.length ? (

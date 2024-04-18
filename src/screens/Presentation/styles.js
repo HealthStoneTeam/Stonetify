@@ -56,6 +56,11 @@ const styles = StyleSheet.create({
   textSearchButton: {
     color: "#FFF",
   },
+  logoSpotify: {
+    width: 130,
+    height: 39,
+    marginVertical: 10,
+  },
 });
 
 export default styles;
