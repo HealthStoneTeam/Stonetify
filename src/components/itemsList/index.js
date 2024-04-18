@@ -30,6 +30,8 @@ export default function ItemsList({ data }) {
         title: track?.title,
         subtitle: track?.artist,
         extraInfo: track?.time,
+        link: track.link,
+        uri: track.uri,
       };
     });
   }
@@ -40,6 +42,8 @@ export default function ItemsList({ data }) {
         image: artist?.artistCover,
         title: artist?.title,
         extraInfo: artist?.popularity,
+        link: artist.link,
+        uri: artist.uri,
       };
     });
   }
