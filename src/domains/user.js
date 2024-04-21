@@ -75,6 +75,8 @@ function extractArtistsInfo(jsonData) {
   if (jsonData && jsonData.items && Array.isArray(jsonData.items)) {
     jsonData.items.forEach((item, index) => {
       const title = item.name || "";
+      const uri = item.uri;
+      const link = item.external_urls.spotify;
       const popularity = item.popularity || 0;
       const artistCover = getCover(item);
 
@@ -83,6 +85,8 @@ function extractArtistsInfo(jsonData) {
         title,
         popularity,
         artistCover,
+        uri,
+        link,
       });
     });
   }
@@ -96,6 +100,8 @@ function extractTracksInfo(jsonData) {
   if (jsonData && jsonData.items && Array.isArray(jsonData.items)) {
     jsonData.items.forEach((item, index) => {
       const title = item.name || "";
+      const uri = item.uri;
+      const link = item.external_urls.spotify;
       const artist = item.artists
         ? item.artists.map((artist) => artist.name).join(", ")
         : "";
@@ -110,6 +116,8 @@ function extractTracksInfo(jsonData) {
         artist,
         time,
         albumCover,
+        uri,
+        link,
       });
     });
   }
