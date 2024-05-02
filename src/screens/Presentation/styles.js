@@ -61,6 +61,12 @@ const styles = StyleSheet.create({
     height: 39,
     marginVertical: 10,
   },
+  containerLogoSpotify: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+  },
 });
 
 export default styles;

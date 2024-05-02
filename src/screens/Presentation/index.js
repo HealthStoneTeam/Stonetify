@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import {
   Text,
   View,
@@ -7,8 +7,10 @@ import {
   Alert,
   ScrollView,
   Image,
+  Share,
 } from "react-native";
-import { useToast } from "native-base";
+import { useToast, Icon } from "native-base";
+import { MaterialIcons } from "@expo/vector-icons";
 import styles from "./styles";
 import Profile from "../../components/profile";
 import Dropdown from "../../components/dropdown";
@@ -18,12 +20,14 @@ import { getProfile, getTopItems } from "../../domains/user";
 import { AuthContext } from "../../contexts/auth";
 import Loading from "../../components/loading";
 import I18n from "../../../translations";
+import { captureRef } from "react-native-view-shot"; // biblioteca para capturar a imagem da tela
 
 export default function Presentation({ navigation }) {
   const [loading, setLoading] = useState(false);
   const { getAccessToken } = useContext(AuthContext);
   const toast = useToast();
   const toastId = "alert-toast";
+  const shareBodyRef = useRef(); // Referência para o componente que queremos capturar
 
   const metricOptions = [
     {
@@ -105,6 +109,17 @@ export default function Presentation({ navigation }) {
     }
   }
 
+  async function shareImage() {
+    try {
+      const uri = await captureRef(shareBodyRef, { format: "png", quality: 1 }); // Captura a imagem do componente
+      console.log("Captured image URI:", uri);
+      Share.share({ uri }); // Compartilha a imagem capturada
+    } catch (error) {
+      console.log(error);
+      Alert.alert(I18n.t("error"), I18n.t("shareError"));
+    }
+  }
+
   return (
     <>
       <Loading isLoading={loading} />
@@ -130,21 +145,28 @@ export default function Presentation({ navigation }) {
           </TouchableOpacity>
         </View>
         {data && (
-          <>
+          <View ref={shareBodyRef}>
             <View style={styles.titleList}>
               <Text style={styles.textTitleList}>
                 {profileData?.username}: {type?.value}
               </Text>
             </View>
-            <View>
+            <View style={styles.containerLogoSpotify}>
               <Image
                 style={styles.logoSpotify}
                 source={require("../../../assets/spotifyLogo.png")}
                 alt="Spotify"
               />
+              <Icon
+                as={MaterialIcons}
+                name="share"
+                size={10}
+                color={"#FFF"}
+                onPress={shareImage}
+              />
             </View>
             <ItemsList data={data} />
-          </>
+          </View>
         )}
       </ScrollView>
     </>

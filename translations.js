@@ -39,6 +39,7 @@ I18n.translations = {
     redirectError: "Error while loading the site",
     selectOption: "Select an option",
     clickAndListen: "Click and listen on spotify",
+    shareError: "Error sharing image",
   },
   pt: {
     aboutTitle: "Sobre o Stonetify",
@@ -78,6 +79,7 @@ I18n.translations = {
     redirectError: "Não é possível abrir o site",
     selectOption: "Selecione uma opção",
     clickAndListen: "Clique e ouça no spotify",
+    shareError: "Erro ao compartilhar imagem",
   },
 };
 
