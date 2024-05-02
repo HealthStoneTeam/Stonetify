@@ -10,11 +10,7 @@ export default function ItemsList({ data }) {
   useEffect(() => {
     function objectMapper() {
       if (data?.data?.length) {
-        if (data?.type == "tracks") {
-          setFinalArray(objectMapperTracks());
-        } else if (data?.type == "artists") {
-          setFinalArray(objectMapperArtist());
-        }
+        setFinalArray(data?.data);
       } else {
         setFinalArray([]);
       }
@@ -22,31 +18,6 @@ export default function ItemsList({ data }) {
 
     objectMapper();
   }, []);
-
-  function objectMapperTracks() {
-    return data?.data?.map((track) => {
-      return {
-        image: track?.albumCover,
-        title: track?.title,
-        subtitle: track?.artist,
-        extraInfo: track?.time,
-        link: track.link,
-        uri: track.uri,
-      };
-    });
-  }
-
-  function objectMapperArtist() {
-    return data?.data?.map((artist) => {
-      return {
-        image: artist?.artistCover,
-        title: artist?.title,
-        extraInfo: artist?.popularity,
-        link: artist.link,
-        uri: artist.uri,
-      };
-    });
-  }
 
   function redirectSpotify(item) {
     if (item.uri || item.link) {
