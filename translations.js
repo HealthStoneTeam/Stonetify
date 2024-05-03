@@ -47,6 +47,7 @@ I18n.translations = {
     errorExtractUserData: "Data extraction failed",
     errorFilterUserData: "Invalid filters",
     shareNotAvailable: "Sharing not available",
+    shareInProgress: "Please wait. Sharing in progress."
   },
   pt: {
     aboutTitle: "Sobre o Stonetify",
@@ -94,6 +95,7 @@ I18n.translations = {
     errorExtractUserData: "A extração dos dados falhou",
     errorFilterUserData: "Filtros inválidos",
     shareNotAvailable: "Compartilhamento indisponível",
+    shareInProgress: "Por favor, aguarde. A imagem está sendo gerada."
   },
 };
 

@@ -24,6 +24,7 @@ import { captureRef } from "react-native-view-shot"; // biblioteca para capturar
 
 export default function Presentation({ navigation }) {
   const [loading, setLoading] = useState(false);
+  const [isSharing, setIsSharing] = useState(false);
   const { getAccessToken } = useContext(AuthContext);
   const toast = useToast();
   const toastId = "alert-toast";
@@ -110,6 +111,17 @@ export default function Presentation({ navigation }) {
   }
 
   async function shareImage() {
+    if (isSharing) {
+      if (!toast.isActive(toastId)) {
+        toast.show({
+          id: toastId,
+          description: I18n.t("shareInProgress"),
+        });
+      }
+      return;
+    }
+
+    setIsSharing(true);
     try {
       const uri = await captureRef(shareBodyRef.current, {
         format: "png",
@@ -123,6 +135,8 @@ export default function Presentation({ navigation }) {
     } catch (error) {
       console.log(error);
       Alert.alert(I18n.t("error"), I18n.t("shareError"));
+    } finally {
+      setIsSharing(false);
     }
   }
 
