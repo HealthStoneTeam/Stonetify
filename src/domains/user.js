@@ -5,15 +5,18 @@ export async function getProfile(getAccessToken) {
   try {
     const accessToken = await getAccessToken();
     if (!accessToken) {
-      return null;
+      throw new Error(I18n.t("errorGetAccessToken"));
     }
     const profileRaw = await getProfileFromAPI(accessToken);
     if (profileRaw) {
       userInfo = await extractUserInfo(profileRaw);
 
       return userInfo;
+    } else {
+      throw new Error(I18n.t("errorExtractUserData"));
     }
   } catch (error) {
+    console.error(I18n.t("errorGetUserProfile"), ":", error.message);
     return null;
   }
 }
@@ -21,8 +24,11 @@ export async function getProfile(getAccessToken) {
 export async function getTopItems(getAccessToken, filterData) {
   try {
     const accessToken = await getAccessToken();
-    if (!accessToken || !filterData) {
-      return null;
+    if (!filterData) {
+      throw new Error(I18n.t("errorFilterUserData"));
+    }
+    if (!accessToken) {
+      throw new Error(I18n.t("errorGetAccessToken"));
     }
     const { type, range, limit, offset } = filterData;
 
@@ -35,21 +41,22 @@ export async function getTopItems(getAccessToken, filterData) {
     );
     if (topItemsRaw) {
       if (type === "artists") {
-        artistsInfo = await extractArtistsInfo(topItemsRaw);
+        artistsInfo = extractArtistsInfo(topItemsRaw);
         return { data: artistsInfo, type };
       } else if (type === "tracks") {
-        tracksInfo = await extractTracksInfo(topItemsRaw);
+        tracksInfo = extractTracksInfo(topItemsRaw);
         return { data: tracksInfo, type };
       } else {
-        return null;
+        throw new Error(I18n.t("errorExtractUserData"));
       }
     }
   } catch (error) {
+    console.error(I18n.t("errorGetUserTopItems"), ":", error.message);
     return null;
   }
 }
 
-async function extractUserInfo(jsonData) {
+function extractUserInfo(jsonData) {
   const { display_name, id, images } = jsonData;
   let userImage;
 

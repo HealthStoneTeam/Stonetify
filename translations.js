@@ -39,6 +39,12 @@ I18n.translations = {
     redirectError: "Error while loading the site",
     selectOption: "Select an option",
     clickAndListen: "Click and listen on spotify",
+    errorGetUserProfile: "Error getting user profile",
+    errorAPI: "Error communicating with Spotify",
+    errorGetUserTopItems: "Error getting user lists",
+    errorGetAccessToken: "Invalid access token",
+    errorExtractUserData: "Data extraction failed",
+    errorFilterUserData: "Invalid filters",
   },
   pt: {
     aboutTitle: "Sobre o Stonetify",
@@ -78,6 +84,12 @@ I18n.translations = {
     redirectError: "Não é possível abrir o site",
     selectOption: "Selecione uma opção",
     clickAndListen: "Clique e ouça no spotify",
+    errorGetUserProfile: "Erro ao obter perfil do usuário",
+    errorAPI: "Erro ao se comunicar com o Spotify",
+    errorGetUserTopItems: "Erro ao obter listas do usuário",
+    errorGetAccessToken: "Token de acesso inválido",
+    errorExtractUserData: "A extração dos dados falhou",
+    errorFilterUserData: "Filtros inválidos",
   },
 };
 
