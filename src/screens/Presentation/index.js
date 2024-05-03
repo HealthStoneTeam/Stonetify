@@ -10,6 +10,7 @@ import {
   Share,
 } from "react-native";
 import { useToast, Icon } from "native-base";
+import * as Sharing from "expo-sharing";
 import { MaterialIcons } from "@expo/vector-icons";
 import styles from "./styles";
 import Profile from "../../components/profile";
@@ -110,10 +111,16 @@ export default function Presentation({ navigation }) {
   }
 
   async function shareImage() {
+    if (!shareBodyRef.current) {
+      console.log("Component not rendered yet");
+      return;
+    }
+  
     try {
-      const uri = await captureRef(shareBodyRef, { format: "png", quality: 1 }); // Captura a imagem do componente
+      const uri = await captureRef(shareBodyRef.current, { format: "png", quality: 1 }); // Captura a imagem do componente
       console.log("Captured image URI:", uri);
-      Share.share({ uri }); // Compartilha a imagem capturada
+      
+      await Sharing.shareAsync(uri);
     } catch (error) {
       console.log(error);
       Alert.alert(I18n.t("error"), I18n.t("shareError"));
@@ -125,7 +132,7 @@ export default function Presentation({ navigation }) {
       <Loading isLoading={loading} />
       <ScrollView
         contentContainerStyle={{ paddingTop: StatusBar.currentHeight + 5 }}
-        style={[styles.container]}
+        style={[styles.container, styles.mainBg]}
       >
         <View style={styles.header}>
           <Profile data={profileData} />
@@ -145,7 +152,8 @@ export default function Presentation({ navigation }) {
           </TouchableOpacity>
         </View>
         {data && (
-          <View ref={shareBodyRef}>
+          <ScrollView ref={shareBodyRef} 
+                      style={[styles.mainBg]}>
             <View style={styles.titleList}>
               <Text style={styles.textTitleList}>
                 {profileData?.username}: {type?.value}
@@ -166,7 +174,7 @@ export default function Presentation({ navigation }) {
               />
             </View>
             <ItemsList data={data} />
-          </View>
+          </ScrollView>
         )}
       </ScrollView>
     </>
