@@ -7,7 +7,6 @@ import {
   Alert,
   ScrollView,
   Image,
-  Share,
 } from "react-native";
 import { useToast, Icon } from "native-base";
 import * as Sharing from "expo-sharing";
@@ -111,16 +110,16 @@ export default function Presentation({ navigation }) {
   }
 
   async function shareImage() {
-    if (!shareBodyRef.current) {
-      console.log("Component not rendered yet");
-      return;
-    }
-  
     try {
-      const uri = await captureRef(shareBodyRef.current, { format: "png", quality: 1 }); // Captura a imagem do componente
-      console.log("Captured image URI:", uri);
-      
-      await Sharing.shareAsync(uri);
+      const uri = await captureRef(shareBodyRef.current, {
+        format: "png",
+        quality: 1,
+      });
+      if (!(await Sharing.isAvailableAsync())) {
+        Alert.alert(I18n.t("error"), I18n.t("shareNotAvailable"));
+      } else {
+        await Sharing.shareAsync(uri);
+      }
     } catch (error) {
       console.log(error);
       Alert.alert(I18n.t("error"), I18n.t("shareError"));
@@ -152,8 +151,7 @@ export default function Presentation({ navigation }) {
           </TouchableOpacity>
         </View>
         {data && (
-          <ScrollView ref={shareBodyRef} 
-                      style={[styles.mainBg]}>
+          <ScrollView ref={shareBodyRef} style={[styles.mainBg]}>
             <View style={styles.titleList}>
               <Text style={styles.textTitleList}>
                 {profileData?.username}: {type?.value}

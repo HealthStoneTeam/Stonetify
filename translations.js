@@ -46,6 +46,7 @@ I18n.translations = {
     errorGetAccessToken: "Invalid access token",
     errorExtractUserData: "Data extraction failed",
     errorFilterUserData: "Invalid filters",
+    shareNotAvailable: "Sharing not available",
   },
   pt: {
     aboutTitle: "Sobre o Stonetify",
@@ -92,6 +93,7 @@ I18n.translations = {
     errorGetAccessToken: "Token de acesso inválido",
     errorExtractUserData: "A extração dos dados falhou",
     errorFilterUserData: "Filtros inválidos",
+    shareNotAvailable: "Compartilhamento indisponível",
   },
 };
 
