@@ -1,55 +1,56 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
+import { COLORS, FONTS, SPACING } from '../../constants';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#121212",
-    padding: 10,
+    backgroundColor: COLORS.secondary,
+    padding: SPACING.small,
   },
   card: {
-    backgroundColor: "#282828",
-    borderRadius: 10,
-    padding: 20,
+    backgroundColor: COLORS.cardBackground,
+    borderRadius: SPACING.small,
+    padding: SPACING.medium,
     width: '90%', 
-    marginBottom: 10, 
+    marginBottom: SPACING.small, 
   },
   title: {
-    color: "#FFFFFF",
-    fontSize: 30,
-    marginBottom: 10,
+    color: COLORS.white,
+    fontSize: FONTS.title,
+    marginBottom: SPACING.small,
     textAlign: "left", 
   },
   text: {
-    color: "#FFFFFF",
-    marginBottom: 30,
-    fontSize: 20, 
+    color: COLORS.white,
+    marginBottom: SPACING.large,
+    fontSize: FONTS.large, 
   },
   center: {
     justifyContent: 'center',
     alignItems: 'center',
   },
   link: {
-    color: "#1DB954",
+    color: COLORS.primary,
     textAlign: "center",
-    fontSize: 20, 
-    marginBottom: 15,
+    fontSize: FONTS.large, 
+    marginBottom: SPACING.medium,
   },
   centeredView: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22,
-    padding: 10, 
+    marginTop: SPACING.medium,
+    padding: SPACING.small, 
   },
   modalView: {
-    margin: 20,
-    backgroundColor: "#282828", 
-    borderRadius: 20,
-    padding: 20,
+    margin: SPACING.medium,
+    backgroundColor: COLORS.cardBackground, 
+    borderRadius: SPACING.medium,
+    padding: SPACING.medium,
     alignItems: "center",
-    shadowColor: "#000",
+    shadowColor: COLORS.secondary,
     shadowOffset: {
       width: 0,
       height: 2
@@ -59,22 +60,22 @@ export default StyleSheet.create({
     elevation: 5
   },
   modalText: {
-    marginBottom: 15,
-    color: "#FFFFFF",
-    fontSize: 16,
+    marginBottom: SPACING.medium,
+    color: COLORS.white,
+    fontSize: FONTS.medium,
   },
   closeButton: {
-    backgroundColor: '#1DB954',
+    backgroundColor: COLORS.primary,
     borderRadius: 28,
-    padding: 10,
+    padding: SPACING.small,
     elevation: 2,
-    marginTop: 15,
+    marginTop: SPACING.medium,
     width: '80%', 
   },
   closeButtonText: {
-    color: 'white',
+    color: COLORS.white,
     fontWeight: 'bold',
     textAlign: 'center',
-    fontSize: 18, 
+    fontSize: FONTS.medium, 
   }
 });
