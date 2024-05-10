@@ -26,15 +26,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#B3B3B3",
   },
-  notFoundContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  notFoundText: {
-    fontSize: 16,
-    color: "white",
-  },
   containerSpotify: {
     flexDirection: "row",
     columnGap: 5,

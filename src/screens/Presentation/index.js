@@ -20,7 +20,7 @@ import { getProfile, getTopItems } from "../../domains/user";
 import { AuthContext } from "../../contexts/auth";
 import Loading from "../../components/loading";
 import I18n from "../../../translations";
-import { captureRef } from "react-native-view-shot"; // biblioteca para capturar a imagem da tela
+import { captureRef } from "react-native-view-shot";
 
 export default function Presentation({ navigation }) {
   const [loading, setLoading] = useState(false);
@@ -28,7 +28,7 @@ export default function Presentation({ navigation }) {
   const { getAccessToken } = useContext(AuthContext);
   const toast = useToast();
   const toastId = "alert-toast";
-  const shareBodyRef = useRef(); // Referência para o componente que queremos capturar
+  const shareBodyRef = useRef();
 
   const metricOptions = [
     {

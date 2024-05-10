@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import AvatarProfile from "../AvatarProfile";
+import AvatarProfile from "../avatarProfile";
 import styles from "./styles";
 
 export default function Profile({ data }) {
