@@ -1,11 +1,12 @@
 import { StyleSheet } from "react-native";
+import { COLORS, SPACING, FONTS } from "../../constants";
 
 const styles = StyleSheet.create({
   item: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 10,
-    columnGap: 10,
+    paddingVertical: SPACING.extraSmall,
+    columnGap: SPACING.extraSmall,
   },
   details: {
     flex: 1,
@@ -17,14 +18,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: 16,
+    fontSize: FONTS.medium,
     fontWeight: "bold",
-    color: "#FFF",
+    color: COLORS.white,
     flexShrink: 1,
   },
   subtitle: {
-    fontSize: 14,
-    color: "#B3B3B3",
+    fontSize: FONTS.smallMedium,
+    color: COLORS.gray,
   },
   containerSpotify: {
     flexDirection: "row",
@@ -36,8 +37,8 @@ const styles = StyleSheet.create({
     height: 15,
   },
   textSpotify: {
-    fontSize: 16,
-    color: "#FFF",
+    fontSize: FONTS.medium,
+    color: COLORS.white,
   },
 });
 

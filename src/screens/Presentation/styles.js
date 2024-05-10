@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
+import { COLORS, FONTS, SPACING } from "../../constants";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: SPACING.medium,
   },
   header: {
     flexDirection: "row",
@@ -14,51 +15,51 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-    rowGap: 20,
-    marginTop: 20,
+    rowGap: SPACING.large,
+    marginTop: SPACING.large,
   },
   titleList: {
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 25,
+    paddingVertical: SPACING.large,
   },
   textTitleList: {
-    color: "#FFF",
-    fontSize: 18,
+    color: COLORS.white,
+    fontSize: FONTS.mediumLarge,
   },
   loadMore: {
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 20,
+    paddingVertical: SPACING.large,
   },
   usarname: {
-    color: "#FFF",
-    fontSize: 14,
+    color: COLORS.white,
+    fontSize: FONTS.smallMedium,
     alignSelf: "flex-end",
-    marginBottom: 15,
-    marginLeft: 5,
+    marginBottom: SPACING.medium,
+    marginLeft: SPACING.extraSmall,
   },
   avatar: {
     flexDirection: "row",
   },
   searchButton: {
-    backgroundColor: "#3A3E3B",
+    backgroundColor: COLORS.darkGray,
     borderWidth: 1,
     borderStyle: "solid",
-    borderColor: "#6D6A6A",
-    padding: 10,
-    borderRadius: 25,
+    borderColor: COLORS.gray,
+    padding: SPACING.extraSmall,
+    borderRadius: SPACING.large,
     alignItems: "center",
     justifyContent: "center",
     width: 200,
   },
   textSearchButton: {
-    color: "#FFF",
+    color: COLORS.white,
   },
   logoSpotify: {
     width: 130,
     height: 39,
-    marginVertical: 10,
+    marginVertical: SPACING.medium,
   },
   containerLogoSpotify: {
     flexDirection: "row",
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   mainBg: {
-    backgroundColor: "#121212",
+    backgroundColor: COLORS.secondary,
   },
 });
 
