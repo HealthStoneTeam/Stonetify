@@ -1,15 +1,13 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from "../screens/Login";
 import About from "../screens/About";
+import Share from "../screens/Share";
 import Presentation from "../screens/Presentation";
 
 const Stack = createStackNavigator();
 const headerStyle = {
   headerTitle: "",
-  headerTintColor: '#FFF',
-  headerTitleStyle: {
-    color: "#FFF",
-  },
+  headerTintColor: "#FFF",
   headerTransparent: true,
   headerShadowVisible: false,
 };
@@ -26,6 +24,7 @@ export default function StackRoutes() {
         component={Presentation}
         options={{ headerShown: false }}
       />
+      <Stack.Screen name="Share" component={Share} options={headerStyle} />
       <Stack.Screen name="About" component={About} options={headerStyle} />
     </Stack.Navigator>
   );

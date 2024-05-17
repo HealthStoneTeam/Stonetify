@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Linking } from "react-native";
 import Item from "../item";
 import NotFound from "../notFound";
 
-export default function ItemsList({ data }) {
+export default function ItemsList({ data, showSpotify }) {
   const [finalArray, setFinalArray] = useState(null);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function ItemsList({ data }) {
 
   const renderItem = ({ item }) => (
     <TouchableOpacity onPress={() => redirectSpotify(item)}>
-      <Item item={item} showSpotify={true} />
+      <Item item={item} showSpotify={showSpotify} />
     </TouchableOpacity>
   );
 

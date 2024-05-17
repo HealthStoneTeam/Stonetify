@@ -27,21 +27,6 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontSize: FONTS.mediumLarge,
   },
-  loadMore: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: SPACING.large,
-  },
-  usarname: {
-    color: COLORS.white,
-    fontSize: FONTS.smallMedium,
-    alignSelf: "flex-end",
-    marginBottom: SPACING.medium,
-    marginLeft: SPACING.extraSmall,
-  },
-  avatar: {
-    flexDirection: "row",
-  },
   searchButton: {
     backgroundColor: COLORS.darkGray,
     borderWidth: 1,
