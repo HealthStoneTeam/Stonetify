@@ -1,11 +1,11 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, StatusBar } from "react-native";
 import { COLORS, SPACING, FONTS } from "../../constants";
 
 export default StyleSheet.create({
   titleList: {
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: SPACING.large,
+    paddingVertical: SPACING.large,
     rowGap: 20,
   },
   textTitleList: {
@@ -22,10 +22,11 @@ export default StyleSheet.create({
     height: 39,
     marginVertical: SPACING.medium,
   },
-  containerShare: {
-    flex: 1,
-    width: "100%",
-    alignItems: "flex-end",
+  shareButton: {
+    position: "relative",
+    alignSelf: "flex-end",
+    top: StatusBar.currentHeight + 5 + SPACING.large,
+    zIndex: 1,
   },
   container: {
     flex: 1,

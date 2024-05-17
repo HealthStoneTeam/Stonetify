@@ -47,11 +47,19 @@ export default function Share({ route, navigation }) {
   }
 
   return (
-    <ScrollView
-      contentContainerStyle={{ paddingTop: StatusBar.currentHeight + 5 }}
-      style={[styles.container, styles.mainBg]}
-    >
-      {data && (
+    <>
+      <ScrollView
+        contentContainerStyle={{ paddingTop: StatusBar.currentHeight + 5 }}
+        style={[styles.container, styles.mainBg]}
+      >
+        <Icon
+          style={styles.shareButton}
+          as={Feather}
+          name="share"
+          size={6}
+          color={"#FFF"}
+          onPress={shareImage}
+        />
         <ScrollView ref={shareBodyRef} style={[styles.mainBg]}>
           <View style={styles.titleList}>
             <Text style={styles.textTitleList}>
@@ -59,15 +67,7 @@ export default function Share({ route, navigation }) {
             </Text>
             <Text style={styles.textTitleList}>{range?.value}</Text>
           </View>
-          <View style={styles.containerShare}>
-            <Icon
-              as={Feather}
-              name="share"
-              size={6}
-              color={"#FFF"}
-              onPress={shareImage}
-            />
-          </View>
+
           <ItemsList data={data} showSpotify={false} />
           <View style={styles.containerSpotify}>
             <Image
@@ -77,7 +77,7 @@ export default function Share({ route, navigation }) {
             />
           </View>
         </ScrollView>
-      )}
-    </ScrollView>
+      </ScrollView>
+    </>
   );
 }
