@@ -51,6 +51,7 @@ I18n.translations = {
     errorGetAccessCode: "Unable to obtain Spotify User Access Code",
     errorAuthUser: "Unable to authenticate Spotify User",
     errorGetAccessToken: "Unable to obtain Spotify User Access Token",
+    noDataToShare: "There are no data to share",
   },
   pt: {
     aboutTitle: "Sobre o Stonetify",
@@ -104,6 +105,7 @@ I18n.translations = {
     errorAuthUser: "Não foi possível autenticar o usuário do Spotify",
     errorGetAccessToken:
       "Não foi possível obter o Token de Acesso do Usuário do Spotify",
+    noDataToShare: "Não há dados para compartilhar",
   },
 };
 

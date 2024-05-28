@@ -1,46 +1,47 @@
 import { StyleSheet } from 'react-native';
+import { COLORS, FONTS, SPACING } from '../../constants';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#121212', 
+    backgroundColor: COLORS.secondary, 
     alignItems: 'center',
     justifyContent: 'center',
   },
   logo: {
     width: 200,
     height: 200,
-    marginBottom: 50,
+    marginBottom: SPACING.large,
   },
   loginButton: {
-    backgroundColor: '#1DB954',
-    padding: 20,
-    borderRadius: 25,
+    backgroundColor: COLORS.primary,
+    padding: SPACING.medium,
+    borderRadius: SPACING.large,
     width: '80%',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: SPACING.medium,
   },
   aboutButton: {
-    borderColor: '#1DB954', 
+    borderColor: COLORS.primary, 
     borderWidth: 2, 
-    padding: 20,
-    borderRadius: 25,
+    padding: SPACING.medium,
+    borderRadius: SPACING.large,
     width: '80%',
     alignItems: 'center',
   },
   buttonText: {
-    color: '#FFF',
-    fontSize: 16,
+    color: COLORS.white,
+    fontSize: FONTS.medium,
   },
   watermarkContainer: {
     position: 'absolute',
-    bottom: 10,
+    bottom: SPACING.small,
     left: 0,
     right: 0,
     alignItems: 'center',
   },
   watermarkText: {
-    color: 'white',
-    fontSize: 15,
+    color: COLORS.white,
+    fontSize: FONTS.small,
   },
 });

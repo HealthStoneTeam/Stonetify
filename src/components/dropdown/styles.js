@@ -1,42 +1,43 @@
 import { StyleSheet } from "react-native";
+import { COLORS, SPACING, FONTS } from "../../constants";
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     width: "100%",
-    rowGap: 10,
+    rowGap: SPACING.extraSmall,
   },
   selectField: {
-    backgroundColor: "#3A3E3B",
+    backgroundColor: COLORS.darkGray,
     borderWidth: 1,
     borderStyle: "solid",
-    borderColor: "#6D6A6A",
-    padding: 10,
-    paddingHorizontal: 20,
+    borderColor: COLORS.gray,
+    padding: SPACING.extraSmall,
+    paddingHorizontal: SPACING.large,
     width: "100%",
-    borderRadius: 10,
+    borderRadius: SPACING.extraSmall,
     justifyContent: "space-between",
     flexDirection: "row",
     alignItems: "center",
   },
   textSelectField: {
-    color: "#FFF",
-    fontSize: 16,
+    color: COLORS.white,
+    fontSize: FONTS.medium,
   },
   optionsField: {
-    backgroundColor: "#3A3E3B",
+    backgroundColor: COLORS.darkGray,
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: SPACING.extraSmall,
     borderStyle: "solid",
-    borderColor: "#6D6A6A",
-    padding: 10,
+    borderColor: COLORS.gray,
+    padding: SPACING.extraSmall,
     width: "100%",
     marginTop: 0,
   },
   textOptionsField: {
-    color: "#FFF",
-    padding: 10,
-    fontSize: 16,
+    color: COLORS.white,
+    padding: SPACING.extraSmall,
+    fontSize: FONTS.medium,
   },
 });
 

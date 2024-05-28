@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useRef } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   Text,
   View,
@@ -9,7 +9,6 @@ import {
   Image,
 } from "react-native";
 import { useToast, Icon } from "native-base";
-import * as Sharing from "expo-sharing";
 import { MaterialIcons } from "@expo/vector-icons";
 import styles from "./styles";
 import Profile from "../../components/profile";
@@ -20,15 +19,12 @@ import { getProfile, getTopItems } from "../../domains/user";
 import { AuthContext } from "../../contexts/auth";
 import Loading from "../../components/loading";
 import I18n from "../../../translations";
-import { captureRef } from "react-native-view-shot"; // biblioteca para capturar a imagem da tela
 
 export default function Presentation({ navigation }) {
   const [loading, setLoading] = useState(false);
-  const [isSharing, setIsSharing] = useState(false);
   const { getAccessToken } = useContext(AuthContext);
   const toast = useToast();
   const toastId = "alert-toast";
-  const shareBodyRef = useRef(); // Referência para o componente que queremos capturar
 
   const metricOptions = [
     {
@@ -110,33 +106,16 @@ export default function Presentation({ navigation }) {
     }
   }
 
-  async function shareImage() {
-    if (isSharing) {
+  async function goPreviewShareImage() {
+    if (data?.data?.length) {
+      navigation.navigate("Share", { data, profileData, type, range });
+    } else {
       if (!toast.isActive(toastId)) {
         toast.show({
           id: toastId,
-          description: I18n.t("shareInProgress"),
+          description: I18n.t("noDataToShare"),
         });
       }
-      return;
-    }
-
-    setIsSharing(true);
-    try {
-      const uri = await captureRef(shareBodyRef.current, {
-        format: "png",
-        quality: 1,
-      });
-      if (!(await Sharing.isAvailableAsync())) {
-        Alert.alert(I18n.t("error"), I18n.t("shareNotAvailable"));
-      } else {
-        await Sharing.shareAsync(uri);
-      }
-    } catch (error) {
-      console.log(error);
-      Alert.alert(I18n.t("error"), I18n.t("shareError"));
-    } finally {
-      setIsSharing(false);
     }
   }
 
@@ -165,7 +144,7 @@ export default function Presentation({ navigation }) {
           </TouchableOpacity>
         </View>
         {data && (
-          <ScrollView ref={shareBodyRef} style={[styles.mainBg]}>
+          <>
             <View style={styles.titleList}>
               <Text style={styles.textTitleList}>
                 {profileData?.username}: {type?.value}
@@ -182,11 +161,11 @@ export default function Presentation({ navigation }) {
                 name="share"
                 size={10}
                 color={"#FFF"}
-                onPress={shareImage}
+                onPress={goPreviewShareImage}
               />
             </View>
-            <ItemsList data={data} />
-          </ScrollView>
+            <ItemsList data={data} showSpotify={true} />
+          </>
         )}
       </ScrollView>
     </>
