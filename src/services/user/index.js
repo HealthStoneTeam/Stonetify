@@ -13,8 +13,7 @@ export async function getProfileFromAPI(accessToken) {
     }
     return await response.json();
   } catch (error) {
-    console.error(I18n.t("errorGetUserProfile"), ":", error.message);
-    return {};
+    throw error;
   }
 }
 
@@ -46,7 +45,6 @@ export async function getTopItemsFromAPI(
 
     return await response.json();
   } catch (error) {
-    console.error(I18n.t("errorGetUserTopItems"), ":", error.message);
-    return {};
+    throw error;
   }
 }

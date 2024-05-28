@@ -43,11 +43,14 @@ I18n.translations = {
     errorGetUserProfile: "Error getting user profile",
     errorAPI: "Error communicating with Spotify",
     errorGetUserTopItems: "Error getting user lists",
-    errorGetAccessToken: "Invalid access token",
+    errorInvalidAccessToken: "Invalid access token",
     errorExtractUserData: "Data extraction failed",
     errorFilterUserData: "Invalid filters",
     shareNotAvailable: "Sharing not available",
-    shareInProgress: "Please wait. Sharing in progress."
+    shareInProgress: "Please wait. Sharing in progress.",
+    errorGetAccessCode: "Unable to obtain Spotify User Access Code",
+    errorAuthUser: "Unable to authenticate Spotify User",
+    errorGetAccessToken: "Unable to obtain Spotify User Access Token",
   },
   pt: {
     aboutTitle: "Sobre o Stonetify",
@@ -91,11 +94,16 @@ I18n.translations = {
     errorGetUserProfile: "Erro ao obter perfil do usuário",
     errorAPI: "Erro ao se comunicar com o Spotify",
     errorGetUserTopItems: "Erro ao obter listas do usuário",
-    errorGetAccessToken: "Token de acesso inválido",
+    errorInvalidAccessToken: "Token de acesso inválido",
     errorExtractUserData: "A extração dos dados falhou",
     errorFilterUserData: "Filtros inválidos",
     shareNotAvailable: "Compartilhamento indisponível",
-    shareInProgress: "Por favor, aguarde. A imagem está sendo gerada."
+    shareInProgress: "Por favor, aguarde. A imagem está sendo gerada.",
+    errorGetAccessCode:
+      "Não foi possível obter o Código de Acesso do Usuário do Spotify",
+    errorAuthUser: "Não foi possível autenticar o usuário do Spotify",
+    errorGetAccessToken:
+      "Não foi possível obter o Token de Acesso do Usuário do Spotify",
   },
 };
 

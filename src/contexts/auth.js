@@ -9,45 +9,47 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "react-native";
 import i18n from "i18n-js";
 
-//TODO Refatorar a chamada para ir para a camada de service
-
 export const AuthContext = createContext({});
 const clientId = process.env.SPOTIFY_CLIENT_ID;
 
 function AuthProvider({ children }) {
-  //TODO Fazer fallback
   async function authenticate() {
-    const scopes = [
-      "user-read-email",
-      "user-library-read",
-      "user-read-recently-played",
-      "user-top-read",
-      "playlist-read-private",
-      "playlist-read-collaborative",
-      "playlist-modify-public", // or "playlist-modify-private"
-    ];
-    const scheme = "stonetify";
-    const path = "callback";
+    try {
+      const scopes = [
+        "user-read-email",
+        "user-library-read",
+        "user-read-recently-played",
+        "user-top-read",
+        "playlist-read-private",
+        "playlist-read-collaborative",
+        "playlist-modify-public", // or "playlist-modify-private"
+      ];
+      const scheme = "stonetify";
+      const path = "callback";
 
-    const accessCode = await getAccessCodeFromAPI(
-      clientId,
-      scopes,
-      scheme,
-      path
-    );
-
-    if (accessCode) {
-      const objToken = await getAccessTokenFromAPI(
+      const accessCode = await getAccessCodeFromAPI(
         clientId,
-        accessCode.code,
-        accessCode.codeVerifier,
-        accessCode.redirectUri
+        scopes,
+        scheme,
+        path
       );
-      storeTokens(objToken);
-      getStoredTokens();
-      return true;
+
+      if (accessCode) {
+        const objToken = await getAccessTokenFromAPI(
+          clientId,
+          accessCode.code,
+          accessCode.codeVerifier,
+          accessCode.redirectUri
+        );
+        storeTokens(objToken);
+        getStoredTokens();
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error(I18n.t("errorAuthUser"), ":", error.message);
+      return false;
     }
-    return false;
   }
 
   async function logout() {
@@ -55,6 +57,8 @@ function AuthProvider({ children }) {
   }
 
   async function getAccessToken() {
+    //TODO Fazer fallback
+
     try {
       const tokensRaw = await getStoredTokens();
       if (
@@ -102,6 +106,8 @@ function AuthProvider({ children }) {
   }
 
   const storeTokens = async (tokenData) => {
+    //TODO Fazer fallback
+
     try {
       const savedTime = new Date().toISOString();
       const tokenDataToStore = { ...tokenData, saved_time: savedTime };

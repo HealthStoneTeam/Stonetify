@@ -5,7 +5,7 @@ export async function getProfile(getAccessToken) {
   try {
     const accessToken = await getAccessToken();
     if (!accessToken) {
-      throw new Error(I18n.t("errorGetAccessToken"));
+      throw new Error(I18n.t("errorInvalidAccessToken"));
     }
     const profileRaw = await getProfileFromAPI(accessToken);
     if (profileRaw) {
@@ -28,7 +28,7 @@ export async function getTopItems(getAccessToken, filterData) {
       throw new Error(I18n.t("errorFilterUserData"));
     }
     if (!accessToken) {
-      throw new Error(I18n.t("errorGetAccessToken"));
+      throw new Error(I18n.t("errorInvalidAccessToken"));
     }
     const { type, range, limit, offset } = filterData;
 
