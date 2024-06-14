@@ -6,7 +6,7 @@ import ItemsList from "../../components/itemsList";
 import { captureRef } from "react-native-view-shot";
 import { useToast, Icon } from "native-base";
 import * as Sharing from "expo-sharing";
-import { Feather } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function Share({ route, navigation }) {
   const [isSharing, setIsSharing] = useState(false);
@@ -54,10 +54,10 @@ export default function Share({ route, navigation }) {
       >
         <Icon
           style={styles.shareButton}
-          as={Feather}
+          as={MaterialIcons}
           name="share"
-          size={6}
-          color={"#FFF"}
+          size={10}
+          color={"#fff"}
           onPress={shareImage}
         />
         <ScrollView ref={shareBodyRef} style={[styles.mainBg]}>
