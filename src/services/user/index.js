@@ -1,4 +1,4 @@
-import I18n from "../../../translations";
+import { ErrorAuthenticating, ErrorGetting } from "../../errors/errors";
 
 export async function getProfileFromAPI(accessToken) {
   try {
@@ -9,11 +9,11 @@ export async function getProfileFromAPI(accessToken) {
     });
 
     if (!response.ok) {
-      throw new Error(I18n.t("errorAPI"));
+      throw new ErrorAuthenticating();
     }
     return await response.json();
-  } catch (error) {
-    throw error;
+  } catch {
+    throw new ErrorAuthenticating();
   }
 }
 
@@ -40,11 +40,11 @@ export async function getTopItemsFromAPI(
     });
 
     if (!response.ok) {
-      throw new Error(I18n.t("errorAPI"));
+      throw new ErrorGetting();
     }
 
     return await response.json();
-  } catch (error) {
-    throw error;
+  } catch {
+    throw new ErrorGetting();
   }
 }

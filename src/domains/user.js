@@ -1,11 +1,13 @@
 //Fazer a chamada do perfil e das músicas
 import { getProfileFromAPI, getTopItemsFromAPI } from "../services/user/index";
 
+import { ErrorAuthenticating, ErrorGetting } from "../errors/errors";
+
 export async function getProfile(getAccessToken) {
   try {
     const accessToken = await getAccessToken();
     if (!accessToken) {
-      throw new Error(I18n.t("errorInvalidAccessToken"));
+      throw new ErrorAuthenticating();
     }
     const profileRaw = await getProfileFromAPI(accessToken);
     if (profileRaw) {
@@ -13,23 +15,20 @@ export async function getProfile(getAccessToken) {
 
       return userInfo;
     } else {
-      throw new Error(I18n.t("errorExtractUserData"));
+      throw new ErrorAuthenticating();
     }
   } catch (error) {
-    console.error(I18n.t("errorGetUserProfile"), ":", error.message);
-    return null;
+    throw new ErrorAuthenticating();
   }
 }
 
 export async function getTopItems(getAccessToken, filterData) {
+  const accessToken = await getAccessToken();
+  if (!filterData || !accessToken) {
+    throw new ErrorAuthenticating();
+  }
+
   try {
-    const accessToken = await getAccessToken();
-    if (!filterData) {
-      throw new Error(I18n.t("errorFilterUserData"));
-    }
-    if (!accessToken) {
-      throw new Error(I18n.t("errorInvalidAccessToken"));
-    }
     const { type, range, limit, offset } = filterData;
 
     topItemsRaw = await getTopItemsFromAPI(
@@ -39,20 +38,18 @@ export async function getTopItems(getAccessToken, filterData) {
       limit,
       offset
     );
-    if (topItemsRaw) {
-      if (type === "artists") {
-        artistsInfo = extractArtistsInfo(topItemsRaw);
-        return { data: artistsInfo, type };
-      } else if (type === "tracks") {
-        tracksInfo = extractTracksInfo(topItemsRaw);
-        return { data: tracksInfo, type };
-      } else {
-        throw new Error(I18n.t("errorExtractUserData"));
-      }
+
+    if (type === "artists") {
+      artistsInfo = extractArtistsInfo(topItemsRaw);
+      return { data: artistsInfo, type };
+    } else if (type === "tracks") {
+      tracksInfo = extractTracksInfo(topItemsRaw);
+      return { data: tracksInfo, type };
+    } else {
+      throw new ErrorGetting();
     }
   } catch (error) {
-    console.error(I18n.t("errorGetUserTopItems"), ":", error.message);
-    return null;
+    throw new ErrorGetting();
   }
 }
 

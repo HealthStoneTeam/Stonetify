@@ -6,49 +6,42 @@ import {
 } from "../services/auth";
 import { createContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Alert } from "react-native";
-import i18n from "i18n-js";
+import { ErrorAuthenticating } from "../errors/errors";
 
 export const AuthContext = createContext({});
 const clientId = process.env.SPOTIFY_CLIENT_ID;
 
 function AuthProvider({ children }) {
   async function authenticate() {
-    try {
-      const scopes = [
-        "user-read-email",
-        "user-library-read",
-        "user-read-recently-played",
-        "user-top-read",
-        "playlist-read-private",
-        "playlist-read-collaborative",
-        "playlist-modify-public", // or "playlist-modify-private"
-      ];
-      const scheme = "stonetify";
-      const path = "callback";
+    const scopes = [
+      "user-read-email",
+      "user-library-read",
+      "user-read-recently-played",
+      "user-top-read",
+      "playlist-read-private",
+      "playlist-read-collaborative",
+      "playlist-modify-public", // or "playlist-modify-private"
+    ];
+    const scheme = "stonetify";
+    const path = "callback";
 
-      const accessCode = await getAccessCodeFromAPI(
+    const accessCode = await getAccessCodeFromAPI(
+      clientId,
+      scopes,
+      scheme,
+      path
+    );
+
+    if (accessCode) {
+      const objToken = await getAccessTokenFromAPI(
         clientId,
-        scopes,
-        scheme,
-        path
+        accessCode.code,
+        accessCode.codeVerifier,
+        accessCode.redirectUri
       );
-
-      if (accessCode) {
-        const objToken = await getAccessTokenFromAPI(
-          clientId,
-          accessCode.code,
-          accessCode.codeVerifier,
-          accessCode.redirectUri
-        );
-        storeTokens(objToken);
-        getStoredTokens();
-        return true;
-      }
-      return false;
-    } catch (error) {
-      console.error(I18n.t("errorAuthUser"), ":", error.message);
-      return false;
+      storeTokens(objToken);
+      getStoredTokens();
+      return true;
     }
   }
 
@@ -57,8 +50,6 @@ function AuthProvider({ children }) {
   }
 
   async function getAccessToken() {
-    //TODO Fazer fallback
-
     try {
       const tokensRaw = await getStoredTokens();
       if (
@@ -93,7 +84,7 @@ function AuthProvider({ children }) {
       }
       return null;
     } catch (e) {
-      return null;
+      throw new ErrorAuthenticating();
     }
   }
 
@@ -106,28 +97,14 @@ function AuthProvider({ children }) {
   }
 
   const storeTokens = async (tokenData) => {
-    //TODO Fazer fallback
-
-    try {
-      const savedTime = new Date().toISOString();
-      const tokenDataToStore = { ...tokenData, saved_time: savedTime };
-      await AsyncStorage.setItem("tokens", JSON.stringify(tokenDataToStore));
-    } catch (e) {
-      Alert.alert(I18n.t("error"), i18n.t("fetchError"));
-    }
+    const savedTime = new Date().toISOString();
+    const tokenDataToStore = { ...tokenData, saved_time: savedTime };
+    await AsyncStorage.setItem("tokens", JSON.stringify(tokenDataToStore));
   };
 
   const getStoredTokens = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem("tokens");
-      if (jsonValue) {
-        return jsonValue != null ? JSON.parse(jsonValue) : null;
-      } else {
-        Alert.alert(I18n.t("error"), i18n.t("fetchError"));
-      }
-    } catch (e) {
-      return null;
-    }
+    const jsonValue = await AsyncStorage.getItem("tokens");
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
   };
 
   return (
