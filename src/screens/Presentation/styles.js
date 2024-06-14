@@ -55,6 +55,17 @@ const styles = StyleSheet.create({
   mainBg: {
     backgroundColor: COLORS.secondary,
   },
+  shareButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.primary,
+    padding: SPACING.extraSmall,
+    borderRadius: SPACING.extraSmall,
+  },
+  shareButtonText: {
+    color: COLORS.white, 
+    fontSize: FONTS.large
+  },
 });
 
 export default styles;

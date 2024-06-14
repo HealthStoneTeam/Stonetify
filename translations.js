@@ -8,7 +8,7 @@ I18n.translations = {
     privacyPolicyLink: "Privacy Policy",
     privacyPolicyTitle: "Privacy Policy",
     privacyPolicyText1:
-      "Stonetify was developed as an open source app powered by the developer.spotify Web API. By choosing to use this app, you agree to the use of your Spotify account username and data for your top artists and tracks.",
+      "Stonetify was developed as an open source app powered by the developer.Spotify Web API. By choosing to use this app, you agree to the use of your Spotify account username and data for your top artists and tracks.",
     privacyPolicyText2:
       "None of the data used by Stonetify is stored or collected anywhere, and it is NOT shared with any third parties. All information is used solely for displaying your lists.",
     privacyPolicyText3:
@@ -38,7 +38,7 @@ I18n.translations = {
     incompleteRequest: "Please, fill out all fields",
     redirectError: "Error while loading the site",
     selectOption: "Select an option",
-    clickAndListen: "Click and listen on spotify",
+    clickAndListen: "Click and listen on Spotify",
     shareError: "Error sharing image",
     errorGetUserProfile: "Error getting user profile",
     errorAPI: "Error communicating with Spotify",
@@ -49,6 +49,7 @@ I18n.translations = {
     shareNotAvailable: "Sharing not available",
     shareInProgress: "Please wait. Sharing in progress.",
     noDataToShare: "There are no data to share",
+    share: "Share",
   },
   pt: {
     aboutTitle: "Sobre o Stonetify",
@@ -57,7 +58,7 @@ I18n.translations = {
     privacyPolicyLink: "Política de Privacidade",
     privacyPolicyTitle: "Política de Privacidade",
     privacyPolicyText1:
-      "Stonetify foi desenvolvido como um aplicativo de código aberto alimentado pela API Web developer.spotify. Ao escolher usar este aplicativo, você concorda com o uso do seu nome de usuário e dados da sua conta Spotify para seus artistas e músicas mais tocados.",
+      "Stonetify foi desenvolvido como um aplicativo de código aberto alimentado pela API Web developer.Spotify. Ao escolher usar este aplicativo, você concorda com o uso do seu nome de usuário e dados da sua conta Spotify para seus artistas e músicas mais tocados.",
     privacyPolicyText2:
       "Nenhum dos dados usados pelo Stonetify é armazenado ou coletado em qualquer lugar, e NÃO é compartilhado com terceiros. Todas as informações são usadas apenas para exibir suas listas.",
     privacyPolicyText3:
@@ -87,7 +88,7 @@ I18n.translations = {
     incompleteRequest: "Por favor, preencha todos os campos",
     redirectError: "Não é possível abrir o site",
     selectOption: "Selecione uma opção",
-    clickAndListen: "Clique e ouça no spotify",
+    clickAndListen: "Clique e ouça no Spotify",
     shareError: "Erro ao compartilhar imagem",
     errorGetUserProfile: "Erro ao obter perfil do usuário",
     errorAPI: "Erro ao se comunicar com o Spotify",
@@ -98,6 +99,7 @@ I18n.translations = {
     shareNotAvailable: "Compartilhamento indisponível",
     shareInProgress: "Por favor, aguarde. A imagem está sendo gerada.",
     noDataToShare: "Não há dados para compartilhar",
+    share: "Compartilhar",
   },
 };
 
