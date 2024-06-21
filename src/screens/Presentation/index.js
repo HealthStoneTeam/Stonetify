@@ -79,9 +79,12 @@ export default function Presentation({ navigation }) {
     getProfileData();
   }, []);
 
-  async function getItems() {
+  async function getItems(options) {
     try {
-      if (type && range) {
+      setType(options.type);
+      setRange(options.range);
+      
+      if (options.type && options.range) {
         setLoading(true);
         setData(null);
         const defaultData = {
@@ -91,20 +94,13 @@ export default function Presentation({ navigation }) {
 
         const filterData = {
           ...defaultData,
-          ...{ type: type?.keyValue, range: range?.keyValue },
+          ...{ type: options.type?.keyValue, range: options.range?.keyValue },
         };
 
         const response = await getTopItems(getAccessToken, filterData);
         setLoading(false);
 
         setData(response);
-      } else {
-        if (!toast.isActive(toastId)) {
-          toast.show({
-            id: toastId,
-            description: I18n.t("incompleteRequest"),
-          });
-        }
       }
     } catch (error) {
       if (error instanceof ErrorAuthenticating) {
@@ -147,21 +143,18 @@ export default function Presentation({ navigation }) {
         <View style={styles.filterSection}>
           <Dropdown
             options={metricOptions}
-            onSelect={(option) => setType(option)}
+            onSelect={(option) => getItems({type: option, range})}
           />
           <Dropdown
             options={periodOptions}
-            onSelect={(option) => setRange(option)}
+            onSelect={(option) => getItems({range: option, type})}
           />
-          <TouchableOpacity onPress={getItems} style={styles.searchButton}>
-            <Text style={styles.textSearchButton}>{I18n.t("search")}</Text>
-          </TouchableOpacity>
         </View>
         {data && (
           <>
             <View style={styles.titleList}>
               <Text style={styles.textTitleList}>
-                {profileData?.username}: {type?.value}
+               {I18n.t('shareTitle', { username: profileData?.username, type: type?.value })}
               </Text>
             </View>
             <View style={styles.containerLogoSpotify}>
@@ -170,13 +163,18 @@ export default function Presentation({ navigation }) {
                 source={require("../../../assets/spotifyLogo.png")}
                 alt="Spotify"
               />
-              <Icon
-                as={MaterialIcons}
-                name="share"
-                size={10}
-                color={"#FFF"}
+              <TouchableOpacity
+                style={styles.shareButton}
                 onPress={goPreviewShareImage}
-              />
+              >
+                <Icon
+                  as={MaterialIcons}
+                  name="mobile-screen-share"
+                  size={7}
+                  color={"#FFFFFF"}
+                />
+                <Text style={styles.shareButtonText}> {I18n.t("share")}</Text>
+              </TouchableOpacity>
             </View>
             <ItemsList data={data} showSpotify={true} />
           </>

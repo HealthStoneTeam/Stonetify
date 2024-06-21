@@ -7,10 +7,12 @@ export default StyleSheet.create({
     justifyContent: "center",
     paddingVertical: SPACING.large,
     rowGap: 20,
+    paddingHorizontal: 40,
   },
   textTitleList: {
     color: COLORS.white,
     fontSize: FONTS.mediumLarge,
+    textAlign: "center"
   },
   containerSpotify: {
     flex: 1,

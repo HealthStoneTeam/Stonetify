@@ -1,12 +1,13 @@
 import { StyleSheet } from "react-native";
+import { COLORS, SPACING, FONTS } from "../../constants";
 
 const styles = StyleSheet.create({
   username: {
-    color: "#FFF",
-    fontSize: 14,
+    color: COLORS.white,
+    fontSize: FONTS.mediumLarge,
     alignSelf: "flex-end",
-    marginBottom: 15,
-    marginLeft: 5,
+    marginBottom: SPACING.medium,
+    marginLeft: SPACING.medium,
   },
   avatar: {
     flexDirection: "row",

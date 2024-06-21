@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
   textTitleList: {
     color: COLORS.white,
     fontSize: FONTS.mediumLarge,
+    textAlign: "center"
   },
   searchButton: {
     backgroundColor: COLORS.darkGray,
@@ -54,6 +55,17 @@ const styles = StyleSheet.create({
   },
   mainBg: {
     backgroundColor: COLORS.secondary,
+  },
+  shareButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.primary,
+    padding: SPACING.extraSmall,
+    borderRadius: SPACING.extraSmall,
+  },
+  shareButtonText: {
+    color: COLORS.white, 
+    fontSize: FONTS.large
   },
 });
 

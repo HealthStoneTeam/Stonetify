@@ -63,7 +63,7 @@ export default function Share({ route, navigation }) {
         <ScrollView ref={shareBodyRef} style={[styles.mainBg]}>
           <View style={styles.titleList}>
             <Text style={styles.textTitleList}>
-              {profileData?.username} {type?.value}
+               {I18n.t('shareTitle', { username: profileData?.username, type: type?.value })}
             </Text>
             <Text style={styles.textTitleList}>{range?.value}</Text>
           </View>
