@@ -1,7 +1,6 @@
-//Fazer a chamada do perfil e das músicas
-import { getProfileFromAPI, getTopItemsFromAPI } from "../services/user/index";
+import { getProfileFromAPI, getTopItemsFromAPI } from "../services/user";
 
-import { ErrorAuthenticating, ErrorGetting } from "../errors/errors";
+import { ErrorAuthenticating, ErrorGetting } from "../errors";
 
 export async function getProfile(getAccessToken) {
   try {

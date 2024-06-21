@@ -19,6 +19,7 @@ import { getProfile, getTopItems } from "../../domains/user";
 import { AuthContext } from "../../contexts/auth";
 import Loading from "../../components/loading";
 import I18n from "../../../translations";
+import { ErrorAuthenticating, ErrorGetting } from "../../errors";
 
 export default function Presentation({ navigation }) {
   const [loading, setLoading] = useState(false);
@@ -62,11 +63,16 @@ export default function Presentation({ navigation }) {
       try {
         setLoading(true);
         const response = await getProfile(getAccessToken);
-        setLoading(false);
         setProfileData(response);
       } catch (error) {
+        if (error instanceof ErrorAuthenticating) {
+          Alert.alert(I18n.t("error"), error.message);
+        } else {
+          Alert.alert(I18n.t("error"), I18n.t("validationError"));
+        }
+        navigation.goBack();
+      } finally {
         setLoading(false);
-        Alert.alert(I18n.t("error"), I18n.t("validationError"));
       }
     }
 
@@ -101,8 +107,16 @@ export default function Presentation({ navigation }) {
         }
       }
     } catch (error) {
+      if (error instanceof ErrorAuthenticating) {
+        Alert.alert(I18n.t("error"), error.message);
+        navigation.goBack();
+      } else if (error instanceof ErrorGetting) {
+        Alert.alert(I18n.t("error"), error.message);
+      } else {
+        Alert.alert(I18n.t("error"), I18n.t("validationError"));
+      }
+    } finally {
       setLoading(false);
-      Alert.alert(I18n.t("error"), I18n.t("validationError"));
     }
   }
 

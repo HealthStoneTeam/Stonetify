@@ -1,7 +1,5 @@
 import * as AppAuth from "expo-auth-session";
 
-//Chamadas
-
 export async function getAccessCodeFromAPI(clientId, scopes, scheme, path) {
   const discorery = await AppAuth.fetchDiscoveryAsync(
     "https://accounts.spotify.com"

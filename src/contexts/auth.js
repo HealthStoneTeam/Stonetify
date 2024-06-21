@@ -1,4 +1,3 @@
-//Logica
 import {
   getAccessTokenFromAPI,
   getRefreshedTokenFromAPI,
@@ -6,7 +5,7 @@ import {
 } from "../services/auth";
 import { createContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ErrorAuthenticating } from "../errors/errors";
+import { ErrorAuthenticating } from "../errors";
 
 export const AuthContext = createContext({});
 const clientId = process.env.SPOTIFY_CLIENT_ID;
@@ -20,7 +19,7 @@ function AuthProvider({ children }) {
       "user-top-read",
       "playlist-read-private",
       "playlist-read-collaborative",
-      "playlist-modify-public", // or "playlist-modify-private"
+      "playlist-modify-public",
     ];
     const scheme = "stonetify";
     const path = "callback";

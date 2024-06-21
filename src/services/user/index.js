@@ -1,4 +1,4 @@
-import { ErrorAuthenticating, ErrorGetting } from "../../errors/errors";
+import { ErrorAuthenticating, ErrorGetting } from "../../errors";
 
 export async function getProfileFromAPI(accessToken) {
   try {
@@ -25,12 +25,6 @@ export async function getTopItemsFromAPI(
   offset
 ) {
   try {
-    /*
-      Range: long_term, medium_term, short_term 
-      limit: 0 - 50
-      offset: 0 - 50
-    */
-
     const uri = `https://api.spotify.com/v1/me/top/${type}?time_range=${range}&limit=${limit}&offset=${offset}`;
 
     const response = await fetch(uri, {

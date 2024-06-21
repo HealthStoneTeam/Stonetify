@@ -52,9 +52,9 @@ I18n.translations = {
     errorAuthUser: "Unable to authenticate Spotify User",
     errorGetAccessToken: "Unable to obtain Spotify User Access Token",
     noDataToShare: "There are no data to share",
-    ErrorAuthenticating:
+    errorAuthenticating:
       "Error related to user authentication, please log in again",
-    ErrorGetting:
+    errorGetting:
       "Error related to obtaining information, please try again later",
   },
   pt: {
@@ -110,9 +110,9 @@ I18n.translations = {
     errorGetAccessToken:
       "Não foi possível obter o Token de Acesso do Usuário do Spotify",
     noDataToShare: "Não há dados para compartilhar",
-    ErrorAuthenticating:
+    errorAuthenticating:
       "Erro relacionado a autenticação do usuário, por favor realize o login novamente",
-    ErrorGetting:
+    errorGetting:
       "Erro relacionado a obtenção das informações, por favor tente novamente mais tarde",
   },
 };

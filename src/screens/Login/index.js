@@ -4,6 +4,7 @@ import { Text, View, Image, TouchableOpacity, Alert } from "react-native";
 import styles from "./styles";
 import I18n from "../../../translations";
 import Loading from "../../components/loading";
+import { ErrorAuthenticating } from "../../errors";
 
 export default function Login({ navigation }) {
   const [loading, setLoading] = useState(true);
@@ -19,7 +20,6 @@ export default function Login({ navigation }) {
         }
       } catch (error) {
         setLoading(false);
-        Alert.alert(I18n.t("error"), I18n.t("validationError"));
       }
     }
 
@@ -30,15 +30,19 @@ export default function Login({ navigation }) {
     try {
       setLoading(true);
       const isLogged = await authenticate();
-      setLoading(false);
       if (isLogged) {
         navigation.navigate("Presentation");
       } else {
         Alert.alert(I18n.t("error"), I18n.t("authError"));
       }
     } catch (error) {
+      if (error instanceof ErrorAuthenticating) {
+        Alert.alert(I18n.t("error"), error.message);
+      } else {
+        Alert.alert(I18n.t("error"), I18n.t("authError"));
+      }
+    } finally {
       setLoading(false);
-      Alert.alert(I18n.t("error"), I18n.t("authError"));
     }
   }
 
