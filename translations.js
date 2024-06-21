@@ -50,6 +50,7 @@ I18n.translations = {
     shareInProgress: "Please wait. Sharing in progress.",
     noDataToShare: "There are no data to share",
     share: "Share",
+    shareTitle: "{{username}}'s {{type}}"
   },
   pt: {
     aboutTitle: "Sobre o Stonetify",
@@ -100,6 +101,7 @@ I18n.translations = {
     shareInProgress: "Por favor, aguarde. A imagem está sendo gerada.",
     noDataToShare: "Não há dados para compartilhar",
     share: "Compartilhar",
+    shareTitle: '{{type}} por {{username}}'
   },
 };
 

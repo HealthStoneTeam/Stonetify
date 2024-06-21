@@ -140,7 +140,7 @@ export default function Presentation({ navigation }) {
           <>
             <View style={styles.titleList}>
               <Text style={styles.textTitleList}>
-                {profileData?.username}: {type?.value}
+               {I18n.t('shareTitle', { username: profileData?.username, type: type?.value })}
               </Text>
             </View>
             <View style={styles.containerLogoSpotify}>

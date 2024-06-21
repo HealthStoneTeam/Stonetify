@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
   textTitleList: {
     color: COLORS.white,
     fontSize: FONTS.mediumLarge,
+    textAlign: "center"
   },
   searchButton: {
     backgroundColor: COLORS.darkGray,
