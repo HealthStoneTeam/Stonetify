@@ -83,7 +83,7 @@ export default function Presentation({ navigation }) {
     try {
       setType(options.type);
       setRange(options.range);
-      
+
       if (options.type && options.range) {
         setLoading(true);
         setData(null);
@@ -117,7 +117,7 @@ export default function Presentation({ navigation }) {
   }
 
   async function goPreviewShareImage() {
-    if (data?.data?.length) {
+    if (data?.length) {
       navigation.navigate("Share", { data, profileData, type, range });
     } else {
       if (!toast.isActive(toastId)) {
@@ -143,18 +143,21 @@ export default function Presentation({ navigation }) {
         <View style={styles.filterSection}>
           <Dropdown
             options={metricOptions}
-            onSelect={(option) => getItems({type: option, range})}
+            onSelect={(option) => getItems({ type: option, range })}
           />
           <Dropdown
             options={periodOptions}
-            onSelect={(option) => getItems({range: option, type})}
+            onSelect={(option) => getItems({ range: option, type })}
           />
         </View>
         {data && (
           <>
             <View style={styles.titleList}>
               <Text style={styles.textTitleList}>
-               {I18n.t('shareTitle', { username: profileData?.username, type: type?.value })}
+                {I18n.t("shareTitle", {
+                  username: profileData?.username,
+                  type: type?.value,
+                })}
               </Text>
             </View>
             <View style={styles.containerLogoSpotify}>

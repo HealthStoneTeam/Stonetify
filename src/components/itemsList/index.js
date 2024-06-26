@@ -1,23 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { View, TouchableOpacity, Linking } from "react-native";
 import Item from "../item";
 import NotFound from "../notFound";
 
 export default function ItemsList({ data, showSpotify }) {
-  const [finalArray, setFinalArray] = useState(null);
-
-  useEffect(() => {
-    function objectMapper() {
-      if (data?.data?.length) {
-        setFinalArray(data?.data);
-      } else {
-        setFinalArray([]);
-      }
-    }
-
-    objectMapper();
-  }, []);
-
   function redirectSpotify(item) {
     if (item.uri || item.link) {
       Linking.canOpenURL(item.uri).then((supported) => {
@@ -36,9 +22,9 @@ export default function ItemsList({ data, showSpotify }) {
     </TouchableOpacity>
   );
 
-  return finalArray?.length ? (
+  return data?.length ? (
     <>
-      {finalArray?.map((item, index) => (
+      {data?.map((item, index) => (
         <View key={index}>{renderItem({ item, index })}</View>
       ))}
     </>

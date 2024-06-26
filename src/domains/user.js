@@ -40,10 +40,10 @@ export async function getTopItems(getAccessToken, filterData) {
 
     if (type === "artists") {
       artistsInfo = extractArtistsInfo(topItemsRaw);
-      return { data: artistsInfo, type };
+      return artistsInfo;
     } else if (type === "tracks") {
       tracksInfo = extractTracksInfo(topItemsRaw);
-      return { data: tracksInfo, type };
+      return tracksInfo;
     } else {
       throw new ErrorGetting();
     }
