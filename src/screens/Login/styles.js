@@ -1,12 +1,12 @@
-import { StyleSheet } from 'react-native';
-import { COLORS, FONTS, SPACING } from '../../constants';
+import { StyleSheet } from "react-native";
+import { COLORS, FONTS, SPACING } from "../../models/constants";
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.secondary, 
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: COLORS.secondary,
+    alignItems: "center",
+    justifyContent: "center",
   },
   logo: {
     width: 200,
@@ -17,28 +17,28 @@ export default StyleSheet.create({
     backgroundColor: COLORS.primary,
     padding: SPACING.medium,
     borderRadius: SPACING.large,
-    width: '80%',
-    alignItems: 'center',
+    width: "80%",
+    alignItems: "center",
     marginBottom: SPACING.medium,
   },
   aboutButton: {
-    borderColor: COLORS.primary, 
-    borderWidth: 2, 
+    borderColor: COLORS.primary,
+    borderWidth: 2,
     padding: SPACING.medium,
     borderRadius: SPACING.large,
-    width: '80%',
-    alignItems: 'center',
+    width: "80%",
+    alignItems: "center",
   },
   buttonText: {
     color: COLORS.white,
     fontSize: FONTS.medium,
   },
   watermarkContainer: {
-    position: 'absolute',
+    position: "absolute",
     bottom: SPACING.small,
     left: 0,
     right: 0,
-    alignItems: 'center',
+    alignItems: "center",
   },
   watermarkText: {
     color: COLORS.white,

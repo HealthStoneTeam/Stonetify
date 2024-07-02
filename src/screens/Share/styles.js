@@ -1,5 +1,5 @@
 import { StyleSheet, StatusBar } from "react-native";
-import { COLORS, SPACING, FONTS } from "../../constants";
+import { COLORS, SPACING, FONTS } from "../../models/constants";
 
 export default StyleSheet.create({
   titleList: {
@@ -12,7 +12,7 @@ export default StyleSheet.create({
   textTitleList: {
     color: COLORS.white,
     fontSize: FONTS.mediumLarge,
-    textAlign: "center"
+    textAlign: "center",
   },
   containerSpotify: {
     flex: 1,

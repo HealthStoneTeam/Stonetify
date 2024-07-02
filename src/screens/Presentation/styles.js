@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { COLORS, FONTS, SPACING } from "../../constants";
+import { COLORS, FONTS, SPACING } from "../../models/constants";
 
 const styles = StyleSheet.create({
   container: {
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   textTitleList: {
     color: COLORS.white,
     fontSize: FONTS.mediumLarge,
-    textAlign: "center"
+    textAlign: "center",
   },
   searchButton: {
     backgroundColor: COLORS.darkGray,
@@ -57,15 +57,15 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.secondary,
   },
   shareButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     backgroundColor: COLORS.primary,
     padding: SPACING.extraSmall,
     borderRadius: SPACING.extraSmall,
   },
   shareButtonText: {
-    color: COLORS.white, 
-    fontSize: FONTS.large
+    color: COLORS.white,
+    fontSize: FONTS.large,
   },
 });
 

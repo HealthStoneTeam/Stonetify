@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { COLORS } from '../../constants';
+import { COLORS } from '../../models/constants';
 
 export default StyleSheet.create({
   avatarContainer: {

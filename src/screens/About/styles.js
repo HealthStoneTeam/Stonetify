@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { COLORS, FONTS, SPACING } from '../../constants';
+import { COLORS, FONTS, SPACING } from "../../models/constants";
 
 export default StyleSheet.create({
   container: {
@@ -13,28 +13,28 @@ export default StyleSheet.create({
     backgroundColor: COLORS.cardBackground,
     borderRadius: SPACING.small,
     padding: SPACING.medium,
-    width: '90%', 
-    marginBottom: SPACING.small, 
+    width: "90%",
+    marginBottom: SPACING.small,
   },
   title: {
     color: COLORS.white,
     fontSize: FONTS.title,
     marginBottom: SPACING.small,
-    textAlign: "left", 
+    textAlign: "left",
   },
   text: {
     color: COLORS.white,
     marginBottom: SPACING.large,
-    fontSize: FONTS.large, 
+    fontSize: FONTS.large,
   },
   center: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   link: {
     color: COLORS.primary,
     textAlign: "center",
-    fontSize: FONTS.large, 
+    fontSize: FONTS.large,
     marginBottom: SPACING.medium,
   },
   centeredView: {
@@ -42,22 +42,22 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: SPACING.medium,
-    padding: SPACING.small, 
+    padding: SPACING.small,
   },
   modalView: {
     margin: SPACING.medium,
-    backgroundColor: COLORS.cardBackground, 
+    backgroundColor: COLORS.cardBackground,
     borderRadius: SPACING.medium,
     padding: SPACING.medium,
     alignItems: "center",
     shadowColor: COLORS.secondary,
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
   modalText: {
     marginBottom: SPACING.medium,
@@ -70,12 +70,12 @@ export default StyleSheet.create({
     padding: SPACING.small,
     elevation: 2,
     marginTop: SPACING.medium,
-    width: '80%', 
+    width: "80%",
   },
   closeButtonText: {
     color: COLORS.white,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    fontSize: FONTS.medium, 
-  }
+    fontWeight: "bold",
+    textAlign: "center",
+    fontSize: FONTS.medium,
+  },
 });
