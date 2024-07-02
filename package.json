@@ -34,7 +34,14 @@
     "react-native-web": "~0.19.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "@tsconfig/react-native": "^3.0.5",
+    "@types/i18n-js": "^3.8.9",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.14.9",
+    "@types/react": "^18.3.3",
+    "@types/react-test-renderer": "^18.3.0",
+    "typescript": "^5.5.3"
   },
   "private": true
 }
