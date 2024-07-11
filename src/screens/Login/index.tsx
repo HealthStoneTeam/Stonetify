@@ -5,9 +5,11 @@ import styles from "./styles";
 import I18n from "../../../translations";
 import Loading from "../../components/loading";
 import { ErrorAuthenticating } from "../../errors";
+import { GenericDataProps } from "../../models/types/genericData";
+import { NavigationProps } from "../../models/types/navigation";
 
-export default function Login({ navigation }) {
-  const [loading, setLoading] = useState(true);
+export default function Login({ data } : GenericDataProps<NavigationProps>) {
+  const [loading, setLoading] = useState<boolean>(true);
   const { authenticate, getAccessToken } = useContext(AuthContext);
 
   useEffect(() => {
@@ -16,7 +18,7 @@ export default function Login({ navigation }) {
         const isLogged = await getAccessToken();
         setLoading(false);
         if (isLogged) {
-          navigation.navigate("Presentation");
+          data.navigation.navigate("Presentation");
         }
       } catch (error) {
         setLoading(false);
@@ -31,7 +33,7 @@ export default function Login({ navigation }) {
       setLoading(true);
       const isLogged = await authenticate();
       if (isLogged) {
-        navigation.navigate("Presentation");
+        data.navigation.navigate("Presentation");
       } else {
         Alert.alert(I18n.t("error"), I18n.t("authError"));
       }
@@ -48,7 +50,9 @@ export default function Login({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Loading isLoading={loading} />
+      <Loading data={{
+        isLoading: loading
+      }} />
       <Image style={styles.logo} source={require("../../../assets/logo.png")} />
       <TouchableOpacity style={styles.loginButton} onPress={goLogin}>
         <Text style={styles.buttonText}>{I18n.t("loginWithSpotify")}</Text>
@@ -56,7 +60,7 @@ export default function Login({ navigation }) {
 
       <TouchableOpacity
         style={styles.aboutButton}
-        onPress={() => navigation.navigate("About")}
+        onPress={() => data.navigation.navigate("About")}
       >
         <Text style={styles.buttonText}>{I18n.t("about")}</Text>
       </TouchableOpacity>

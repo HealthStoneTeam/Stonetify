@@ -3,26 +3,28 @@ import styles from "./styles";
 import { View, Text } from "react-native";
 import { Image } from "native-base";
 import I18n from "../../../translations";
+import { GenericDataProps } from "../../models/types/genericData";
+import { Items, ItemsProps } from "../../models/types/items";
 
-export default function Item({ showSpotify, item }) {
+export default function Item({ data }: GenericDataProps<ItemsProps>) {
   return (
     <View style={styles.item}>
-      <Image source={{ uri: item.image }} size={"sm"} alt="Ilustration" />
+      <Image source={{ uri: data.item.image }} size={"sm"} alt="Ilustration" />
       <View style={styles.details}>
         <View style={styles.titleContainer}>
           <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
-            {item.title}
+            {data.item.title}
           </Text>
-          {item.subtitle && (
+          {data.item.subtitle && (
             <Text
               style={styles.subtitle}
               numberOfLines={1}
               ellipsizeMode="tail"
             >
-              {item.subtitle}
+              {data.item.subtitle}
             </Text>
           )}
-          {showSpotify && (
+          {data.showSpotify && (
             <View style={styles.containerSpotify}>
               <Image
                 style={styles.iconSpotify}
@@ -33,7 +35,7 @@ export default function Item({ showSpotify, item }) {
             </View>
           )}
         </View>
-        <Text style={styles.subtitle}>{item.extraInfo}</Text>
+        <Text style={styles.subtitle}>{data.item.extraInfo}</Text>
       </View>
     </View>
   );

@@ -1,24 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { View, TouchableOpacity, Linking } from "react-native";
 import Item from "../item";
 import NotFound from "../notFound";
+import { GenericDataProps } from "../../models/types/genericData";
+import { ItemsListProps } from "../../models/types/itemsList";
+import { Items } from "../../models/types/items";
 
-export default function ItemsList({ data, showSpotify }) {
-  const [finalArray, setFinalArray] = useState(null);
+export default function ItemsList({ data }: GenericDataProps<ItemsListProps>) {
 
-  useEffect(() => {
-    function objectMapper() {
-      if (data?.data?.length) {
-        setFinalArray(data?.data);
-      } else {
-        setFinalArray([]);
-      }
-    }
-
-    objectMapper();
-  }, []);
-
-  function redirectSpotify(item) {
+  function redirectSpotify(item: Items) {
     if (item.uri || item.link) {
       Linking.canOpenURL(item.uri).then((supported) => {
         if (supported) {
@@ -30,16 +20,19 @@ export default function ItemsList({ data, showSpotify }) {
     }
   }
 
-  const renderItem = ({ item }) => (
+  const renderItem = (item: Items) => (
     <TouchableOpacity onPress={() => redirectSpotify(item)}>
-      <Item item={item} showSpotify={showSpotify} />
+      <Item data={{
+        item: item,
+        showSpotify: data.showSpotify
+      }} />
     </TouchableOpacity>
   );
 
-  return finalArray?.length ? (
+  return data.items?.length ? (
     <>
-      {finalArray?.map((item, index) => (
-        <View key={index}>{renderItem({ item, index })}</View>
+      {data.items?.map((item, index) => (
+        <View key={index}>{renderItem(item)}</View>
       ))}
     </>
   ) : (

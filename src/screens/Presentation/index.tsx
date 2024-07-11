@@ -20,6 +20,8 @@ import { AuthContext } from "../../contexts/auth";
 import Loading from "../../components/loading";
 import I18n from "../../../translations";
 import { ErrorAuthenticating, ErrorGetting } from "../../errors";
+import { ProfileProps } from "../../models/types/profile";
+import { DropdownItemProps } from "../../models/types/dropdown";
 
 export default function Presentation({ navigation }) {
   const [loading, setLoading] = useState(false);
@@ -55,7 +57,7 @@ export default function Presentation({ navigation }) {
 
   const [type, setType] = useState(null);
   const [range, setRange] = useState(null);
-  const [profileData, setProfileData] = useState(null);
+  const [profileData, setProfileData] = useState({} as ProfileProps);
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -83,7 +85,7 @@ export default function Presentation({ navigation }) {
     try {
       setType(options.type);
       setRange(options.range);
-      
+
       if (options.type && options.range) {
         setLoading(true);
         setData(null);
@@ -131,30 +133,41 @@ export default function Presentation({ navigation }) {
 
   return (
     <>
-      <Loading isLoading={loading} />
+      <Loading data={{
+        isLoading: loading
+      }} />
       <ScrollView
-        contentContainerStyle={{ paddingTop: StatusBar.currentHeight + 5 }}
+        contentContainerStyle={{ paddingTop: (StatusBar.currentHeight ?? 0) + 5 }}
         style={[styles.container, styles.mainBg]}
       >
         <View style={styles.header}>
           <Profile data={profileData} />
-          <Logout navigation={navigation} />
+          <Logout data={{
+            navigation: navigation
+          }}/>
         </View>
         <View style={styles.filterSection}>
           <Dropdown
-            options={metricOptions}
-            onSelect={(option) => getItems({type: option, range})}
+            data={{
+              options: metricOptions,
+              onSelect: (option: DropdownItemProps) => getItems({ type: option, range }),
+            }}
           />
           <Dropdown
-            options={periodOptions}
-            onSelect={(option) => getItems({range: option, type})}
+            data={{
+              options: periodOptions,
+              onSelect: (option: DropdownItemProps) => getItems({ range: option, type }),
+            }}
           />
         </View>
         {data && (
           <>
             <View style={styles.titleList}>
               <Text style={styles.textTitleList}>
-               {I18n.t('shareTitle', { username: profileData?.username, type: type?.value })}
+                {I18n.t("shareTitle", {
+                  username: profileData?.username,
+                  type: type?.value,
+                })}
               </Text>
             </View>
             <View style={styles.containerLogoSpotify}>
@@ -176,7 +189,10 @@ export default function Presentation({ navigation }) {
                 <Text style={styles.shareButtonText}> {I18n.t("share")}</Text>
               </TouchableOpacity>
             </View>
-            <ItemsList data={data} showSpotify={true} />
+            <ItemsList data={{
+              items: data,
+              showSpotify: true
+            }} />
           </>
         )}
       </ScrollView>

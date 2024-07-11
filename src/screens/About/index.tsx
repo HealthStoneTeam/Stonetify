@@ -3,12 +3,14 @@ import { Text, View, TouchableOpacity } from "react-native";
 import styles from './styles';
 import PrivacyPolicyModal from '../PrivacyPolicyModal/index';
 import I18n from '../../../translations';
+import { GenericDataProps } from '../../models/types/genericData';
+import { NavigationProps } from '../../models/types/navigation';
 
-export default function About({ navigation }) {
+export default function About({ data }: GenericDataProps<NavigationProps>) {
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    navigation.setOptions({
+    data.navigation.setOptions({
       headerShown: !modalVisible
     });
   }, [modalVisible]);

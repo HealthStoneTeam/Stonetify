@@ -6,9 +6,11 @@ import {
 import { createContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ErrorAuthenticating } from "../errors";
+import { AuthContextProps } from "../models/types/auth";
 
-export const AuthContext = createContext({});
+export const AuthContext = createContext<AuthContextProps>({});
 const clientId = process.env.SPOTIFY_CLIENT_ID;
+console.log(clientId);
 
 function AuthProvider({ children }) {
   async function authenticate() {

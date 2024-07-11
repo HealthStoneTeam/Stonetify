@@ -4,18 +4,20 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { Icon, Divider } from "native-base";
 import { Entypo } from "@expo/vector-icons";
 import I18n from "../../../translations";
+import { GenericDataProps } from "../../models/types/genericData";
+import { DropdownItemProps, DropdownProps } from "../../models/types/dropdown";
 
-export default function Dropdown({ options, onSelect }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
+export default function Dropdown({ data }: GenericDataProps<DropdownProps>) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedOption, setSelectedOption] = useState<DropdownItemProps>({} as DropdownItemProps);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleSelectOption = (option) => {
+  const handleSelectOption = (option: DropdownItemProps) => {
     setSelectedOption(option);
-    onSelect(option);
+    data.onSelect(option);
     setIsOpen(false);
   };
 
@@ -34,12 +36,12 @@ export default function Dropdown({ options, onSelect }) {
       </TouchableOpacity>
       {isOpen && (
         <View style={styles.optionsField}>
-          {options.map((item, index) => (
+          {data.options.map((item, index) => (
             <View key={index.toString()}>
               <TouchableOpacity onPress={() => handleSelectOption(item)}>
                 <Text style={styles.textOptionsField}>{item?.value}</Text>
               </TouchableOpacity>
-              {index < options.length - 1 && <Divider my="2" bg="#7B7B7B" />}
+              {index < data.options.length - 1 && <Divider my="2" bg="#7B7B7B" />}
             </View>
           ))}
         </View>

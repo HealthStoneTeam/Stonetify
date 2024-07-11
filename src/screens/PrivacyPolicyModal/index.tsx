@@ -3,8 +3,10 @@ import { Text, View, TouchableOpacity, Modal, Linking } from "react-native";
 import { useToast } from "native-base";
 import styles from "./styles";
 import I18n from "../../../translations";
+import { GenericDataProps } from "../../models/types/genericData";
+import { PrivacyPolicyModalProps } from "../../models/types/privacyPolicyModal";
 
-export default function PrivacyPolicyModal({ modalVisible, setModalVisible }) {
+export default function PrivacyPolicyModal({ data }: GenericDataProps<PrivacyPolicyModalProps>) {
   const toast = useToast();
   const toastId = "alert-toast";
 
@@ -28,9 +30,9 @@ export default function PrivacyPolicyModal({ modalVisible, setModalVisible }) {
     <Modal
       animationType="slide"
       transparent={true}
-      visible={modalVisible}
+      visible={data.modalVisible}
       onRequestClose={() => {
-        setModalVisible(!modalVisible);
+        data.setModalVisible(!data.modalVisible);
       }}
     >
       <View style={styles.centeredView}>
@@ -47,7 +49,7 @@ export default function PrivacyPolicyModal({ modalVisible, setModalVisible }) {
 
           <TouchableOpacity
             style={styles.closeButton}
-            onPress={() => setModalVisible(!modalVisible)}
+            onPress={() => data.setModalVisible(!data.modalVisible)}
           >
             <Text style={styles.closeButtonText}>{I18n.t("close")}</Text>
           </TouchableOpacity>
