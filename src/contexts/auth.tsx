@@ -6,9 +6,15 @@ import {
 import { createContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ErrorAuthenticating } from "../errors";
-import { AuthContextProps } from "../models/types/auth";
+import { AuthContextProps, AccessCodeProps } from "../models/types/auth";
+import { GenericDataProps } from '../models/types/genericData';
 
 export const AuthContext = createContext<AuthContextProps>({});
+
+if ( process.env.SPOTIFY_CLIENT_ID === undefined ){ 
+  throw new Error('ERRO AQUI'); // COLOCAR ERRO CERTO
+}
+
 const clientId = process.env.SPOTIFY_CLIENT_ID;
 console.log(clientId);
 
@@ -26,12 +32,13 @@ function AuthProvider({ children }) {
     const scheme = "stonetify";
     const path = "callback";
 
-    const accessCode = await getAccessCodeFromAPI(
+    const config : AccessCodeProps = {
       clientId,
       scopes,
       scheme,
-      path
-    );
+      path }
+
+    const accessCode = await getAccessCodeFromAPI( config );
 
     if (accessCode) {
       const objToken = await getAccessTokenFromAPI(

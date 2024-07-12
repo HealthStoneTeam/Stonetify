@@ -1,6 +1,9 @@
 import * as AppAuth from "expo-auth-session";
+import { AccessCodeProps, AccessTokenProps, RefreshedTokenProps } from '../../models/types/auth';
 
-export async function getAccessCodeFromAPI(clientId, scopes, scheme, path) {
+export async function getAccessCodeFromAPI( data : AccessCodeProps ) {
+
+  const { clientId, scopes, scheme, path } = data
   const discorery = await AppAuth.fetchDiscoveryAsync(
     "https://accounts.spotify.com"
   );
@@ -13,20 +16,19 @@ export async function getAccessCodeFromAPI(clientId, scopes, scheme, path) {
     }),
   };
   const request = await AppAuth.loadAsync(config, discorery);
-  const result = await request.promptAsync();
-  if (result.params.code) {
+  const result = await request.promptAsync(discorery); //VERIFICAR  
+  if (result.type === "success" && result.params && result.params.code) {
     const code = result.params.code;
-    const { redirectUri, codeVerifier } = request;
+    const redirectUri = request.redirectUri || "";
+    const codeVerifier = request.codeVerifier || "";
     return { code, redirectUri, codeVerifier };
   }
+  return null;
 }
 
-export async function getAccessTokenFromAPI(
-  clientId,
-  code,
-  verifier,
-  redirectUri
-) {
+export async function getAccessTokenFromAPI( data : AccessTokenProps ) {
+
+  const {clientId, code, verifier, redirectUri } = data
   const params = new URLSearchParams();
   params.append("client_id", clientId);
   params.append("grant_type", "authorization_code");
@@ -43,7 +45,9 @@ export async function getAccessTokenFromAPI(
   return await result.json();
 }
 
-export async function getRefreshedTokenFromAPI(clientId, refreshToken) {
+export async function getRefreshedTokenFromAPI( data : RefreshedTokenProps) {
+
+  const { clientId, refreshToken } = data;
   const params = new URLSearchParams();
   params.append("client_id", clientId);
   params.append("grant_type", "refresh_token");
