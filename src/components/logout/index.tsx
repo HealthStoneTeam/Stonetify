@@ -5,10 +5,9 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AuthContext } from "../../contexts/auth";
 import styles from "./styles";
 import I18n from "../../../translations";
-import { GenericDataProps } from "../../models/types/genericData";
 import { NavigationProps } from "../../models/types/navigation";
 
-export default function Logout({ data }: GenericDataProps<NavigationProps>) {
+export default function Logout({ navigation }: NavigationProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const onClose = () => setIsOpen(false);
   const { logout } = useContext(AuthContext);
@@ -17,7 +16,7 @@ export default function Logout({ data }: GenericDataProps<NavigationProps>) {
     try {
       await logout();
       onClose();
-      data.navigation.navigate("Login");
+      navigation.navigate("Login");
     } catch (error) {
       Alert.alert(I18n.t("error"), I18n.t("logoutError"));
     }

@@ -7,3 +7,8 @@ export type DropdownItemProps = {
   value: string,
   keyValue: string
 }
+
+export type FilterOptions = {
+  type: DropdownItemProps,
+  range: DropdownItemProps
+}

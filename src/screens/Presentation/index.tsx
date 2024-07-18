@@ -21,9 +21,11 @@ import Loading from "../../components/loading";
 import I18n from "../../../translations";
 import { ErrorAuthenticating, ErrorGetting } from "../../errors";
 import { ProfileProps } from "../../models/types/profile";
-import { DropdownItemProps } from "../../models/types/dropdown";
+import { DropdownItemProps, FilterOptions } from "../../models/types/dropdown";
+import { NavigationProps } from "../../models/types/navigation";
+import { Items } from "../../models/types/items";
 
-export default function Presentation({ navigation }) {
+export default function Presentation({ navigation }: NavigationProps) {
   const [loading, setLoading] = useState(false);
   const { getAccessToken } = useContext(AuthContext);
   const toast = useToast();
@@ -55,10 +57,10 @@ export default function Presentation({ navigation }) {
     },
   ];
 
-  const [type, setType] = useState(null);
-  const [range, setRange] = useState(null);
-  const [profileData, setProfileData] = useState({} as ProfileProps);
-  const [data, setData] = useState(null);
+  const [type, setType] = useState<DropdownItemProps>({} as DropdownItemProps);
+  const [range, setRange] = useState<DropdownItemProps>({} as DropdownItemProps);
+  const [profileData, setProfileData] = useState<ProfileProps>({} as ProfileProps);
+  const [data, setData] = useState<Items[]>();
 
   useEffect(() => {
     async function getProfileData() {
@@ -81,14 +83,14 @@ export default function Presentation({ navigation }) {
     getProfileData();
   }, []);
 
-  async function getItems(options) {
+  async function getItems(options: FilterOptions) {
     try {
       setType(options.type);
       setRange(options.range);
 
-      if (options.type && options.range) {
+      if (options.type?.keyValue && options.range?.keyValue) {
         setLoading(true);
-        setData(null);
+        setData([]);
         const defaultData = {
           limit: 10,
           offset: 0,
@@ -101,8 +103,7 @@ export default function Presentation({ navigation }) {
 
         const response = await getTopItems(getAccessToken, filterData);
         setLoading(false);
-
-        setData(response);
+        setData(response.data);
       }
     } catch (error) {
       if (error instanceof ErrorAuthenticating) {
@@ -119,7 +120,7 @@ export default function Presentation({ navigation }) {
   }
 
   async function goPreviewShareImage() {
-    if (data?.data?.length) {
+    if (data?.length) {
       navigation.navigate("Share", { data, profileData, type, range });
     } else {
       if (!toast.isActive(toastId)) {
@@ -142,9 +143,7 @@ export default function Presentation({ navigation }) {
       >
         <View style={styles.header}>
           <Profile data={profileData} />
-          <Logout data={{
-            navigation: navigation
-          }}/>
+          <Logout navigation={navigation}/>
         </View>
         <View style={styles.filterSection}>
           <Dropdown

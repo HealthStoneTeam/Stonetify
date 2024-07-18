@@ -3,14 +3,13 @@ import { Text, View, TouchableOpacity } from "react-native";
 import styles from './styles';
 import PrivacyPolicyModal from '../PrivacyPolicyModal/index';
 import I18n from '../../../translations';
-import { GenericDataProps } from '../../models/types/genericData';
 import { NavigationProps } from '../../models/types/navigation';
 
-export default function About({ data }: GenericDataProps<NavigationProps>) {
+export default function About({ navigation }: NavigationProps) {
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    data.navigation.setOptions({
+    navigation.setOptions({
       headerShown: !modalVisible
     });
   }, [modalVisible]);
@@ -24,7 +23,10 @@ export default function About({ data }: GenericDataProps<NavigationProps>) {
           <Text style={styles.link}>{I18n.t('privacyPolicyLink')}</Text>
         </TouchableOpacity>
 
-        <PrivacyPolicyModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
+        <PrivacyPolicyModal data={{
+          modalVisible: modalVisible,
+          setModalVisible: setModalVisible
+        }}/>
       </View>
     </View>
   );

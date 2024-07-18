@@ -43,7 +43,6 @@ export default function Share({ data }: GenericDataProps<ShareProps>) {
         data.navigation.goBack();
       }
     } catch (error) {
-      console.log(error);
       Alert.alert(I18n.t("error"), I18n.t("shareError"));
     } finally {
       setIsSharing(false);

@@ -5,10 +5,9 @@ import styles from "./styles";
 import I18n from "../../../translations";
 import Loading from "../../components/loading";
 import { ErrorAuthenticating } from "../../errors";
-import { GenericDataProps } from "../../models/types/genericData";
 import { NavigationProps } from "../../models/types/navigation";
 
-export default function Login({ data } : GenericDataProps<NavigationProps>) {
+export default function Login({ navigation } : NavigationProps) {
   const [loading, setLoading] = useState<boolean>(true);
   const { authenticate, getAccessToken } = useContext(AuthContext);
 
@@ -18,7 +17,7 @@ export default function Login({ data } : GenericDataProps<NavigationProps>) {
         const isLogged = await getAccessToken();
         setLoading(false);
         if (isLogged) {
-          data.navigation.navigate("Presentation");
+          navigation.navigate("Presentation");
         }
       } catch (error) {
         setLoading(false);
@@ -33,7 +32,7 @@ export default function Login({ data } : GenericDataProps<NavigationProps>) {
       setLoading(true);
       const isLogged = await authenticate();
       if (isLogged) {
-        data.navigation.navigate("Presentation");
+        navigation.navigate("Presentation");
       } else {
         Alert.alert(I18n.t("error"), I18n.t("authError"));
       }
@@ -60,7 +59,7 @@ export default function Login({ data } : GenericDataProps<NavigationProps>) {
 
       <TouchableOpacity
         style={styles.aboutButton}
-        onPress={() => data.navigation.navigate("About")}
+        onPress={() => navigation.navigate("About")}
       >
         <Text style={styles.buttonText}>{I18n.t("about")}</Text>
       </TouchableOpacity>

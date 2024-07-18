@@ -11,12 +11,11 @@ import { GenericDataProps } from '../models/types/genericData';
 
 export const AuthContext = createContext<AuthContextProps>({});
 
-if ( process.env.SPOTIFY_CLIENT_ID === undefined ){ 
+if (!process.env.SPOTIFY_CLIENT_ID) { 
   throw new Error('ERRO AQUI'); // COLOCAR ERRO CERTO
 }
 
 const clientId = process.env.SPOTIFY_CLIENT_ID;
-console.log(clientId);
 
 function AuthProvider({ children }) {
   async function authenticate() {
@@ -41,11 +40,12 @@ function AuthProvider({ children }) {
     const accessCode = await getAccessCodeFromAPI( config );
 
     if (accessCode) {
-      const objToken = await getAccessTokenFromAPI(
+      const objToken = await getAccessTokenFromAPI({
         clientId,
-        accessCode.code,
-        accessCode.codeVerifier,
-        accessCode.redirectUri
+        code: accessCode.code,
+        verifier: accessCode.codeVerifier,
+        redirectUri: accessCode.redirectUri
+      }
       );
       storeTokens(objToken);
       getStoredTokens();
@@ -75,10 +75,10 @@ function AuthProvider({ children }) {
         if (await validateAccessToken(savedTime, expirationTime)) {
           return accessToken;
         } else {
-          const tokensRawRefreshed = await getRefreshedTokenFromAPI(
+          const tokensRawRefreshed = await getRefreshedTokenFromAPI({
             clientId,
             refreshToken
-          );
+          });
           if (
             tokensRawRefreshed &&
             tokensRawRefreshed.access_token &&
