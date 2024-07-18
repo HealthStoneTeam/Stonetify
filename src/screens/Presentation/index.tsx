@@ -101,7 +101,7 @@ export default function Presentation({ navigation }: NavigationProps) {
           ...{ type: options.type?.keyValue, range: options.range?.keyValue },
         };
 
-        const response = await getTopItems(getAccessToken, filterData);
+        const response = await getTopItems({ getAccessToken, filterData });
         setLoading(false);
         setData(response.data);
       }
@@ -121,6 +121,7 @@ export default function Presentation({ navigation }: NavigationProps) {
 
   async function goPreviewShareImage() {
     if (data?.length) {
+      console.log(data);
       navigation.navigate("Share", { data, profileData, type, range });
     } else {
       if (!toast.isActive(toastId)) {

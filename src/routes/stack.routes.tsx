@@ -3,6 +3,7 @@ import Login from "../screens/Login";
 import About from "../screens/About";
 import Share from "../screens/Share";
 import Presentation from "../screens/Presentation";
+import React from 'react';
 
 const Stack = createStackNavigator();
 const headerStyle = {

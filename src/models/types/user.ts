@@ -1,7 +1,7 @@
 export type TopItemsFromApiProps = {
   accessToken: string,
   type: string,
-  range: number,
+  range: string,
   limit: number,
   offset: number
 }
@@ -10,7 +10,7 @@ export type TopItemsProps = {
   getAccessToken: Function,
   filterData: {
     type: string;
-    range: number;
+    range: string;
     limit: number;
     offset: number;
   }
@@ -36,8 +36,9 @@ export type ExtractArtistsInfoProps = {
 export type ArtistInfo = {
   id: number;
   title: string;
+  subtitle: string;
   extraInfo: number;
-  image: Image;
+  image: string;
   uri: string;
   link: string;
 }[]
@@ -65,7 +66,7 @@ export type TrackInfo = {
   title: string;
   subtitle: string;
   extraInfo: any;
-  image: Image;
+  image: string;
   uri: any;
   link: any;
 }[]

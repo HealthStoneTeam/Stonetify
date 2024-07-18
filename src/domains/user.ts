@@ -91,6 +91,7 @@ function extractArtistsInfo(data: ExtractArtistsInfoProps) {
         image,
         uri,
         link,
+        subtitle: ""
       });
     });
   }
