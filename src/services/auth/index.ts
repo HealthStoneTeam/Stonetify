@@ -20,15 +20,15 @@ export async function getAccessCodeFromAPI( data : AccessCodeProps ) {
   if (result.type === "success" && result.params && result.params.code) {
     const code = result.params.code;
     const redirectUri = request.redirectUri || "";
-    const codeVerifier = request.codeVerifier || "";
-    return { code, redirectUri, codeVerifier };
+    const verifier = request.codeVerifier || "";
+    return { code, redirectUri, verifier };
   }
   return null;
 }
 
-export async function getAccessTokenFromAPI( data : AccessTokenProps ) {
+export async function getAccessTokenFromAPI(data : AccessTokenProps) {
 
-  const {clientId, code, verifier, redirectUri } = data
+  const { clientId, code, verifier, redirectUri } = data
   const params = new URLSearchParams();
   params.append("client_id", clientId);
   params.append("grant_type", "authorization_code");
@@ -45,7 +45,7 @@ export async function getAccessTokenFromAPI( data : AccessTokenProps ) {
   return await result.json();
 }
 
-export async function getRefreshedTokenFromAPI( data : RefreshedTokenProps) {
+export async function getRefreshedTokenFromAPI(data : RefreshedTokenProps) {
 
   const { clientId, refreshToken } = data;
   const params = new URLSearchParams();

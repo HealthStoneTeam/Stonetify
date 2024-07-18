@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export type AuthContextProps = {
     authenticate: Function,
     logout: Function,
@@ -21,4 +23,15 @@ export type AccessTokenProps = {
 export type RefreshedTokenProps = {
     clientId: string,
     refreshToken: string
+}
+
+export type AuthProviderProps = {
+    children: ReactNode;
+}
+
+export type StoreTokensProps = {
+    access_token: string,
+    saved_time: number,
+    refresh_token: string,
+    expires_in: number
 }

@@ -1,8 +1,9 @@
 import { getProfileFromAPI, getTopItemsFromAPI } from "../services/user";
 
 import { ErrorAuthenticating, ErrorGetting } from "../errors";
+import { ArtistInfo, CoverProps, ExtractArtistsInfoProps, extractTracksInfoProps, ExtractUserInfoProps, TopItemsProps, TrackInfo } from "../models/types/user";
 
-export async function getProfile(getAccessToken) {
+export async function getProfile(getAccessToken: Function) {
   try {
     const accessToken = await getAccessToken();
     if (!accessToken) {
@@ -10,7 +11,7 @@ export async function getProfile(getAccessToken) {
     }
     const profileRaw = await getProfileFromAPI(accessToken);
     if (profileRaw) {
-      userInfo = await extractUserInfo(profileRaw);
+      const userInfo = await extractUserInfo(profileRaw);
 
       return userInfo;
     } else {
@@ -21,7 +22,7 @@ export async function getProfile(getAccessToken) {
   }
 }
 
-export async function getTopItems(getAccessToken, filterData) {
+export async function getTopItems({ getAccessToken, filterData }: TopItemsProps) {
   const accessToken = await getAccessToken();
   if (!filterData || !accessToken) {
     throw new ErrorAuthenticating();
@@ -30,19 +31,19 @@ export async function getTopItems(getAccessToken, filterData) {
   try {
     const { type, range, limit, offset } = filterData;
 
-    topItemsRaw = await getTopItemsFromAPI(
+    const topItemsRaw = await getTopItemsFromAPI({
       accessToken,
       type,
       range,
       limit,
       offset
-    );
+  });
 
     if (type === "artists") {
-      artistsInfo = extractArtistsInfo(topItemsRaw);
+      const artistsInfo = extractArtistsInfo(topItemsRaw);
       return { data: artistsInfo, type };
     } else if (type === "tracks") {
-      tracksInfo = extractTracksInfo(topItemsRaw);
+      const tracksInfo = extractTracksInfo(topItemsRaw);
       return { data: tracksInfo, type };
     } else {
       throw new ErrorGetting();
@@ -52,8 +53,8 @@ export async function getTopItems(getAccessToken, filterData) {
   }
 }
 
-function extractUserInfo(jsonData) {
-  const { display_name, id, images } = jsonData;
+function extractUserInfo(data: ExtractUserInfoProps) {
+  const { display_name, id, images } = data;
   let userImage;
 
   for (let i = 0; i < images.length; i++) {
@@ -72,11 +73,11 @@ function extractUserInfo(jsonData) {
   return userInfo;
 }
 
-function extractArtistsInfo(jsonData) {
-  const artistInfo = [];
+function extractArtistsInfo(data: ExtractArtistsInfoProps) {
+  const artistInfo: ArtistInfo = [];
 
-  if (jsonData && jsonData.items && Array.isArray(jsonData.items)) {
-    jsonData.items.forEach((item, index) => {
+  if (data && data.items && Array.isArray(data.items)) {
+    data.items.forEach((item, index) => {
       const title = item.name || "";
       const uri = item.uri;
       const link = item.external_urls.spotify;
@@ -97,11 +98,11 @@ function extractArtistsInfo(jsonData) {
   return artistInfo;
 }
 
-function extractTracksInfo(jsonData) {
-  const trackInfo = [];
+function extractTracksInfo(data: extractTracksInfoProps) {
+  const trackInfo: TrackInfo = [];
 
-  if (jsonData && jsonData.items && Array.isArray(jsonData.items)) {
-    jsonData.items.forEach((item, index) => {
+  if (data && data.items && Array.isArray(data.items)) {
+    data.items.forEach((item, index) => {
       const title = item.name || "";
       const uri = item.uri;
       const link = item.external_urls.spotify;
@@ -128,13 +129,13 @@ function extractTracksInfo(jsonData) {
   return trackInfo;
 }
 
-function millisecondsToMinutesAndSeconds(ms) {
+function millisecondsToMinutesAndSeconds(ms: number) {
   const minutes = Math.floor(ms / 60000);
-  const seconds = ((ms % 60000) / 1000).toFixed(0);
+  const seconds = Math.floor((ms % 60000) / 1000);
   return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 }
 
-function getCover(cover) {
+function getCover(cover: CoverProps) {
   let largestImage = null;
 
   if (

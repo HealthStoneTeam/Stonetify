@@ -6,18 +6,24 @@ import {
 import { createContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ErrorAuthenticating } from "../errors";
-import { AuthContextProps, AccessCodeProps } from "../models/types/auth";
+import { AuthContextProps, AccessCodeProps, AuthProviderProps, StoreTokensProps } from "../models/types/auth";
 import { GenericDataProps } from '../models/types/genericData';
+import React from 'react';
 
-export const AuthContext = createContext<AuthContextProps>({});
+
+export const AuthContext = createContext<AuthContextProps>({
+  authenticate: () => {},
+  logout: () => {},
+  getAccessToken: () => {},
+});
 
 if (!process.env.SPOTIFY_CLIENT_ID) { 
-  throw new Error('ERRO AQUI'); // COLOCAR ERRO CERTO
+  throw new Error('Forbidden.'); 
 }
 
 const clientId = process.env.SPOTIFY_CLIENT_ID;
 
-function AuthProvider({ children }) {
+function AuthProvider({ children }: AuthProviderProps) {
   async function authenticate() {
     const scopes = [
       "user-read-email",
@@ -40,11 +46,12 @@ function AuthProvider({ children }) {
     const accessCode = await getAccessCodeFromAPI( config );
 
     if (accessCode) {
+      const { code, verifier, redirectUri } = accessCode;
       const objToken = await getAccessTokenFromAPI({
         clientId,
-        code: accessCode.code,
-        verifier: accessCode.codeVerifier,
-        redirectUri: accessCode.redirectUri
+        code,
+        verifier,
+        redirectUri
       }
       );
       storeTokens(objToken);
@@ -96,7 +103,7 @@ function AuthProvider({ children }) {
     }
   }
 
-  async function validateAccessToken(savedTime, expirationTime) {
+  async function validateAccessToken(savedTime: number, expirationTime: Date) {
     const currentTime = new Date().getTime();
     const safeExpirationTime = Number(expirationTime) * 0.9;
     savedTime = new Date(savedTime).getTime();
@@ -104,7 +111,7 @@ function AuthProvider({ children }) {
     return safeExpirationTime >= differenceInSeconds;
   }
 
-  const storeTokens = async (tokenData) => {
+  const storeTokens = async (tokenData: StoreTokensProps) => {
     const savedTime = new Date().toISOString();
     const tokenDataToStore = { ...tokenData, saved_time: savedTime };
     await AsyncStorage.setItem("tokens", JSON.stringify(tokenDataToStore));
