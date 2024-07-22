@@ -60,7 +60,7 @@ export default function Presentation({ navigation }: NavigationProps) {
   const [type, setType] = useState<DropdownItemProps>({} as DropdownItemProps);
   const [range, setRange] = useState<DropdownItemProps>({} as DropdownItemProps);
   const [profileData, setProfileData] = useState<ProfileProps>({} as ProfileProps);
-  const [data, setData] = useState<Items[]>();
+  const [itemsData, setItemsData] = useState<Items[]>();
 
   useEffect(() => {
     async function getProfileData() {
@@ -90,7 +90,7 @@ export default function Presentation({ navigation }: NavigationProps) {
 
       if (options.type?.keyValue && options.range?.keyValue) {
         setLoading(true);
-        setData([]);
+        setItemsData([]);
         const defaultData = {
           limit: 10,
           offset: 0,
@@ -103,7 +103,7 @@ export default function Presentation({ navigation }: NavigationProps) {
 
         const response = await getTopItems({ getAccessToken, filterData });
         setLoading(false);
-        setData(response.data);
+        setItemsData(response.data);
       }
     } catch (error) {
       if (error instanceof ErrorAuthenticating) {
@@ -120,9 +120,8 @@ export default function Presentation({ navigation }: NavigationProps) {
   }
 
   async function goPreviewShareImage() {
-    if (data?.length) {
-      console.log(data);
-      navigation.navigate("Share", { data, profileData, type, range });
+    if (itemsData?.length) {
+      navigation.navigate("Share", { items: itemsData, profileData, type, range });
     } else {
       if (!toast.isActive(toastId)) {
         toast.show({
@@ -160,7 +159,7 @@ export default function Presentation({ navigation }: NavigationProps) {
             }}
           />
         </View>
-        {data && (
+        {itemsData && (
           <>
             <View style={styles.titleList}>
               <Text style={styles.textTitleList}>
@@ -190,7 +189,7 @@ export default function Presentation({ navigation }: NavigationProps) {
               </TouchableOpacity>
             </View>
             <ItemsList data={{
-              items: data,
+              items: itemsData,
               showSpotify: true
             }} />
           </>

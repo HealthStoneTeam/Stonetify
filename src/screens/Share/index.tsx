@@ -9,13 +9,14 @@ import * as Sharing from "expo-sharing";
 import { MaterialIcons } from "@expo/vector-icons";
 import { GenericDataProps } from "../../models/types/genericData";
 import { ShareProps } from "../../models/types/share";
+import { NavigationProps } from "../../models/types/navigation";
 
-export default function Share({ data }: GenericDataProps<ShareProps>) {
+export default function Share({ route, navigation }: ShareProps & NavigationProps) {
   const [isSharing, setIsSharing] = useState(false);
   const toast = useToast();
   const toastId = "alert-toast";
   const shareBodyRef = useRef(null);
-  const { items, profileData, type, range } = data.route.params;
+  const { items, profileData, type, range } = route.params;
 
   async function shareImage() {
     if (isSharing) {
@@ -40,7 +41,7 @@ export default function Share({ data }: GenericDataProps<ShareProps>) {
         } else {
           await Sharing.shareAsync(uri);
         }
-        data.navigation.goBack();
+        navigation.goBack();
       }
     } catch (error) {
       Alert.alert(I18n.t("error"), I18n.t("shareError"));
