@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text, TouchableOpacity, Modal, Alert } from "react-native";
 import { Icon } from "native-base";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
