@@ -42,10 +42,24 @@ const styles = StyleSheet.create({
   textSearchButton: {
     color: COLORS.white,
   },
+  appIconContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  applogo: {
+    width: 50,
+    height: 50,
+    marginRight: SPACING.extraSmall, 
+  },
+  appName: {
+    fontSize: FONTS.extraLarge,
+    color: COLORS.white, 
+  },
   logoSpotify: {
     width: 130,
     height: 39,
     marginVertical: SPACING.medium,
+    alignSelf: "center",
   },
   containerLogoSpotify: {
     flexDirection: "row",

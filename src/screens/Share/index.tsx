@@ -31,7 +31,7 @@ export default function Share({ route, navigation }: ShareProps & NavigationProp
 
     setIsSharing(true);
     try {
-      if (shareBodyRef.current) { 
+      if (shareBodyRef.current) {
         const uri = await captureRef(shareBodyRef.current, {
           format: "png",
           quality: 1,
@@ -67,21 +67,30 @@ export default function Share({ route, navigation }: ShareProps & NavigationProp
         <ScrollView ref={shareBodyRef} style={[styles.mainBg]}>
           <View style={styles.titleList}>
             <Text style={styles.textTitleList}>
-               {I18n.t('shareTitle', { username: profileData?.username, type: type?.value })}
+              {I18n.t('shareTitle', { username: profileData?.username, type: type?.value })}
             </Text>
             <Text style={styles.textTitleList}>{range?.value}</Text>
           </View>
-
           <ItemsList data={{
             items: items,
             showSpotify: false
           }} />
-          <View style={styles.containerSpotify}>
-            <Image
-              style={styles.logoSpotify}
-              source={require("../../../assets/spotifyLogo.png")}
-              alt="Spotify"
-            />
+          <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+            <View style={styles.appIconContainer}>
+              <Image
+                style={styles.appIcon}
+                source={require("../../../assets/icon.png")}
+                alt="App Icon"
+              />
+              <Text style={styles.appName}>Stonetify</Text>
+            </View>
+            <View style={styles.spotifyIconContainer}>
+              <Image
+                style={styles.logoSpotify}
+                source={require("../../../assets/spotifyLogo.png")}
+                alt="Spotify"
+              />
+            </View>
           </View>
         </ScrollView>
       </ScrollView>

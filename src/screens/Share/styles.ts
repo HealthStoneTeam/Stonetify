@@ -23,6 +23,7 @@ export default StyleSheet.create({
     width: 130,
     height: 39,
     marginVertical: SPACING.medium,
+    marginLeft: SPACING.medium,
   },
   shareButton: {
     position: "relative",
@@ -36,5 +37,28 @@ export default StyleSheet.create({
   },
   mainBg: {
     backgroundColor: COLORS.secondary,
+  },
+  iconsContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  appIconContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  appIcon: {
+    width: 50,
+    height: 50,
+  },
+  appName: {
+    fontSize: 28,
+    color: COLORS.white,
+    marginLeft: SPACING.extraSmall,
+    fontWeight: "bold",
+  },
+  spotifyIconContainer: {
+    marginLeft: SPACING.medium,
   },
 });

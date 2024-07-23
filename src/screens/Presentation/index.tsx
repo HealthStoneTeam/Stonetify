@@ -143,7 +143,7 @@ export default function Presentation({ navigation }: NavigationProps) {
       >
         <View style={styles.header}>
           <Profile data={profileData} />
-          <Logout navigation={navigation}/>
+          <Logout navigation={navigation} />
         </View>
         <View style={styles.filterSection}>
           <Dropdown
@@ -170,11 +170,14 @@ export default function Presentation({ navigation }: NavigationProps) {
               </Text>
             </View>
             <View style={styles.containerLogoSpotify}>
-              <Image
-                style={styles.logoSpotify}
-                source={require("../../../assets/spotifyLogo.png")}
-                alt="Spotify"
-              />
+              <View style={styles.appIconContainer}>
+                <Image
+                  style={styles.applogo}
+                  source={require("../../../assets/icon.png")}
+                  alt="App Icon"
+                />
+                <Text style={styles.appName}>Stonetify</Text>
+              </View>
               <TouchableOpacity
                 style={styles.shareButton}
                 onPress={goPreviewShareImage}
@@ -194,6 +197,11 @@ export default function Presentation({ navigation }: NavigationProps) {
             }} />
           </>
         )}
+        <Image
+          style={styles.logoSpotify}
+          source={require("../../../assets/spotifyLogo.png")}
+          alt="Spotify"
+        />
       </ScrollView>
     </>
   );

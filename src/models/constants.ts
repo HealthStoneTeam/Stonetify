@@ -8,6 +8,7 @@ export const COLORS = {
 };
 
 export const FONTS = {
+  extraLarge: 24,
   large: 20,
   mediumLarge: 18,
   medium: 16,
@@ -17,6 +18,7 @@ export const FONTS = {
 };
 
 export const SPACING = {
+  extraLarge: 24,
   large: 20,
   medium: 16,
   small: 12,
