@@ -46,14 +46,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  applogo: {
+  appIcon: {
     width: 50,
     height: 50,
-    marginRight: SPACING.extraSmall, 
   },
   appName: {
-    fontSize: FONTS.extraLarge,
-    color: COLORS.white, 
+    fontSize: 28,
+    color: COLORS.white,
+    marginLeft: SPACING.extraSmall,
+    fontWeight: "bold",
+  },
+  spotifyIconContainer: {
+    marginLeft: SPACING.medium,
   },
   logoSpotify: {
     width: 130,
@@ -80,6 +84,17 @@ const styles = StyleSheet.create({
   shareButtonText: {
     color: COLORS.white,
     fontSize: FONTS.large,
+  },
+  switchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: SPACING.medium,
+  },
+  switchLabel: {
+    color: COLORS.white,
+    fontSize: FONTS.medium,
+    marginRight: SPACING.small,
   },
 });
 

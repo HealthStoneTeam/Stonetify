@@ -58,6 +58,7 @@ I18n.translations = {
       "Error related to obtaining information, please try again later",
     share: "Share",
     shareTitle: "{{username}}'s {{type}}",
+    showImages: "Show images",
   },
   pt: {
     aboutTitle: "Sobre o Stonetify",
@@ -118,6 +119,7 @@ I18n.translations = {
       "Erro relacionado a obtenção das informações, por favor tente novamente mais tarde",
     share: "Compartilhar",
     shareTitle: "{{type}} por {{username}}",
+    showImages: "Mostrar imagens",
   },
 };
 

@@ -1,5 +1,5 @@
 import React, { useState, useRef, ReactInstance, RefObject } from "react";
-import { Text, View, Image, ScrollView, Alert, StatusBar } from "react-native";
+import { Text, View, Image, ScrollView, Alert, StatusBar, Switch } from "react-native";
 import styles from "./styles";
 import I18n from "../../../translations";
 import ItemsList from "../../components/itemsList";
@@ -10,9 +10,11 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { GenericDataProps } from "../../models/types/genericData";
 import { ShareProps } from "../../models/types/share";
 import { NavigationProps } from "../../models/types/navigation";
+import { COLORS } from "../../models/constants";
 
 export default function Share({ route, navigation }: ShareProps & NavigationProps) {
   const [isSharing, setIsSharing] = useState(false);
+  const [showImages, setShowImages] = useState(true);
   const toast = useToast();
   const toastId = "alert-toast";
   const shareBodyRef = useRef(null);
@@ -64,6 +66,21 @@ export default function Share({ route, navigation }: ShareProps & NavigationProp
           color={"#fff"}
           onPress={shareImage}
         />
+        <View style={styles.switchContainer}>
+          <Icon
+            as={MaterialIcons}
+            name="image"
+            size={7}
+            color={showImages ? COLORS.primary : COLORS.white}
+          />
+          <Switch
+            value={showImages}
+            onValueChange={setShowImages}
+            trackColor={{ false: COLORS.white, true: COLORS.primary }}
+            thumbColor={showImages ? COLORS.primary : COLORS.white}
+          />
+          
+        </View>
         <ScrollView ref={shareBodyRef} style={[styles.mainBg]}>
           <View style={styles.titleList}>
             <Text style={styles.textTitleList}>
@@ -73,7 +90,8 @@ export default function Share({ route, navigation }: ShareProps & NavigationProp
           </View>
           <ItemsList data={{
             items: items,
-            showSpotify: false
+            showSpotify: false,
+            showImages: showImages,
           }} />
           <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
             <View style={styles.appIconContainer}>

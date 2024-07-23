@@ -9,7 +9,9 @@ import { Items, ItemsProps } from "../../models/types/items";
 export default function Item({ data }: GenericDataProps<ItemsProps>) {
   return (
     <View style={styles.item}>
-      <Image source={{ uri: data.item.image }} size={"sm"} alt="Ilustration" />
+      {data.showImages && (
+        <Image source={{ uri: data.item.image }} size={"sm"} alt="Ilustration" />
+      )}
       <View style={styles.details}>
         <View style={styles.titleContainer}>
           <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">

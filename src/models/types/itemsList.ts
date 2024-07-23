@@ -2,5 +2,6 @@ import { Items } from "./items"
 
 export type ItemsListProps = {
   showSpotify: boolean,
-  items: Items[]
+  items: Items[],
+  showImages: boolean
 }

@@ -7,8 +7,10 @@ import {
   Alert,
   ScrollView,
   Image,
+  Button,
+  Switch,
 } from "react-native";
-import { useToast, Icon } from "native-base";
+import { useToast, Icon, Code } from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
 import styles from "./styles";
 import Profile from "../../components/profile";
@@ -24,9 +26,11 @@ import { ProfileProps } from "../../models/types/profile";
 import { DropdownItemProps, FilterOptions } from "../../models/types/dropdown";
 import { NavigationProps } from "../../models/types/navigation";
 import { Items } from "../../models/types/items";
+import { COLORS } from "../../models/constants";
 
 export default function Presentation({ navigation }: NavigationProps) {
   const [loading, setLoading] = useState(false);
+  const [showImages, setShowImages] = useState(true);
   const { getAccessToken } = useContext(AuthContext);
   const toast = useToast();
   const toastId = "alert-toast";
@@ -170,13 +174,19 @@ export default function Presentation({ navigation }: NavigationProps) {
               </Text>
             </View>
             <View style={styles.containerLogoSpotify}>
-              <View style={styles.appIconContainer}>
-                <Image
-                  style={styles.applogo}
-                  source={require("../../../assets/icon.png")}
-                  alt="App Icon"
+              <View style={styles.switchContainer}>
+                <Icon
+                  as={MaterialIcons}
+                  name="image"
+                  size={7}
+                  color={showImages ? COLORS.primary : COLORS.white}
                 />
-                <Text style={styles.appName}>Stonetify</Text>
+                <Switch
+                  value={showImages}
+                  onValueChange={setShowImages}
+                  trackColor={{ false: COLORS.white, true: COLORS.primary }}
+                  thumbColor={showImages ? COLORS.primary : COLORS.white}
+                />
               </View>
               <TouchableOpacity
                 style={styles.shareButton}
@@ -193,15 +203,28 @@ export default function Presentation({ navigation }: NavigationProps) {
             </View>
             <ItemsList data={{
               items: itemsData,
-              showSpotify: true
+              showSpotify: showImages,
+              showImages: showImages
             }} />
           </>
         )}
-        <Image
-          style={styles.logoSpotify}
-          source={require("../../../assets/spotifyLogo.png")}
-          alt="Spotify"
-        />
+        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+          <View style={styles.appIconContainer}>
+            <Image
+              style={styles.appIcon}
+              source={require("../../../assets/icon.png")}
+              alt="App Icon"
+            />
+            <Text style={styles.appName}>Stonetify</Text>
+          </View>
+          <View style={styles.spotifyIconContainer}>
+            <Image
+              style={styles.logoSpotify}
+              source={require("../../../assets/spotifyLogo.png")}
+              alt="Spotify"
+            />
+          </View>
+        </View>
       </ScrollView>
     </>
   );

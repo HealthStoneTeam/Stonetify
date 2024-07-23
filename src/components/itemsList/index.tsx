@@ -25,7 +25,7 @@ export default function ItemsList({ data }: GenericDataProps<ItemsListProps>) {
       <View style={styles.itemContainer}>
         <Text style={styles.itemNumber}>{index + 1}.</Text>
         <View style={styles.itemContent}>
-          <Item data={{ item: item, showSpotify: data.showSpotify }} />
+          <Item data={{ item: item, showSpotify: data.showSpotify, showImages: data.showImages }} />
         </View>
       </View>
     </TouchableOpacity>

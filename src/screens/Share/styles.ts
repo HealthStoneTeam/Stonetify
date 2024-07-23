@@ -28,7 +28,7 @@ export default StyleSheet.create({
   shareButton: {
     position: "relative",
     alignSelf: "flex-end",
-    top: StatusBar.currentHeight + 5 + SPACING.large,
+    top:  (StatusBar.currentHeight ?? 0)  + 5 + SPACING.large,
     zIndex: 1,
   },
   container: {
@@ -60,5 +60,16 @@ export default StyleSheet.create({
   },
   spotifyIconContainer: {
     marginLeft: SPACING.medium,
+  },
+  switchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: SPACING.medium,
+  },
+  switchLabel: {
+    color: COLORS.white,
+    fontSize: FONTS.medium,
+    marginRight: SPACING.small,
   },
 });
