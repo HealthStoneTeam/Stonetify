@@ -1,14 +1,14 @@
 export type DropdownProps = {
-  options: DropdownItemProps[],
-  onSelect: Function
-}
+  options: DropdownItemProps[];
+  onSelect: Function;
+};
 
 export type DropdownItemProps = {
-  value: string,
-  keyValue: string
-}
+  label: string;
+  value: string;
+};
 
 export type FilterOptions = {
-  type: DropdownItemProps,
-  range: DropdownItemProps
-}
+  type: DropdownItemProps;
+  range: DropdownItemProps;
+};

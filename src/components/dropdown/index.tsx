@@ -9,7 +9,9 @@ import { DropdownItemProps, DropdownProps } from "../../models/types/dropdown";
 
 export default function Dropdown({ data }: GenericDataProps<DropdownProps>) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectedOption, setSelectedOption] = useState<DropdownItemProps>({} as DropdownItemProps);
+  const [selectedOption, setSelectedOption] = useState<DropdownItemProps>(
+    {} as DropdownItemProps
+  );
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -25,7 +27,7 @@ export default function Dropdown({ data }: GenericDataProps<DropdownProps>) {
     <View style={styles.container}>
       <TouchableOpacity style={styles.selectField} onPress={toggleDropdown}>
         <Text style={styles.textSelectField}>
-          {selectedOption?.value || I18n.t("selectOption")}
+          {selectedOption?.label || I18n.t("selectOption")}
         </Text>
 
         {isOpen ? (
@@ -39,9 +41,11 @@ export default function Dropdown({ data }: GenericDataProps<DropdownProps>) {
           {data.options.map((item, index) => (
             <View key={index.toString()}>
               <TouchableOpacity onPress={() => handleSelectOption(item)}>
-                <Text style={styles.textOptionsField}>{item?.value}</Text>
+                <Text style={styles.textOptionsField}>{item?.label}</Text>
               </TouchableOpacity>
-              {index < data.options.length - 1 && <Divider my="2" bg="#7B7B7B" />}
+              {index < data.options.length - 1 && (
+                <Divider my="2" bg="#7B7B7B" />
+              )}
             </View>
           ))}
         </View>

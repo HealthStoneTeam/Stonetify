@@ -1,9 +1,10 @@
+import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from "../screens/Login";
 import About from "../screens/About";
 import Share from "../screens/Share";
 import Presentation from "../screens/Presentation";
-import React from 'react';
+import { Pages } from "../models/enums/pages";
 
 const Stack = createStackNavigator();
 const headerStyle = {
@@ -16,17 +17,25 @@ export default function StackRoutes() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Login"
+        name={Pages.LOGIN}
         component={Login}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Presentation"
+        name={Pages.PRESENTATION}
         component={Presentation}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="Share" component={Share} options={headerStyle} />
-      <Stack.Screen name="About" component={About} options={headerStyle} />
+      <Stack.Screen
+        name={Pages.SHARE}
+        component={Share}
+        options={headerStyle}
+      />
+      <Stack.Screen
+        name={Pages.ABOUT}
+        component={About}
+        options={headerStyle}
+      />
     </Stack.Navigator>
   );
 }

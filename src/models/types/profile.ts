@@ -1,5 +1,5 @@
 export type ProfileProps = {
-  username: string,
+  username: string;
   userID: string;
   userImage?: string;
-}
+};

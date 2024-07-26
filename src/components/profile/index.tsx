@@ -1,3 +1,4 @@
+import React from "react";
 import { Text, View } from "react-native";
 import AvatarProfile from "../avatarProfile";
 import styles from "./styles";

@@ -14,21 +14,10 @@ export default StyleSheet.create({
     fontSize: FONTS.mediumLarge,
     textAlign: "center",
   },
-  containerSpotify: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  logoSpotify: {
-    width: 130,
-    height: 39,
-    marginVertical: SPACING.medium,
-    marginLeft: SPACING.medium,
-  },
   shareButton: {
     position: "relative",
     alignSelf: "flex-end",
-    top:  (StatusBar.currentHeight ?? 0)  + 5 + SPACING.large,
+    top: (StatusBar.currentHeight ?? 0) + 5 + SPACING.large,
     zIndex: 1,
   },
   container: {
@@ -37,39 +26,5 @@ export default StyleSheet.create({
   },
   mainBg: {
     backgroundColor: COLORS.secondary,
-  },
-  iconsContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  appIconContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  appIcon: {
-    width: 50,
-    height: 50,
-  },
-  appName: {
-    fontSize: 28,
-    color: COLORS.white,
-    marginLeft: SPACING.extraSmall,
-    fontWeight: "bold",
-  },
-  spotifyIconContainer: {
-    marginLeft: SPACING.medium,
-  },
-  switchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: SPACING.medium,
-  },
-  switchLabel: {
-    color: COLORS.white,
-    fontSize: FONTS.medium,
-    marginRight: SPACING.small,
   },
 });

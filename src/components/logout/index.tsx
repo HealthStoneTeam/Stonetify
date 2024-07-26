@@ -6,6 +6,7 @@ import { AuthContext } from "../../contexts/auth";
 import styles from "./styles";
 import I18n from "../../../translations";
 import { NavigationProps } from "../../models/types/navigation";
+import { Pages } from "../../models/enums/pages";
 
 export default function Logout({ navigation }: NavigationProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -16,7 +17,7 @@ export default function Logout({ navigation }: NavigationProps) {
     try {
       await logout();
       onClose();
-      navigation.navigate("Login");
+      navigation.navigate(Pages.LOGIN);
     } catch (error) {
       Alert.alert(I18n.t("error"), I18n.t("logoutError"));
     }

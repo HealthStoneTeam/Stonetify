@@ -6,10 +6,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: SPACING.medium,
   },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
   filterSection: {
     flexDirection: "column",
     alignItems: "center",
@@ -22,11 +18,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: SPACING.large,
-  },
-  textTitleList: {
-    color: COLORS.white,
-    fontSize: FONTS.mediumLarge,
-    textAlign: "center",
   },
   searchButton: {
     backgroundColor: COLORS.darkGray,
@@ -41,29 +32,6 @@ const styles = StyleSheet.create({
   },
   textSearchButton: {
     color: COLORS.white,
-  },
-  appIconContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  appIcon: {
-    width: 50,
-    height: 50,
-  },
-  appName: {
-    fontSize: 28,
-    color: COLORS.white,
-    marginLeft: SPACING.extraSmall,
-    fontWeight: "bold",
-  },
-  spotifyIconContainer: {
-    marginLeft: SPACING.medium,
-  },
-  logoSpotify: {
-    width: 130,
-    height: 39,
-    marginVertical: SPACING.medium,
-    alignSelf: "center",
   },
   containerLogoSpotify: {
     flexDirection: "row",
@@ -84,17 +52,6 @@ const styles = StyleSheet.create({
   shareButtonText: {
     color: COLORS.white,
     fontSize: FONTS.large,
-  },
-  switchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: SPACING.medium,
-  },
-  switchLabel: {
-    color: COLORS.white,
-    fontSize: FONTS.medium,
-    marginRight: SPACING.small,
   },
 });
 

@@ -5,12 +5,16 @@ import { ProfileProps } from "./profile";
 import { DropdownItemProps } from "./dropdown";
 
 export type ShareProps = NavigationProps & {
-  route: RouteProp<{
-    params: {
-      items: Items[],
-      profileData: ProfileProps,
-      type: DropdownItemProps,
-      range: DropdownItemProps
-    }
-  }, 'params'>,
-}
+  route: RouteProp<
+    {
+      params: {
+        items: Items[];
+        profileData: ProfileProps;
+        type: DropdownItemProps;
+        range: DropdownItemProps;
+      };
+    },
+    "params"
+  > &
+    any;
+};

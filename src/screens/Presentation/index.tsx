@@ -6,17 +6,11 @@ import {
   StatusBar,
   Alert,
   ScrollView,
-  Image,
-  Button,
-  Switch,
 } from "react-native";
-import { useToast, Icon, Code } from "native-base";
+import { useToast, Icon } from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
 import styles from "./styles";
-import Profile from "../../components/profile";
-import Dropdown from "../../components/dropdown";
 import ItemsList from "../../components/itemsList";
-import Logout from "../../components/logout";
 import { getProfile, getTopItems } from "../../domains/user";
 import { AuthContext } from "../../contexts/auth";
 import Loading from "../../components/loading";
@@ -26,45 +20,28 @@ import { ProfileProps } from "../../models/types/profile";
 import { DropdownItemProps, FilterOptions } from "../../models/types/dropdown";
 import { NavigationProps } from "../../models/types/navigation";
 import { Items } from "../../models/types/items";
-import { COLORS } from "../../models/constants";
+import TitleList from "../../components/titleList";
+import FooterList from "../../components/footerList";
+import SwitchImage from "../../components/switchImage";
+import Header from "../../components/header";
+import Filter from "../../components/filter";
+import { Pages } from "../../models/enums/pages";
+import { Toast } from "../../models/enums/toast";
 
 export default function Presentation({ navigation }: NavigationProps) {
-  const [loading, setLoading] = useState(false);
-  const [showImages, setShowImages] = useState(true);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [showImages, setShowImages] = useState<boolean>(true);
+  const [type, setType] = useState<DropdownItemProps>({} as DropdownItemProps);
+  const [range, setRange] = useState<DropdownItemProps>(
+    {} as DropdownItemProps
+  );
+  const [profileData, setProfileData] = useState<ProfileProps>(
+    {} as ProfileProps
+  );
+  const [itemsData, setItemsData] = useState<Items[]>();
   const { getAccessToken } = useContext(AuthContext);
   const toast = useToast();
-  const toastId = "alert-toast";
-
-  const metricOptions = [
-    {
-      keyValue: "tracks",
-      value: I18n.t("topTracks"),
-    },
-    {
-      keyValue: "artists",
-      value: I18n.t("topArtist"),
-    },
-  ];
-
-  const periodOptions = [
-    {
-      keyValue: "short_term",
-      value: I18n.t("lastMonth"),
-    },
-    {
-      keyValue: "medium_term",
-      value: I18n.t("last6Months"),
-    },
-    {
-      keyValue: "long_term",
-      value: I18n.t("allTime"),
-    },
-  ];
-
-  const [type, setType] = useState<DropdownItemProps>({} as DropdownItemProps);
-  const [range, setRange] = useState<DropdownItemProps>({} as DropdownItemProps);
-  const [profileData, setProfileData] = useState<ProfileProps>({} as ProfileProps);
-  const [itemsData, setItemsData] = useState<Items[]>();
+  const toastId = Toast.ID;
 
   useEffect(() => {
     async function getProfileData() {
@@ -92,7 +69,7 @@ export default function Presentation({ navigation }: NavigationProps) {
       setType(options.type);
       setRange(options.range);
 
-      if (options.type?.keyValue && options.range?.keyValue) {
+      if (options.type?.value && options.range?.value) {
         setLoading(true);
         setItemsData([]);
         const defaultData = {
@@ -102,7 +79,7 @@ export default function Presentation({ navigation }: NavigationProps) {
 
         const filterData = {
           ...defaultData,
-          ...{ type: options.type?.keyValue, range: options.range?.keyValue },
+          ...{ type: options.type?.value, range: options.range?.value },
         };
 
         const response = await getTopItems({ getAccessToken, filterData });
@@ -125,7 +102,12 @@ export default function Presentation({ navigation }: NavigationProps) {
 
   async function goPreviewShareImage() {
     if (itemsData?.length) {
-      navigation.navigate("Share", { items: itemsData, profileData, type, range });
+      navigation.navigate(Pages.SHARE, {
+        items: itemsData,
+        profileData,
+        type,
+        range,
+      });
     } else {
       if (!toast.isActive(toastId)) {
         toast.show({
@@ -138,56 +120,47 @@ export default function Presentation({ navigation }: NavigationProps) {
 
   return (
     <>
-      <Loading data={{
-        isLoading: loading
-      }} />
+      <Loading
+        data={{
+          isLoading: loading,
+        }}
+      />
       <ScrollView
-        contentContainerStyle={{ paddingTop: (StatusBar.currentHeight ?? 0) + 5 }}
+        contentContainerStyle={{
+          paddingTop: (StatusBar.currentHeight ?? 0) + 5,
+        }}
         style={[styles.container, styles.mainBg]}
       >
-        <View style={styles.header}>
-          <Profile data={profileData} />
-          <Logout navigation={navigation} />
-        </View>
-        <View style={styles.filterSection}>
-          <Dropdown
-            data={{
-              options: metricOptions,
-              onSelect: (option: DropdownItemProps) => getItems({ type: option, range }),
-            }}
-          />
-          <Dropdown
-            data={{
-              options: periodOptions,
-              onSelect: (option: DropdownItemProps) => getItems({ range: option, type }),
-            }}
-          />
-        </View>
+        <Header
+          data={{
+            navigation: navigation,
+            profileData: profileData,
+          }}
+        />
+        <Filter
+          data={{
+            getItems: getItems,
+            range,
+            type,
+          }}
+        />
         {itemsData && (
           <>
             <View style={styles.titleList}>
-              <Text style={styles.textTitleList}>
-                {I18n.t("shareTitle", {
-                  username: profileData?.username,
+              <TitleList
+                data={{
                   type: type?.value,
-                })}
-              </Text>
+                  username: profileData?.username,
+                }}
+              ></TitleList>
             </View>
             <View style={styles.containerLogoSpotify}>
-              <View style={styles.switchContainer}>
-                <Icon
-                  as={MaterialIcons}
-                  name="image"
-                  size={7}
-                  color={showImages ? COLORS.primary : COLORS.white}
-                />
-                <Switch
-                  value={showImages}
-                  onValueChange={setShowImages}
-                  trackColor={{ false: COLORS.white, true: COLORS.primary }}
-                  thumbColor={showImages ? COLORS.primary : COLORS.white}
-                />
-              </View>
+              <SwitchImage
+                data={{
+                  setShowImages: setShowImages,
+                  showImages: showImages,
+                }}
+              />
               <TouchableOpacity
                 style={styles.shareButton}
                 onPress={goPreviewShareImage}
@@ -201,30 +174,16 @@ export default function Presentation({ navigation }: NavigationProps) {
                 <Text style={styles.shareButtonText}> {I18n.t("share")}</Text>
               </TouchableOpacity>
             </View>
-            <ItemsList data={{
-              items: itemsData,
-              showSpotify: showImages,
-              showImages: showImages
-            }} />
+            <ItemsList
+              data={{
+                items: itemsData,
+                showSpotify: showImages,
+                showImages: showImages,
+              }}
+            />
           </>
         )}
-        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-          <View style={styles.appIconContainer}>
-            <Image
-              style={styles.appIcon}
-              source={require("../../../assets/icon.png")}
-              alt="App Icon"
-            />
-            <Text style={styles.appName}>Stonetify</Text>
-          </View>
-          <View style={styles.spotifyIconContainer}>
-            <Image
-              style={styles.logoSpotify}
-              source={require("../../../assets/spotifyLogo.png")}
-              alt="Spotify"
-            />
-          </View>
-        </View>
+        <FooterList />
       </ScrollView>
     </>
   );

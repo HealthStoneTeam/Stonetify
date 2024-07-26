@@ -5,10 +5,13 @@ import styles from "./styles";
 import I18n from "../../../translations";
 import { GenericDataProps } from "../../models/types/genericData";
 import { PrivacyPolicyModalProps } from "../../models/types/privacyPolicyModal";
+import { Toast } from "../../models/enums/toast";
 
-export default function PrivacyPolicyModal({ data }: GenericDataProps<PrivacyPolicyModalProps>) {
+export default function PrivacyPolicyModal({
+  data,
+}: GenericDataProps<PrivacyPolicyModalProps>) {
   const toast = useToast();
-  const toastId = "alert-toast";
+  const toastId = Toast.ID;
 
   async function redirectToUrl() {
     const url = "https://support.spotify.com/us/article/spotify-on-other-apps/";

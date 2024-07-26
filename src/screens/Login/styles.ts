@@ -39,9 +39,5 @@ export default StyleSheet.create({
     left: 0,
     right: 0,
     alignItems: "center",
-  },
-  watermarkText: {
-    color: COLORS.white,
-    fontSize: FONTS.small,
-  },
+  }
 });

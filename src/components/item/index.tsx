@@ -4,13 +4,17 @@ import { View, Text } from "react-native";
 import { Image } from "native-base";
 import I18n from "../../../translations";
 import { GenericDataProps } from "../../models/types/genericData";
-import { Items, ItemsProps } from "../../models/types/items";
+import { ItemsProps } from "../../models/types/items";
 
 export default function Item({ data }: GenericDataProps<ItemsProps>) {
   return (
     <View style={styles.item}>
       {data.showImages && (
-        <Image source={{ uri: data.item.image }} size={"sm"} alt="Ilustration" />
+        <Image
+          source={{ uri: data.item.image }}
+          size={"sm"}
+          alt="Ilustration"
+        />
       )}
       <View style={styles.details}>
         <View style={styles.titleContainer}>
