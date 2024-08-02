@@ -6,6 +6,7 @@ import {
   StatusBar,
   Alert,
   ScrollView,
+  Image,
 } from "react-native";
 import { useToast, Icon } from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -149,18 +150,20 @@ export default function Presentation({ navigation }: NavigationProps) {
             <View style={styles.titleList}>
               <TitleList
                 data={{
-                  type: type?.value,
+                  type: type?.label,
                   username: profileData?.username,
                 }}
               ></TitleList>
             </View>
-            <View style={styles.containerLogoSpotify}>
-              <SwitchImage
-                data={{
-                  setShowImages: setShowImages,
-                  showImages: showImages,
-                }}
-              />
+            <View style={styles.headerContent}>
+              <View style={styles.appIconContainer}>
+                <Image
+                  style={styles.appIcon}
+                  source={require("../../../assets/icon.png")}
+                  alt="App Icon"
+                />
+                <Text style={styles.appName}>Stonetify</Text>
+              </View>
               <TouchableOpacity
                 style={styles.shareButton}
                 onPress={goPreviewShareImage}
@@ -181,9 +184,10 @@ export default function Presentation({ navigation }: NavigationProps) {
                 showImages: showImages,
               }}
             />
+            <FooterList />
           </>
         )}
-        <FooterList />
+        
       </ScrollView>
     </>
   );

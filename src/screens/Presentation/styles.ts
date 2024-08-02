@@ -33,11 +33,26 @@ const styles = StyleSheet.create({
   textSearchButton: {
     color: COLORS.white,
   },
-  containerLogoSpotify: {
+  appIcon: {
+    width: 50,
+    height: 50,
+  },
+  appName: {
+    fontSize: 28,
+    color: COLORS.white,
+    marginLeft: SPACING.extraSmall,
+    fontWeight: "bold",
+  },
+  appIconContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  headerContent: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     width: "100%",
+    paddingBottom: SPACING.large,
   },
   mainBg: {
     backgroundColor: COLORS.secondary,
