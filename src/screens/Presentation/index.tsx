@@ -23,15 +23,14 @@ import { NavigationProps } from "../../models/types/navigation";
 import { Items } from "../../models/types/items";
 import TitleList from "../../components/titleList";
 import FooterList from "../../components/footerList";
-import SwitchImage from "../../components/switchImage";
 import Header from "../../components/header";
 import Filter from "../../components/filter";
 import { Pages } from "../../models/enums/pages";
 import { Toast } from "../../models/enums/toast";
+import { Filters } from "../../models/enums/filters";
 
 export default function Presentation({ navigation }: NavigationProps) {
   const [loading, setLoading] = useState<boolean>(false);
-  const [showImages, setShowImages] = useState<boolean>(true);
   const [type, setType] = useState<DropdownItemProps>({} as DropdownItemProps);
   const [range, setRange] = useState<DropdownItemProps>(
     {} as DropdownItemProps
@@ -180,8 +179,8 @@ export default function Presentation({ navigation }: NavigationProps) {
             <ItemsList
               data={{
                 items: itemsData,
-                showSpotify: showImages,
-                showImages: showImages,
+                showSpotify: true,
+                mode: Filters.NORMAL_MODE,
               }}
             />
             <FooterList />

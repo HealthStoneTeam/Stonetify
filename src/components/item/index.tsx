@@ -5,11 +5,12 @@ import { Image } from "native-base";
 import I18n from "../../../translations";
 import { GenericDataProps } from "../../models/types/genericData";
 import { ItemsProps } from "../../models/types/items";
+import { Filters } from "../../models/enums/filters";
 
 export default function Item({ data }: GenericDataProps<ItemsProps>) {
   return (
     <View style={styles.item}>
-      {data.showImages && (
+      {data.mode !== Filters.LITE_MODE && (
         <Image
           source={{ uri: data.item.image }}
           size={"sm"}

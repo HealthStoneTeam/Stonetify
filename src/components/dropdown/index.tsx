@@ -10,9 +10,9 @@ import { DropdownItemProps, DropdownProps } from "../../models/types/dropdown";
 export default function Dropdown({ data }: GenericDataProps<DropdownProps>) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<DropdownItemProps>(
-    {} as DropdownItemProps
+    data.selected ? data.selected : {} as DropdownItemProps
   );
-
+  
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };

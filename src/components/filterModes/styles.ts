@@ -2,11 +2,12 @@ import { StyleSheet } from "react-native";
 import { SPACING } from "../../models/constants";
 
 const styles = StyleSheet.create({
-  switchContainer: {
-    flexDirection: "row",
+  filterSection: {
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    marginVertical: SPACING.medium,
+    width: "100%",
+    rowGap: SPACING.large,
   },
 });
 

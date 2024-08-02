@@ -14,17 +14,32 @@ export default StyleSheet.create({
     fontSize: FONTS.mediumLarge,
     textAlign: "center",
   },
-  shareButton: {
-    position: "relative",
-    alignSelf: "flex-end",
-    top: (StatusBar.currentHeight ?? 0) + 5 + SPACING.large,
-    zIndex: 1,
-  },
   container: {
     flex: 1,
     paddingHorizontal: SPACING.medium,
   },
   mainBg: {
     backgroundColor: COLORS.secondary,
+  },
+  headerContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+    marginVertical: SPACING.medium,
+  },
+  appIcon: {
+    width: 50,
+    height: 50,
+  },
+  appName: {
+    fontSize: 28,
+    color: COLORS.white,
+    marginLeft: SPACING.extraSmall,
+    fontWeight: "bold",
+  },
+  appIconContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

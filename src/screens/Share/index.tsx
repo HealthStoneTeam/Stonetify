@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
-import { Text, View, ScrollView, Alert, StatusBar } from "react-native";
+import { Text, View, ScrollView, Alert, StatusBar, Image } from "react-native";
+import Profile from "../../components/profile";
 import styles from "./styles";
 import I18n from "../../../translations";
 import ItemsList from "../../components/itemsList";
@@ -11,7 +12,8 @@ import { ShareProps } from "../../models/types/share";
 import { NavigationProps } from "../../models/types/navigation";
 import TitleList from "../../components/titleList";
 import FooterList from "../../components/footerList";
-import SwitchImage from "../../components/switchImage";
+import FilterModes from "../../components/filterModes";
+import { Filters } from "../../models/enums/filters";
 import { Toast } from "../../models/enums/toast";
 
 export default function Share({
@@ -19,7 +21,7 @@ export default function Share({
   navigation,
 }: ShareProps & NavigationProps) {
   const [isSharing, setIsSharing] = useState(false);
-  const [showImages, setShowImages] = useState(true);
+  const [mode, setMode] = useState(Filters.NORMAL_MODE);
   const toast = useToast();
   const toastId = Toast.ID;
   const shareBodyRef = useRef(null);
@@ -66,34 +68,46 @@ export default function Share({
         style={[styles.container, styles.mainBg]}
       >
         <Icon
-          style={styles.shareButton}
-          as={MaterialIcons}
-          name="share"
-          size={10}
-          color={"#fff"}
-          onPress={shareImage}
-        />
-        <SwitchImage
-          data={{
-            setShowImages: setShowImages,
-            showImages: showImages,
-          }}
-        />
+            style={{ marginTop: 4, alignSelf: "flex-end"}}
+            as={MaterialIcons}
+            name="share"
+            size={10}
+            color={"#fff"}
+            onPress={shareImage}
+          />
+        <View style={styles.headerContainer}>
+          <View>
+            <FilterModes
+              data={{
+                setMode,
+                selected:{ value: mode, label: I18n.t('normalMode') },
+              }}
+            />
+          </View>
+        </View>
         <ScrollView ref={shareBodyRef} style={[styles.mainBg]}>
           <View style={styles.titleList}>
             <TitleList
               data={{
-                type: type?.value,
+                type: type?.label,
                 username: profileData?.username,
               }}
             ></TitleList>
-            <Text style={styles.textTitleList}>{range?.value}</Text>
+            <Text style={styles.textTitleList}>{range?.label}</Text>
+          </View>
+          <View style={styles.appIconContainer}>
+            <Image
+              style={styles.appIcon}
+              source={require("../../../assets/icon.png")}
+              alt="App Icon"
+            />
+            <Text style={styles.appName}>Stonetify</Text>
           </View>
           <ItemsList
             data={{
               items: items,
               showSpotify: false,
-              showImages: showImages,
+              mode: mode,
             }}
           />
           <FooterList />

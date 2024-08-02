@@ -1,7 +1,7 @@
 export type ItemsProps = {
   showSpotify: boolean,
   item: Items,
-  showImages: boolean
+  mode: string
 }
 
 export type Items = {

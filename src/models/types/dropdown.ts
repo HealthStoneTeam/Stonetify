@@ -1,6 +1,7 @@
 export type DropdownProps = {
   options: DropdownItemProps[];
   onSelect: Function;
+  selected?: DropdownItemProps;
 };
 
 export type DropdownItemProps = {

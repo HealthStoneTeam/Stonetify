@@ -57,10 +57,10 @@ I18n.translations = {
     errorGetting:
       "Error related to obtaining information, please try again later",
     share: "Share",
-    shareTitle: "{{type}}",
+    shareTitle: "{{username}}'s {{type}}",
     showImages: "Show images",
-    liteMode: "Lite",
-    normalMode: "Normal",
+    liteMode: "Lite mode",
+    normalMode: "Full mode",
   },
   pt: {
     aboutTitle: "Sobre o Stonetify",
@@ -120,10 +120,10 @@ I18n.translations = {
     errorGetting:
       "Erro relacionado a obtenção das informações, por favor tente novamente mais tarde",
     share: "Compartilhar",
-    shareTitle: "{{type}}",
+    shareTitle: "{{type}} por {{username}}",
     showImages: "Mostrar imagens",
-    liteMode: "Compacto",
-    normalMode: "Normal",
+    liteMode: "Modo compacto",
+    normalMode: "Modo completo",
   },
 };
 
