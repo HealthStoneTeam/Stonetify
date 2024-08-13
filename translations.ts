@@ -61,6 +61,7 @@ I18n.translations = {
     showImages: "Show images",
     liteMode: "Lite mode",
     normalMode: "Full mode",
+    popularity: "Popularity",
   },
   pt: {
     aboutTitle: "Sobre o Stonetify",
@@ -124,6 +125,7 @@ I18n.translations = {
     showImages: "Mostrar imagens",
     liteMode: "Modo compacto",
     normalMode: "Modo completo",
+    popularity: "Popularidade",
   },
 };
 

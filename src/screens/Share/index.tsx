@@ -68,19 +68,19 @@ export default function Share({
         style={[styles.container, styles.mainBg]}
       >
         <Icon
-            style={{ marginTop: 4, alignSelf: "flex-end"}}
-            as={MaterialIcons}
-            name="share"
-            size={10}
-            color={"#fff"}
-            onPress={shareImage}
-          />
+          style={{ marginTop: 4, alignSelf: "flex-end" }}
+          as={MaterialIcons}
+          name="share"
+          size={10}
+          color={"#fff"}
+          onPress={shareImage}
+        />
         <View style={styles.headerContainer}>
           <View>
             <FilterModes
               data={{
                 setMode,
-                selected:{ value: mode, label: I18n.t('normalMode') },
+                selected: { value: mode, label: I18n.t("normalMode") },
               }}
             />
           </View>
@@ -105,6 +105,7 @@ export default function Share({
           </View>
           <ItemsList
             data={{
+              type: type.value,
               items: items,
               showSpotify: false,
               mode: mode,

@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 1,
+    marginRight: 10,
   },
   title: {
     fontSize: FONTS.medium,

@@ -1,7 +1,16 @@
 import { getProfileFromAPI, getTopItemsFromAPI } from "../services/user";
 
 import { ErrorAuthenticating, ErrorGetting } from "../errors";
-import { ArtistInfo, CoverProps, ExtractArtistsInfoProps, extractTracksInfoProps, ExtractUserInfoProps, TopItemsProps, TrackInfo } from "../models/types/user";
+import {
+  ArtistInfo,
+  CoverProps,
+  ExtractArtistsInfoProps,
+  extractTracksInfoProps,
+  ExtractUserInfoProps,
+  TopItemsProps,
+  TrackInfo,
+} from "../models/types/user";
+import { Filters } from "../models/enums/filters";
 
 export async function getProfile(getAccessToken: Function) {
   try {
@@ -22,7 +31,10 @@ export async function getProfile(getAccessToken: Function) {
   }
 }
 
-export async function getTopItems({ getAccessToken, filterData }: TopItemsProps) {
+export async function getTopItems({
+  getAccessToken,
+  filterData,
+}: TopItemsProps) {
   const accessToken = await getAccessToken();
   if (!filterData || !accessToken) {
     throw new ErrorAuthenticating();
@@ -36,13 +48,13 @@ export async function getTopItems({ getAccessToken, filterData }: TopItemsProps)
       type,
       range,
       limit,
-      offset
-  });
+      offset,
+    });
 
-    if (type === "artists") {
+    if (type === Filters.ARTISTS) {
       const artistsInfo = extractArtistsInfo(topItemsRaw);
       return { data: artistsInfo, type };
-    } else if (type === "tracks") {
+    } else if (type === Filters.TRACKS) {
       const tracksInfo = extractTracksInfo(topItemsRaw);
       return { data: tracksInfo, type };
     } else {
@@ -91,7 +103,7 @@ function extractArtistsInfo(data: ExtractArtistsInfoProps) {
         image,
         uri,
         link,
-        subtitle: ""
+        subtitle: "",
       });
     });
   }

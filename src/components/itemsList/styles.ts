@@ -16,6 +16,12 @@ const styles = StyleSheet.create({
   itemContent: {
     flex: 1,
   },
+  listColumnsTitle: {
+    alignSelf: "flex-end",
+    fontSize: FONTS.medium,
+    marginBottom: -20,
+    color: COLORS.gray,
+  },
 });
 
 export default styles;

@@ -179,6 +179,7 @@ export default function Presentation({ navigation }: NavigationProps) {
             <ItemsList
               data={{
                 items: itemsData,
+                type: type.value,
                 showSpotify: true,
                 mode: Filters.NORMAL_MODE,
               }}
@@ -186,7 +187,6 @@ export default function Presentation({ navigation }: NavigationProps) {
             <FooterList />
           </>
         )}
-        
       </ScrollView>
     </>
   );
