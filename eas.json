@@ -20,9 +20,16 @@
     "preview4": {
       "distribution": "internal"
     },
-    "preview5": {
+    "production": {
       "distribution": "store"
-    },
-    "production": {}
+    }
+  },
+  "submit": {
+    "production": {
+      "android": {
+        "track": "internal",
+        "releaseStatus": "completed"
+      }
+    }
   }
 }
