@@ -25,12 +25,13 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
-      - uses: sonarsource/sonarqube-scan-action@master
+      - uses: sonarsource/sonarcloud-github-action@v3
+        with:
+          projectKey: HealthStoneTeam_Stonetify
+          organization: healthstoneteam
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        with:
-          args: -Dsonar.projectKey=HealthStoneTeam_Stonetify -Dsonar.organization=healthstoneteam -Dsonar.sources=. -Dsonar.typescript.tsconfigPath=tsconfig.json -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
       # - name: Build on EAS
       #   run: eas build --profile development --platform android --non-interactive
 
