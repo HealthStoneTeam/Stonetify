@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - feature/ci-cd
+      - main
 jobs:
   build:
     name: Install and build
