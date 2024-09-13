@@ -3,6 +3,6 @@
   "compilerOptions": {
     "jsx": "react",
     "strict": true,
-    "types": ["node"]
+    "types": ["jest", "node", "@testing-library/jest-native"]
   },
 }
