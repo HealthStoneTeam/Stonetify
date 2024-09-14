@@ -31,11 +31,11 @@ jobs:
       #   run: eas build --profile development --platform android --non-interactive
       - name: Create Pull Request to develop
         env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_ACTIONS_TOKEN }}
+          PERSONAL_GITHUB_ACTIONS_TOKEN: ${{ secrets.PERSONAL_GITHUB_ACTIONS_TOKEN }}
         run: |
           PR_TITLE="Merge feature branch into develop"
           PR_BODY="Este PR foi criado automaticamente pelo GitHub Actions para mesclar a branch feature na develop."
-          SOURCE_BRANCH="${GITHUB_REF##*/}"
-          curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
+          SOURCE_BRANCH="${GITHUB_REF#refs/heads/}"
+          curl -X POST -H "Authorization: token $PERSONAL_GITHUB_ACTIONS_TOKEN" \
             -d "{\"title\":\"$PR_TITLE\",\"body\":\"$PR_BODY\",\"head\":\"$SOURCE_BRANCH\",\"base\":\"develop\"}" \
             https://api.github.com/repos/${{ github.repository }}/pulls
