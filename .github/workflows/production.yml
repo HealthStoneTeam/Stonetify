@@ -1,0 +1,71 @@
+name: Production Build and Deploy
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    name: Install and build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+          cache: npm
+      - name: Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      - name: Install dependencies
+        run: npm install
+      - name: Install jq
+        run: sudo apt-get install jq
+      - name: Increment versionCode
+        run: |
+          currentVersionCode=$(jq '.expo.android.versionCode' app.json)
+          echo "Versão atual do versionCode: $currentVersionCode"
+
+          newVersionCode=$((currentVersionCode + 1))
+          echo "Nova versão do versionCode: $newVersionCode"
+
+          jq ".expo.android.versionCode = $newVersionCode" app.json > tmp.$$.json && mv tmp.$$.json app.json
+
+      - name: Commit versionCode update
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add app.json
+          git commit -m "Increment versionCode to $newVersionCode"
+          git push
+      - name: SonarQube
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+      - uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      - name: Build on EAS
+        run: eas build --profile production --platform android --non-interactive
+
+  Push-to-Playstore:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+          cache: npm
+      - name: Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      - name: Install dependencies
+        run: npm install
+      - name: Submit to Google Play Store
+        run: eas submit -p android --profile production --latest
