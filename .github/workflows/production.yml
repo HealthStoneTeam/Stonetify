@@ -1,4 +1,4 @@
-name: EAS Build
+name: Production Build and Deploy
 on:
   workflow_dispatch:
   push:
@@ -29,24 +29,24 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      # - name: Build on EAS
-      #   run: eas build --profile development --platform android --non-interactive
+      - name: Build on EAS
+        run: eas build --profile production --platform android --non-interactive
 
-  # Push-to-Playstore:
-  #   needs: [build]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: actions/setup-node@v4
-  #       with:
-  #         node-version: 18.x
-  #         cache: npm
-  #     - name: Setup Expo and EAS
-  #       uses: expo/expo-github-action@v8
-  #       with:
-  #         eas-version: latest
-  #         token: ${{ secrets.EXPO_TOKEN }}
-  #     - name: Install dependencies
-  #       run: npm install
-  #     - name: Submit to Google Play Store
-  #       run: eas submit -p android --profile production --latest
+  Push-to-Playstore:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+          cache: npm
+      - name: Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      - name: Install dependencies
+        run: npm install
+      - name: Submit to Google Play Store
+        run: eas submit -p android --profile production --latest
