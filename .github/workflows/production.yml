@@ -21,6 +21,25 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
       - name: Install dependencies
         run: npm install
+      - name: Install jq
+        run: sudo apt-get install jq
+      - name: Increment versionCode
+        run: |
+          currentVersionCode=$(jq '.expo.android.versionCode' app.json)
+          echo "Versão atual do versionCode: $currentVersionCode"
+
+          newVersionCode=$((currentVersionCode + 1))
+          echo "Nova versão do versionCode: $newVersionCode"
+
+          jq ".expo.android.versionCode = $newVersionCode" app.json > tmp.$$.json && mv tmp.$$.json app.json
+
+      - name: Commit versionCode update
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add app.json
+          git commit -m "Increment versionCode to $newVersionCode"
+          git push
       - name: SonarQube
         uses: actions/checkout@v4
         with:
