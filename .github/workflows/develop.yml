@@ -27,7 +27,7 @@ jobs:
         env:
           PERSONAL_GITHUB_ACTIONS_TOKEN: ${{ secrets.PERSONAL_GITHUB_ACTIONS_TOKEN }}
         run: |
-          PR_TITLE="Merge feature branch into main"
+          PR_TITLE="Merge branch develop into main"
           PR_BODY="Este PR foi criado automaticamente pelo GitHub Actions para mesclar a branch develop na main."
           SOURCE_BRANCH="${GITHUB_REF#refs/heads/}"
           curl -X POST -H "Authorization: token $PERSONAL_GITHUB_ACTIONS_TOKEN" \
