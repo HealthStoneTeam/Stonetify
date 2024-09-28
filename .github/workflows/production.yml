@@ -42,12 +42,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Java 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: "temurin" # ou 'zulu', dependendo da sua preferência
-          java-version: "17"
-          cache: gradle
       - uses: actions/setup-node@v4
         with:
           node-version: 18.x
