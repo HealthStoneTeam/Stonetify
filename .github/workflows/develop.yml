@@ -21,6 +21,27 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
       - name: Install dependencies
         run: npm install
+      - name: Install jq
+        run: sudo apt-get install jq
+      - name: Increment versionCode
+        run: |
+          currentVersionCode=$(jq '.expo.android.versionCode' app.json)
+          echo "Versão atual do versionCode: $currentVersionCode"
+
+          newVersionCode=$((currentVersionCode + 1))
+          echo "Nova versão do versionCode: $newVersionCode"
+
+          jq ".expo.android.versionCode = $newVersionCode" app.json > tmp.$$.json && mv tmp.$$.json app.json
+
+      - name: Commit versionCode update
+        env:
+          PERSONAL_GITHUB_ACTIONS_TOKEN: ${{ secrets.PERSONAL_GITHUB_ACTIONS_TOKEN }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add app.json
+          git commit -m "Increment versionCode to $newVersionCode"
+          git push https://x-access-token:${PERSONAL_GITHUB_ACTIONS_TOKEN}@github.com/${{ github.repository }}.git
       - name: Build on EAS
         run: eas build --profile development --platform android --non-interactive
       - name: Create Pull Request to main
