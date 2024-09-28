@@ -15,13 +15,16 @@
       }
     },
     "production": {
+      "android": {
+        "image": "latest"
+      },
       "distribution": "store"
     }
   },
   "submit": {
     "production": {
       "android": {
-        "track": "internal",
+        "track": "production",
         "releaseStatus": "completed"
       }
     }
