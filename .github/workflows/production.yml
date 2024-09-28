@@ -16,6 +16,9 @@ jobs:
           distribution: "temurin" # ou 'zulu', dependendo da sua preferência
           java-version: "17"
           cache: gradle
+          cache-dependency-path: | # optional
+            sub-project/.gradle
+            sub-project/**/gradle-wrapper.properties
       - uses: actions/setup-node@v4
         with:
           node-version: 18.x
