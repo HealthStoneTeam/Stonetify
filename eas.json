@@ -15,6 +15,9 @@
       }
     },
     "production": {
+      "android": {
+        "image": "latest"
+      },
       "distribution": "store"
     }
   },
