@@ -28,6 +28,7 @@ import Filter from "../../components/filter";
 import { Pages } from "../../models/enums/pages";
 import { Toast } from "../../models/enums/toast";
 import { Filters } from "../../models/enums/filters";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 export default function Presentation({ navigation }: NavigationProps) {
   const [loading, setLoading] = useState<boolean>(false);
@@ -170,7 +171,7 @@ export default function Presentation({ navigation }: NavigationProps) {
                 <Icon
                   as={MaterialIcons}
                   name="mobile-screen-share"
-                  size={7}
+                  size={wp("7%")}
                   color={"#FFFFFF"}
                 />
                 <Text style={styles.shareButtonText}> {I18n.t("share")}</Text>
