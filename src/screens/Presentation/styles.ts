@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
-import { COLORS, FONTS, SPACING } from "../../models/constants";
+import { COLORS, SPACING } from "../../models/constants";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 const styles = StyleSheet.create({
   container: {
@@ -34,13 +35,14 @@ const styles = StyleSheet.create({
     color: COLORS.white,
   },
   appIcon: {
-    width: 50,
-    height: 50,
+    width: wp("10%"),
+    height: wp("10%"),
+    resizeMode: "contain",
   },
   appName: {
-    fontSize: 28,
+    fontSize: wp("7%"),
+    marginLeft: wp("2%"),
     color: COLORS.white,
-    marginLeft: SPACING.extraSmall,
     fontWeight: "bold",
   },
   appIconContainer: {
@@ -65,8 +67,10 @@ const styles = StyleSheet.create({
     borderRadius: SPACING.extraSmall,
   },
   shareButtonText: {
+    fontSize: wp("5%"),
     color: COLORS.white,
-    fontSize: FONTS.large,
+    marginLeft: wp("1%"),
+    fontWeight: "bold",
   },
 });
 
