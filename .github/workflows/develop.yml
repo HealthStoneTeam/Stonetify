@@ -23,17 +23,30 @@ jobs:
         run: npm install
       - name: Install jq
         run: sudo apt-get install jq
-      - name: Increment versionCode
+      - name: Increment versionCode and update version
         run: |
+          # Increment versionCode in app.json
           currentVersionCode=$(jq '.expo.android.versionCode' app.json)
           echo "Versão atual do versionCode: $currentVersionCode"
 
           newVersionCode=$((currentVersionCode + 1))
           echo "Nova versão do versionCode: $newVersionCode"
 
+          # Update versionCode in app.json
           jq ".expo.android.versionCode = $newVersionCode" app.json > tmp.$$.json && mv tmp.$$.json app.json
 
-      - name: Commit versionCode update
+          # Generate new version based on versionCode
+          currentVersion=$(jq -r '.version' package.json)
+          newVersion="${currentVersion%.*}.$newVersionCode"
+          echo "Nova versão: $newVersion"
+
+          # Update version in app.json
+          jq ".expo.version = \"$newVersion\"" app.json > tmp.$$.json && mv tmp.$$.json app.json
+
+          # Update version in package.json
+          jq ".version = \"$newVersion\"" package.json > tmp.$$.json && mv tmp.$$.json package.json
+
+      - name: Commit versionCode and version update
         env:
           PERSONAL_GITHUB_ACTIONS_TOKEN: ${{ secrets.PERSONAL_GITHUB_ACTIONS_TOKEN }}
         run: |
