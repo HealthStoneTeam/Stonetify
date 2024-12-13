@@ -1,0 +1,19 @@
+name: Main
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - "main"
+
+jobs:
+  expo-ci:
+    uses: ./.github/workflows/expo-ci.yml
+    with:
+      profile-build: "production"
+    secrets: inherit
+  publish-app:
+    needs: expo-ci
+    if: github.event.pull_request.merged == true
+    uses: ./.github/workflows/publish.yml
+    secrets: inherit

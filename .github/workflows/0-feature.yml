@@ -1,0 +1,17 @@
+name: Feature / Fix branch
+on:
+  push:
+    branches:
+      - "feature**"
+      - "fix**"
+
+jobs:
+  expo-ci:
+    uses: ./.github/workflows/expo-ci.yml
+    secrets: inherit
+  create-pr:
+    needs: expo-ci
+    uses: ./.github/workflows/create-pull-request.yml
+    with:
+      branch-name: "develop"
+    secrets: inherit

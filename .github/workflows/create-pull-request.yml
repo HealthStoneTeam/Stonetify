@@ -1,0 +1,34 @@
+name: "Create Pull Request"
+
+permissions:
+  id-token: write
+  contents: write
+  actions: write
+  pull-requests: write
+  packages: read
+
+on:
+  workflow_call:
+    inputs:
+      branch-name:
+        description: "Branch name to create the PR"
+        required: true
+        type: string
+      runs-on:
+        description: "Runner label to use"
+        required: false
+        type: string
+        default: "ubuntu-latest"
+
+jobs:
+  create-pr:
+    name: Create PR to ${{ inputs.branch-name }}
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: pull-request-action
+        uses: vsoch/pull-request-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PULL_REQUEST_BRANCH: ${{ inputs.branch-name }}
