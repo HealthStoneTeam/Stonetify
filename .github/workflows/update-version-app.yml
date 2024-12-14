@@ -43,7 +43,7 @@ jobs:
           echo "Nova versão: $newVersion"
 
           # Update version in app.json
-          jq --arg newVersion "$newVersion" '.expo.version = $newVersion | gsub("\\\""; "")' app.json > tmp.$$.json && mv tmp.$$.json app.json
+          jq --arg newVersion "$newVersion" '.expo.version = $newVersion | fromjson' app.json > tmp.$$.json && mv tmp.$$.json app.json
 
       - name: Commit versionCode update
         run: |
