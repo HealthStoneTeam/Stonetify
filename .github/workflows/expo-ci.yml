@@ -1,0 +1,46 @@
+name: "Expo CI"
+
+permissions:
+  id-token: write
+  contents: write
+  actions: write
+  pull-requests: write
+  packages: read
+
+on:
+  workflow_call:
+    inputs:
+      profile-build:
+        description: "Profile build to use"
+        required: false
+        type: string
+        default: "development"
+      runs-on:
+        description: "Runner label to use"
+        required: false
+        type: string
+        default: "ubuntu-latest"
+
+jobs:
+  ci-expo:
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Build on EAS
+        run: eas build --profile ${{ inputs.profile-build }} --platform android --non-interactive

@@ -1,0 +1,20 @@
+name: Development
+on:
+  push:
+    branches:
+      - "develop"
+
+jobs:
+  update-version-app:
+    uses: ./.github/workflows/update-version-app.yml
+    secrets: inherit
+  expo-ci:
+    needs: update-version-app
+    uses: ./.github/workflows/expo-ci.yml
+    secrets: inherit
+  create-pr:
+    needs: expo-ci
+    uses: ./.github/workflows/create-pull-request.yml
+    with:
+      branch-name: "main"
+    secrets: inherit
