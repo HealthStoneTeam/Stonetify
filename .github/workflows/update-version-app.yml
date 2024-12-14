@@ -38,12 +38,12 @@ jobs:
           jq ".expo.android.versionCode = $newVersionCode" app.json > tmp.$$.json && mv tmp.$$.json app.json
 
           # Generate new version based on versionCode
-          currentVersion=$(jq '.expo.version' app.json)
+          currentVersion=$(jq -r '.expo.version' app.json)
           newVersion="${currentVersion%.*}.$newVersionCode"
           echo "Nova versão: $newVersion"
 
           # Update version in app.json
-          jq --arg newVersion "$newVersion" '.expo.version = $newVersion | fromjson' app.json > tmp.$$.json && mv tmp.$$.json app.json
+          jq --arg newVersion "$newVersion" '.expo.version = $newVersion' app.json > tmp.$$.json && mv tmp.$$.json app.json
 
       - name: Commit versionCode update
         run: |
