@@ -1,0 +1,43 @@
+name: "Expo CI"
+
+permissions:
+  id-token: write
+  contents: write
+  actions: write
+  pull-requests: write
+  packages: read
+
+on:
+  workflow_call:
+    inputs:
+      runs-on:
+        description: "Runner label to use"
+        required: false
+        type: string
+        default: "ubuntu-latest"
+
+jobs:
+  sonar-verifier:
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  Push-to-Playstore:
+    needs: [sonar-verifier]
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      - name: Submit to Google Play Store
+        run: eas submit -p android --profile production --latest

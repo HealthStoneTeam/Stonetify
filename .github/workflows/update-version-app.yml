@@ -1,0 +1,54 @@
+name: "Update Version APP"
+
+permissions:
+  id-token: write
+  contents: write
+  actions: write
+  pull-requests: write
+  packages: read
+
+on:
+  workflow_call:
+    inputs:
+      runs-on:
+        description: "Runner label to use"
+        required: false
+        type: string
+        default: "ubuntu-latest"
+
+jobs:
+  update-version-app:
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install jq
+        run: sudo apt-get install jq
+
+      - name: Increment versionCode
+        run: |
+          # Increment versionCode in app.json
+          currentVersionCode=$(jq '.expo.android.versionCode' app.json)
+          echo "Versão atual do versionCode: $currentVersionCode"
+
+          newVersionCode=$((currentVersionCode + 1))
+          echo "Nova versão do versionCode: $newVersionCode"
+
+          # Update versionCode in app.json
+          jq ".expo.android.versionCode = $newVersionCode" app.json > tmp.$$.json && mv tmp.$$.json app.json
+
+          # Generate new version based on versionCode
+          currentVersion=$(jq -r '.expo.version' app.json)
+          newVersion="${currentVersion%.*}.$newVersionCode"
+          echo "Nova versão: $newVersion"
+
+          # Update version in app.json
+          jq --arg newVersion "$newVersion" '.expo.version = $newVersion' app.json > tmp.$$.json && mv tmp.$$.json app.json
+
+      - name: Commit versionCode update
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add app.json
+          git commit -m "Increment versionCode to $newVersionCode"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
