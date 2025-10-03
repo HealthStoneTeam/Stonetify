@@ -3,7 +3,7 @@
     "name": "Stonetify",
     "scheme": "stonetify",
     "slug": "Stonetify",
-    "version": "1.0.15",
+    "version": "1.0.18",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
@@ -19,7 +19,7 @@
       "supportsTablet": true
     },
     "android": {
-      "versionCode": 15,
+      "versionCode": 18,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#121212"
@@ -33,6 +33,9 @@
       "eas": {
         "projectId": "b1e8fb66-5b74-4706-ba3d-b3b5dc8c0344"
       }
-    }
+    },
+    "plugins": [
+      "expo-localization"
+    ]
   }
 }
