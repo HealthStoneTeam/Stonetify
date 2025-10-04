@@ -37,7 +37,8 @@
             "ndkVersion": "26.3.11579264"
           }
         }
-      ]
+      ],
+      "expo-localization"
     ],
     "web": {
       "favicon": "./assets/favicon.png"
