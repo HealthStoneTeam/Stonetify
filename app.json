@@ -12,9 +12,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#121212"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -26,20 +24,6 @@
       },
       "package": "br.com.healthstoneteam.Stonetify"
     },
-    "plugins": [
-      [
-        "expo-build-properties",
-        {
-          "android": {
-            "compileSdkVersion": 35,
-            "targetSdkVersion": 35,
-            "buildToolsVersion": "35.0.0",
-            "ndkVersion": "26.3.11579264"
-          }
-        }
-      ],
-      "expo-localization"
-    ],
     "web": {
       "favicon": "./assets/favicon.png"
     },
