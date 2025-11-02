@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import { COLORS, SPACING } from "../../models/constants";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { widthPercentageToDP } from "../../utils";
+const wp = widthPercentageToDP;
 
 const styles = StyleSheet.create({
   container: {
