@@ -4,7 +4,7 @@ import { Icon } from "native-base";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AuthContext } from "../../contexts/auth";
 import styles from "./styles";
-import I18n from "../../../translations";
+import i18n from "../../../translations";
 import { NavigationProps } from "../../models/types/navigation";
 import { Pages } from "../../models/enums/pages";
 
@@ -19,7 +19,7 @@ export default function Logout({ navigation }: NavigationProps) {
       onClose();
       navigation.navigate(Pages.LOGIN);
     } catch (error) {
-      Alert.alert(I18n.t("error"), I18n.t("logoutError"));
+      Alert.alert(i18n.t("error"), i18n.t("logoutError"));
     }
   }
 
@@ -40,19 +40,19 @@ export default function Logout({ navigation }: NavigationProps) {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>{I18n.t("leaveConfirmation")}</Text>
+            <Text style={styles.modalText}>{i18n.t("leaveConfirmation")}</Text>
             <View style={styles.containerButtons}>
               <TouchableOpacity
                 style={{ ...styles.button, ...styles.confirmButton }}
                 onPress={onLogout}
               >
-                <Text style={styles.textStyle}>{I18n.t("confirm")}</Text>
+                <Text style={styles.textStyle}>{i18n.t("confirm")}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={{ ...styles.button, ...styles.cancelButton }}
                 onPress={onClose}
               >
-                <Text style={styles.textStyle}>{I18n.t("cancel")}</Text>
+                <Text style={styles.textStyle}>{i18n.t("cancel")}</Text>
               </TouchableOpacity>
             </View>
           </View>

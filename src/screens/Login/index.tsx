@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../contexts/auth";
 import { Text, View, Image, TouchableOpacity, Alert } from "react-native";
 import styles from "./styles";
-import I18n from "../../../translations";
+import i18n from "../../../translations";
 import Loading from "../../components/loading";
 import { ErrorAuthenticating } from "../../errors";
 import { NavigationProps } from "../../models/types/navigation";
@@ -36,13 +36,13 @@ export default function Login({ navigation }: NavigationProps) {
       if (isLogged) {
         navigation.navigate(Pages.PRESENTATION);
       } else {
-        Alert.alert(I18n.t("error"), I18n.t("authError"));
+        Alert.alert(i18n.t("error"), i18n.t("authError"));
       }
     } catch (error) {
       if (error instanceof ErrorAuthenticating) {
-        Alert.alert(I18n.t("error"), error.message);
+        Alert.alert(i18n.t("error"), error.message);
       } else {
-        Alert.alert(I18n.t("error"), I18n.t("authError"));
+        Alert.alert(i18n.t("error"), i18n.t("authError"));
       }
     } finally {
       setLoading(false);
@@ -56,16 +56,17 @@ export default function Login({ navigation }: NavigationProps) {
           isLoading: loading,
         }}
       />
-      <Image style={styles.logo} source={require("../../../assets/logo.png")} />
-      <TouchableOpacity style={styles.loginButton} onPress={goLogin}>
-        <Text style={styles.buttonText}>{I18n.t("loginWithSpotify")}</Text>
+      <Image style={styles.logo} source={require("../../../assets/logo.png")} testID="logo-image" />
+      <TouchableOpacity style={styles.loginButton} onPress={goLogin} testID="login-button">
+        <Text style={styles.buttonText} testID="login-text">{i18n.t("loginWithSpotify")}</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.aboutButton}
         onPress={() => navigation.navigate(Pages.ABOUT)}
+        testID="about-button"
       >
-        <Text style={styles.buttonText}>{I18n.t("about")}</Text>
+        <Text style={styles.buttonText} testID="about-text">{i18n.t("about")}</Text>
       </TouchableOpacity>
 
       <View style={styles.watermarkContainer}>

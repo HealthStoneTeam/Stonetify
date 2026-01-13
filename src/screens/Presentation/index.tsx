@@ -15,7 +15,7 @@ import ItemsList from "../../components/itemsList";
 import { getProfile, getTopItems } from "../../domains/user";
 import { AuthContext } from "../../contexts/auth";
 import Loading from "../../components/loading";
-import I18n from "../../../translations";
+import i18n from "../../../translations";
 import { ErrorAuthenticating, ErrorGetting } from "../../errors";
 import { ProfileProps } from "../../models/types/profile";
 import { DropdownItemProps, FilterOptions } from "../../models/types/dropdown";
@@ -51,9 +51,9 @@ export default function Presentation({ navigation }: NavigationProps) {
         setProfileData(response);
       } catch (error) {
         if (error instanceof ErrorAuthenticating) {
-          Alert.alert(I18n.t("error"), error.message);
+          Alert.alert(i18n.t("error"), error.message);
         } else {
-          Alert.alert(I18n.t("error"), I18n.t("validationError"));
+          Alert.alert(i18n.t("error"), i18n.t("validationError"));
         }
         navigation.goBack();
       } finally {
@@ -88,12 +88,12 @@ export default function Presentation({ navigation }: NavigationProps) {
       }
     } catch (error) {
       if (error instanceof ErrorAuthenticating) {
-        Alert.alert(I18n.t("error"), error.message);
+        Alert.alert(i18n.t("error"), error.message);
         navigation.goBack();
       } else if (error instanceof ErrorGetting) {
-        Alert.alert(I18n.t("error"), error.message);
+        Alert.alert(i18n.t("error"), error.message);
       } else {
-        Alert.alert(I18n.t("error"), I18n.t("validationError"));
+        Alert.alert(i18n.t("error"), i18n.t("validationError"));
       }
     } finally {
       setLoading(false);
@@ -112,7 +112,7 @@ export default function Presentation({ navigation }: NavigationProps) {
       if (!toast.isActive(toastId)) {
         toast.show({
           id: toastId,
-          description: I18n.t("noDataToShare"),
+          description: i18n.t("noDataToShare"),
         });
       }
     }
@@ -173,7 +173,7 @@ export default function Presentation({ navigation }: NavigationProps) {
                   size={7}
                   color={"#FFFFFF"}
                 />
-                <Text style={styles.shareButtonText}> {I18n.t("share")}</Text>
+                <Text style={styles.shareButtonText}> {i18n.t("share")}</Text>
               </TouchableOpacity>
             </View>
             <ItemsList

@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import I18n from "../../../translations";
+import i18n from "../../../translations";
 import { Filters } from "../../models/enums/filters";
 import { DropdownItemProps } from "../../models/types/dropdown";
 import { FilterModeProps } from "../../models/types/filterModes";
@@ -15,11 +15,11 @@ export default function FilterModes({
   const modeOptions = [
     {
       value: Filters.NORMAL_MODE,
-      label: I18n.t("normalMode"),
+      label: i18n.t("normalMode"),
     },
     {
       value: Filters.LITE_MODE,
-      label: I18n.t("liteMode"),
+      label: i18n.t("liteMode"),
     },
   ];
 

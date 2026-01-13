@@ -3,7 +3,7 @@ import styles from "./styles";
 import { Text, TouchableOpacity, View } from "react-native";
 import { Icon, Divider } from "native-base";
 import { Entypo } from "@expo/vector-icons";
-import I18n from "../../../translations";
+import i18n from "../../../translations";
 import { GenericDataProps } from "../../models/types/genericData";
 import { DropdownItemProps, DropdownProps } from "../../models/types/dropdown";
 
@@ -27,7 +27,7 @@ export default function Dropdown({ data }: GenericDataProps<DropdownProps>) {
     <View style={styles.container}>
       <TouchableOpacity style={styles.selectField} onPress={toggleDropdown}>
         <Text style={styles.textSelectField}>
-          {selectedOption?.label || I18n.t("selectOption")}
+          {selectedOption?.label || i18n.t("selectOption")}
         </Text>
 
         {isOpen ? (

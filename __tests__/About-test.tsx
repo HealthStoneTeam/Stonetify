@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import About from '../src/screens/About';
-import I18n from '../translations';
+import i18n from '../translations';
 import { jest } from '@jest/globals';
 
 describe('About Component', () => {
@@ -13,10 +13,10 @@ describe('About Component', () => {
       goBack: jest.fn(),
     };
 
-    const { getByText } = render(<About navigation={navigationMock as StackNavigationProp<any>} />);
+    const { getByTestId } = render(<About navigation={navigationMock as StackNavigationProp<any>} />);
 
-    expect(getByText(I18n.t('aboutTitle'))).toBeTruthy();
-    expect(getByText(I18n.t('aboutText'))).toBeTruthy();
-    expect(getByText(I18n.t('privacyPolicyLink'))).toBeTruthy();
+    expect(getByTestId('about-title')).toBeTruthy();
+    expect(getByTestId('about-text')).toBeTruthy();
+    expect(getByTestId('privacy-link-text')).toBeTruthy();
   });
 });

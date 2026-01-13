@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { Text, View, ScrollView, Alert, StatusBar, Image } from "react-native";
 import Profile from "../../components/profile";
 import styles from "./styles";
-import I18n from "../../../translations";
+import i18n from "../../../translations";
 import ItemsList from "../../components/itemsList";
 import { captureRef } from "react-native-view-shot";
 import { useToast, Icon } from "native-base";
@@ -32,7 +32,7 @@ export default function Share({
       if (!toast.isActive(toastId)) {
         toast.show({
           id: toastId,
-          description: I18n.t("shareInProgress"),
+          description: i18n.t("shareInProgress"),
         });
       }
       return;
@@ -46,14 +46,14 @@ export default function Share({
           quality: 1,
         });
         if (!(await Sharing.isAvailableAsync())) {
-          Alert.alert(I18n.t("error"), I18n.t("shareNotAvailable"));
+          Alert.alert(i18n.t("error"), i18n.t("shareNotAvailable"));
         } else {
           await Sharing.shareAsync(uri);
         }
         navigation.goBack();
       }
     } catch (error) {
-      Alert.alert(I18n.t("error"), I18n.t("shareError"));
+      Alert.alert(i18n.t("error"), i18n.t("shareError"));
     } finally {
       setIsSharing(false);
     }
@@ -80,7 +80,7 @@ export default function Share({
             <FilterModes
               data={{
                 setMode,
-                selected: { value: mode, label: I18n.t("normalMode") },
+                selected: { value: mode, label: i18n.t("normalMode") },
               }}
             />
           </View>

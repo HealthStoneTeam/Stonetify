@@ -10,7 +10,7 @@ const Loading = ({ data }: GenericDataProps<LoadingProps>) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="loading">
       <ActivityIndicator size="large" color="#1DB954" />
     </View>
   );

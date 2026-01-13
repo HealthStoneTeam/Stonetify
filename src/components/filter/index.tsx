@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import styles from "./styles";
 import Dropdown from "../dropdown";
-import I18n from "../../../translations";
+import i18n from "../../../translations";
 import { DropdownItemProps, FilterOptions } from "../../models/types/dropdown";
 import { GenericDataProps } from "../../models/types/genericData";
 import { FilterProps } from "../../models/types/filter";
@@ -14,26 +14,26 @@ export default function Filter({
   const metricOptions = [
     {
       value: Filters.TRACKS,
-      label: I18n.t("topTracks"),
+      label: i18n.t("topTracks"),
     },
     {
       value: Filters.ARTISTS,
-      label: I18n.t("topArtist"),
+      label: i18n.t("topArtist"),
     },
   ];
 
   const periodOptions = [
     {
       value: Filters.LAST_MONTH,
-      label: I18n.t("lastMonth"),
+      label: i18n.t("lastMonth"),
     },
     {
       value: Filters.LAST_SIX_MONTHS,
-      label: I18n.t("last6Months"),
+      label: i18n.t("last6Months"),
     },
     {
       value: Filters.ALL_TIME,
-      label: I18n.t("allTime"),
+      label: i18n.t("allTime"),
     },
   ];
 

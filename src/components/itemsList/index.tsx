@@ -6,7 +6,7 @@ import { GenericDataProps } from "../../models/types/genericData";
 import { ItemsListProps } from "../../models/types/itemsList";
 import { Items } from "../../models/types/items";
 import styles from "./styles";
-import I18n from "../../../translations";
+import i18n from "../../../translations";
 import { Filters } from "../../models/enums/filters";
 
 export default function ItemsList({ data }: GenericDataProps<ItemsListProps>) {
@@ -42,7 +42,7 @@ export default function ItemsList({ data }: GenericDataProps<ItemsListProps>) {
   return data.items?.length ? (
     <>
       {data.type === Filters.ARTISTS && (
-        <Text style={styles.listColumnsTitle}>{I18n.t("popularity")}</Text>
+        <Text style={styles.listColumnsTitle}>{i18n.t("popularity")}</Text>
       )}
       {data.items?.map((item, index) => renderItem(item, index))}
     </>

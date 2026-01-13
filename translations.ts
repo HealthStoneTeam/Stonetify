@@ -1,6 +1,6 @@
-import I18n from "i18n-js";
+import { I18n } from "i18n-js";
 
-I18n.translations = {
+const i18n = new I18n({
   en: {
     aboutTitle: "About Stonetify",
     aboutText:
@@ -127,6 +127,6 @@ I18n.translations = {
     normalMode: "Modo completo",
     popularity: "Popularidade",
   },
-};
+});
 
-export default I18n;
+export default i18n;
