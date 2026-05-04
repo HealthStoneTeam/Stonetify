@@ -103,6 +103,9 @@ function extractArtistsInfo(data: ExtractArtistsInfoProps) {
         image,
         uri,
         link,
+        spotifyId: item.id,
+        genres: item.genres || [],
+        popularity: item.popularity || 0,
         subtitle: "",
       });
     });
@@ -135,6 +138,8 @@ function extractTracksInfo(data: extractTracksInfoProps) {
         image,
         uri,
         link,
+        spotifyId: item.id,
+        popularity: item.popularity || 0,
       });
     });
   }

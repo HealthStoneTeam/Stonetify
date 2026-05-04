@@ -26,10 +26,11 @@ export type ExtractArtistsInfoProps = {
   items: {
     id: string;
     name: string;
-    images: Image;
+    images: Image[];
     uri: string;
     external_urls: { spotify: string };
     popularity: number;
+    genres: string[];
   }[];
 }
 
@@ -38,9 +39,12 @@ export type ArtistInfo = {
   title: string;
   subtitle: string;
   extraInfo: number;
-  image: string;
+  image: string | null;
   uri: string;
   link: string;
+  spotifyId: string;
+  genres: string[];
+  popularity: number;
 }[]
 
 export type extractTracksInfoProps = {
@@ -49,7 +53,7 @@ export type extractTracksInfoProps = {
     name: string;
     album: {
       name: string;
-      images: Image;
+      images: Image[];
     };
     artists: {
       name: string;
@@ -66,15 +70,17 @@ export type TrackInfo = {
   title: string;
   subtitle: string;
   extraInfo: any;
-  image: string;
+  image: string | null;
   uri: any;
   link: any;
+  spotifyId: string;
+  popularity: number;
 }[]
 
 export type CoverProps = {
   id ?: string; 
   name ?: string; 
-  images: Image;
+  images: Image[];
   uri ?: string; 
   external_urls ?: { spotify: string; }; 
   popularity ?: number; 

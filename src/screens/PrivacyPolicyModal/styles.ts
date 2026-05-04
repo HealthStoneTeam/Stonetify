@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import * as NB from "native-base";
 import { COLORS, FONTS, SPACING } from "../../models/constants";
 
 export default StyleSheet.create({

@@ -16,10 +16,13 @@ export default function About({ navigation }: NavigationProps) {
 
   return (
     <View style={styles.container}>
-      <View style={[styles.card]}>
+      <View style={styles.card}>
         <Text style={styles.title}>{I18n.t('aboutTitle')}</Text>
         <Text style={styles.text}>{I18n.t('aboutText')}</Text>
-        <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <TouchableOpacity
+          style={styles.privacyButton}
+          onPress={() => setModalVisible(true)}
+        >
           <Text style={styles.link}>{I18n.t('privacyPolicyLink')}</Text>
         </TouchableOpacity>
 
