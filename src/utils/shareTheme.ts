@@ -18,14 +18,14 @@ export type ShareThemePalette = {
 const themes: Record<ShareTheme, ShareThemePalette> = {
   classic: {
     isDark: true,
-    posterBackground: "#17110E",
-    panelBackground: "#241915",
-    text: "#FFF8EA",
-    muted: "#D7C3A1",
-    accent: "#D9A441",
-    accent2: "#A23E2C",
-    border: "#7E5E36",
-    controlBackground: "#2D211B",
+    posterBackground: "#121212",
+    panelBackground: "#282828",
+    text: "#FFFFFF",
+    muted: "#B3B3B3",
+    accent: "#1DB954",
+    accent2: "#1ED760",
+    border: "#3A3E3B",
+    controlBackground: "#181818",
     logoTone: "white",
   },
   neon: {
@@ -67,5 +67,5 @@ const themes: Record<ShareTheme, ShareThemePalette> = {
 };
 
 export function getShareTheme(theme: ShareTheme) {
-  return themes[theme] || themes.neon;
+  return themes[theme] || themes.classic;
 }

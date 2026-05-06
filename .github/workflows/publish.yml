@@ -34,10 +34,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
       - name: Setup Expo and EAS
         uses: expo/expo-github-action@v8
         with:
-          eas-version: latest
+          eas-version: 18.10.0
           token: ${{ secrets.EXPO_TOKEN }}
       - name: Submit to Google Play Store
         run: eas submit -p android --profile production --latest

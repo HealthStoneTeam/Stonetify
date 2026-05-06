@@ -165,7 +165,7 @@ export default function Presentation({ navigation }: NavigationProps) {
         range,
         customization: {
           template: "list",
-          theme: "neon",
+          theme: "classic",
           limit: shareLimit,
           showImages: true,
         },
@@ -210,7 +210,7 @@ export default function Presentation({ navigation }: NavigationProps) {
           range,
           customization: {
             template: "festival",
-            theme: "neon",
+            theme: "classic",
             limit: 20,
             showImages: true,
           },
@@ -276,7 +276,7 @@ export default function Presentation({ navigation }: NavigationProps) {
               <View style={styles.appIconContainer}>
                 <Image
                   style={styles.appIcon}
-                  source={require("../../../assets/icon.png")}
+                  source={require("../../../assets/stonetifyNewLogo.png")}
                   alt="App Icon"
                 />
                 <Text style={styles.appName}>Stonetify</Text>

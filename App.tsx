@@ -4,7 +4,10 @@ import Routes from "./src/routes";
 import { NativeBaseProvider } from "native-base";
 import I18n from "./translations";
 import * as Localization from "expo-localization";
+import * as WebBrowser from "expo-web-browser";
 import React from "react";
+
+WebBrowser.maybeCompleteAuthSession();
 
 I18n.locale =
   Localization?.getLocales()?.at(0)?.regionCode === "BR" ? "pt" : "en";

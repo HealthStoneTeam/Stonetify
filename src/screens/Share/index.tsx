@@ -30,7 +30,7 @@ import styles from "./styles";
 const limitOptions: ShareLimit[] = [5, 10, 20];
 
 const themeSwatches: Record<ShareTheme, string[]> = {
-  classic: ["#17110E", "#D9A441", "#A23E2C"],
+  classic: ["#121212", "#282828", "#1DB954"],
   neon: ["#07111F", "#35F2F2", "#FF4FB8"],
   sunset: ["#241038", "#FF8C42", "#7BDFF2"],
   monochrome: ["#F4F1EA", "#111111", "#C9C3B8"],
@@ -67,7 +67,7 @@ export default function Share({
     customization?.template || "list"
   );
   const [theme, setTheme] = useState<ShareTheme>(
-    customization?.theme || "neon"
+    customization?.theme || "classic"
   );
   const [limit, setLimit] = useState<ShareLimit>(
     asShareLimit(customization?.limit || 20)

@@ -4,7 +4,10 @@ import { AccessCodeProps, AccessTokenProps, RefreshedTokenProps } from '../../mo
 export async function getAccessCodeFromAPI( data : AccessCodeProps ) {
 
   const { clientId, scopes, scheme, path } = data
-  const redirectUri = `${scheme}://${path}`;
+  const redirectUri = AppAuth.makeRedirectUri({
+    scheme,
+    path,
+  });
   const discovery = {
     authorizationEndpoint: "https://accounts.spotify.com/authorize",
     tokenEndpoint: "https://accounts.spotify.com/api/token",

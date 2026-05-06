@@ -86,7 +86,7 @@ export default function FestivalPoster({
         >
           <Image
             style={styles.appIcon}
-            source={require("../../../assets/icon.png")}
+            source={require("../../../assets/stonetifyNewLogo.png")}
             resizeMode="contain"
             alt="App Icon"
           />
