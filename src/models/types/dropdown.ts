@@ -1,5 +1,3 @@
-import { Filters } from "../enums/filters";
-
 export type DropdownProps = {
   options: DropdownItemProps[];
   onSelect: Function;
@@ -8,7 +6,7 @@ export type DropdownProps = {
 
 export type DropdownItemProps = {
   label: string;
-  value: Filters;
+  value: string;
 };
 
 export type FilterOptions = {

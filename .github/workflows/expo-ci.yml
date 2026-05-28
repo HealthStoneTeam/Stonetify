@@ -30,17 +30,17 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: 22.x
           cache: npm
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Setup Expo and EAS
         uses: expo/expo-github-action@v8
         with:
-          eas-version: latest
+          eas-version: 18.10.0
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Build on EAS
-        run: eas build --profile ${{ inputs.profile-build }} --platform android --non-interactive
+        run: eas build --profile ${{ inputs.profile-build }} --platform android --non-interactive --clear-cache

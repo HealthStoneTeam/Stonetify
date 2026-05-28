@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
-import { COLORS, SPACING } from "../../models/constants";
+import { COLORS, FONTS, SPACING } from "../../models/constants";
 import { widthPercentageToDP } from "../../utils";
+
 const wp = widthPercentageToDP;
 
 const styles = StyleSheet.create({
@@ -8,40 +9,28 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: SPACING.medium,
   },
-  filterSection: {
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    rowGap: SPACING.large,
-    marginTop: SPACING.large,
+  mainBg: {
+    backgroundColor: COLORS.secondary,
   },
   titleList: {
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: SPACING.large,
+    paddingTop: SPACING.large,
+    paddingBottom: SPACING.medium,
+    rowGap: 6,
   },
-  searchButton: {
-    backgroundColor: COLORS.darkGray,
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: COLORS.gray,
-    padding: SPACING.extraSmall,
-    borderRadius: SPACING.large,
-    alignItems: "center",
-    justifyContent: "center",
-    width: 200,
-  },
-  textSearchButton: {
-    color: COLORS.white,
+  rangeSummary: {
+    color: COLORS.gray,
+    fontSize: FONTS.smallMedium,
+    textAlign: "center",
   },
   appIcon: {
-    width: wp("10%"),
-    height: wp("10%"),
+    width: wp("9%"),
+    height: wp("9%"),
     resizeMode: "contain",
   },
   appName: {
-    fontSize: wp("7%"),
+    fontSize: wp("6%"),
     marginLeft: wp("2%"),
     color: COLORS.white,
     fontWeight: "bold",
@@ -53,25 +42,48 @@ const styles = StyleSheet.create({
   headerContent: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
     width: "100%",
-    paddingBottom: SPACING.large,
+    paddingBottom: SPACING.medium,
   },
-  mainBg: {
-    backgroundColor: COLORS.secondary,
-  },
-  shareButton: {
+  actionRow: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
+    columnGap: SPACING.small,
+    paddingBottom: SPACING.small,
+  },
+  actionButton: {
+    flex: 1,
+    minHeight: 48,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    columnGap: SPACING.extraSmall,
     backgroundColor: COLORS.primary,
     padding: SPACING.extraSmall,
     borderRadius: SPACING.extraSmall,
   },
+  festivalActionButton: {
+    backgroundColor: COLORS.darkGray,
+    borderColor: COLORS.gray,
+  },
   shareButtonText: {
-    fontSize: wp("5%"),
+    flexShrink: 1,
+    fontSize: wp("4.4%"),
     color: COLORS.white,
-    marginLeft: wp("1%"),
     fontWeight: "bold",
+    textAlign: "center",
+  },
+  shareHint: {
+    color: COLORS.gray,
+    fontSize: FONTS.small,
+    lineHeight: 17,
+    textAlign: "center",
+    marginBottom: SPACING.medium,
+  },
+  listCard: {
+    backgroundColor: COLORS.secondary,
   },
 });
 

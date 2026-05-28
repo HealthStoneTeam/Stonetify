@@ -18,7 +18,7 @@ import Loading from "../../components/loading";
 import I18n from "../../../translations";
 import { ErrorAuthenticating, ErrorGetting } from "../../errors";
 import { ProfileProps } from "../../models/types/profile";
-import { DropdownItemProps, FilterOptions } from "../../models/types/dropdown";
+import { DropdownItemProps } from "../../models/types/dropdown";
 import { NavigationProps } from "../../models/types/navigation";
 import { Items } from "../../models/types/items";
 import TitleList from "../../components/titleList";
@@ -28,18 +28,39 @@ import Filter from "../../components/filter";
 import { Pages } from "../../models/enums/pages";
 import { Toast } from "../../models/enums/toast";
 import { Filters } from "../../models/enums/filters";
+import { TopItemsLimit } from "../../models/types/filter";
+import { ShareLimit } from "../../models/types/share";
 import { widthPercentageToDP } from "../../utils";
 
 const wp = widthPercentageToDP;
 
+function getDefaultType(): DropdownItemProps {
+  return {
+    value: Filters.TRACKS,
+    label: I18n.t("topTracks"),
+  };
+}
+
+function getDefaultRange(): DropdownItemProps {
+  return {
+    value: Filters.LAST_SIX_MONTHS,
+    label: I18n.t("last6Months"),
+  };
+}
+
+function getShareLimit(limit: TopItemsLimit): ShareLimit {
+  return limit === 5 || limit === 10 ? limit : 20;
+}
+
 export default function Presentation({ navigation }: NavigationProps) {
+  const defaultType = getDefaultType();
+  const defaultRange = getDefaultRange();
   const [loading, setLoading] = useState<boolean>(false);
-  const [type, setType] = useState<DropdownItemProps>({} as DropdownItemProps);
-  const [range, setRange] = useState<DropdownItemProps>(
-    {} as DropdownItemProps
-  );
+  const [type, setType] = useState<DropdownItemProps>(defaultType);
+  const [range, setRange] = useState<DropdownItemProps>(defaultRange);
+  const [limit, setLimit] = useState<TopItemsLimit>(20);
   const [profileData, setProfileData] = useState<ProfileProps>(
-    {} as ProfileProps
+    {} as ProfileProps,
   );
   const [itemsData, setItemsData] = useState<Items[]>();
   const { getAccessToken } = useContext(AuthContext);
@@ -47,65 +68,98 @@ export default function Presentation({ navigation }: NavigationProps) {
   const toastId = Toast.ID;
 
   useEffect(() => {
-    async function getProfileData() {
+    async function getInitialData() {
       try {
         setLoading(true);
-        const response = await getProfile(getAccessToken);
-        setProfileData(response);
+        const profile = await getProfile(getAccessToken);
+        setProfileData(profile);
+        const response = await fetchItems(
+          defaultType.value,
+          defaultRange.value,
+          20,
+        );
+        setItemsData(response);
       } catch (error) {
         if (error instanceof ErrorAuthenticating) {
           Alert.alert(I18n.t("error"), error.message);
+          navigation.goBack();
         } else {
           Alert.alert(I18n.t("error"), I18n.t("validationError"));
         }
-        navigation.goBack();
       } finally {
         setLoading(false);
       }
     }
 
-    getProfileData();
+    getInitialData();
   }, []);
 
-  async function getItems(options: FilterOptions) {
+  async function fetchItems(
+    typeValue: string,
+    rangeValue: string,
+    limitValue: TopItemsLimit,
+  ) {
+    const filterData = {
+      limit: limitValue,
+      offset: 0,
+      type: typeValue,
+      range: rangeValue,
+    };
+
+    const response = await getTopItems({ getAccessToken, filterData });
+    return response.data;
+  }
+
+  function handleFetchError(error: unknown) {
+    if (error instanceof ErrorAuthenticating) {
+      Alert.alert(I18n.t("error"), error.message);
+      navigation.goBack();
+    } else if (error instanceof ErrorGetting) {
+      Alert.alert(I18n.t("error"), error.message);
+    } else {
+      Alert.alert(I18n.t("error"), I18n.t("fetchError"));
+    }
+  }
+
+  async function loadItems(
+    nextType: DropdownItemProps,
+    nextRange: DropdownItemProps,
+    nextLimit: TopItemsLimit,
+  ) {
     try {
-      setType(options.type);
-      setRange(options.range);
-
-      if (options.type?.value && options.range?.value) {
-        setLoading(true);
-        setItemsData([]);
-        const defaultData = {
-          limit: 10,
-          offset: 0,
-        };
-
-        const filterData = {
-          ...defaultData,
-          ...{ type: options.type?.value, range: options.range?.value },
-        };
-
-        const response = await getTopItems({ getAccessToken, filterData });
-        setLoading(false);
-        setItemsData(response.data);
-      }
+      setLoading(true);
+      setItemsData([]);
+      const response = await fetchItems(
+        nextType.value,
+        nextRange.value,
+        nextLimit,
+      );
+      setType(nextType);
+      setRange(nextRange);
+      setLimit(nextLimit);
+      setItemsData(response);
     } catch (error) {
-      if (error instanceof ErrorAuthenticating) {
-        Alert.alert(I18n.t("error"), error.message);
-        navigation.goBack();
-      } else if (error instanceof ErrorGetting) {
-        Alert.alert(I18n.t("error"), error.message);
-      } else {
-        Alert.alert(I18n.t("error"), I18n.t("validationError"));
-      }
+      handleFetchError(error);
     } finally {
       setLoading(false);
     }
   }
 
+  function handleTypeSelect(option: DropdownItemProps) {
+    loadItems(option, range, limit);
+  }
+
+  function handleRangeSelect(option: DropdownItemProps) {
+    loadItems(type, option, limit);
+  }
+
+  function handleLimitSelect(nextLimit: TopItemsLimit) {
+    loadItems(type, range, nextLimit);
+  }
+
   async function goPreviewShareImage() {
     if (itemsData?.length) {
-      navigation.navigate(Pages.SHARE, {
+      navigation.navigate(Pages.SHARE_TRADITIONAL, {
         items: itemsData,
         profileData,
         type,
@@ -121,6 +175,54 @@ export default function Presentation({ navigation }: NavigationProps) {
     }
   }
 
+  async function goFestivalShareImage() {
+    if (!range?.value) {
+      if (!toast.isActive(toastId)) {
+        toast.show({
+          id: toastId,
+          description: I18n.t("incompleteRequest"),
+        });
+      }
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const artistType = {
+        value: Filters.ARTISTS,
+        label: I18n.t("topArtist"),
+      };
+      const response = await fetchItems(artistType.value, range.value, 20);
+
+      if (response?.length) {
+        setType(artistType);
+        setLimit(20);
+        setItemsData(response);
+        navigation.navigate(Pages.SHARE, {
+          items: response,
+          profileData,
+          type: artistType,
+          range,
+          customization: {
+            template: "festival",
+            theme: "classic",
+            limit: 20,
+            showImages: true,
+          },
+        });
+      } else if (!toast.isActive(toastId)) {
+        toast.show({
+          id: toastId,
+          description: I18n.t("noDataToShare"),
+        });
+      }
+    } catch (error) {
+      handleFetchError(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <>
       <Loading
@@ -131,6 +233,7 @@ export default function Presentation({ navigation }: NavigationProps) {
       <ScrollView
         contentContainerStyle={{
           paddingTop: (StatusBar.currentHeight ?? 0) + 5,
+          paddingBottom: 28,
         }}
         style={[styles.container, styles.mainBg]}
       >
@@ -142,9 +245,12 @@ export default function Presentation({ navigation }: NavigationProps) {
         />
         <Filter
           data={{
-            getItems: getItems,
-            range,
             type,
+            range,
+            limit,
+            onTypeSelect: handleTypeSelect,
+            onRangeSelect: handleRangeSelect,
+            onLimitSelect: handleLimitSelect,
           }}
         />
         {itemsData && (
@@ -155,38 +261,72 @@ export default function Presentation({ navigation }: NavigationProps) {
                   type: type?.label,
                   username: profileData?.username,
                 }}
-              ></TitleList>
+              />
+              <Text style={styles.rangeSummary}>
+                {range?.label} - {I18n.t("topItemsCount", { count: limit })}
+              </Text>
             </View>
             <View style={styles.headerContent}>
               <View style={styles.appIconContainer}>
                 <Image
                   style={styles.appIcon}
-                  source={require("../../../assets/icon.png")}
+                  source={require("../../../assets/stonetifyNewLogo.png")}
                   alt="App Icon"
                 />
                 <Text style={styles.appName}>Stonetify</Text>
               </View>
+            </View>
+            <View style={styles.actionRow}>
               <TouchableOpacity
-                style={styles.shareButton}
+                style={styles.actionButton}
                 onPress={goPreviewShareImage}
               >
                 <Icon
                   as={MaterialIcons}
                   name="mobile-screen-share"
-                  size={wp("7%")}
+                  size={wp("6%")}
                   color={"#FFFFFF"}
                 />
-                <Text style={styles.shareButtonText}> {I18n.t("share")}</Text>
+                <Text
+                  style={styles.shareButtonText}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                >
+                  {I18n.t("share")}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.actionButton, styles.festivalActionButton]}
+                onPress={goFestivalShareImage}
+              >
+                <Icon
+                  as={MaterialIcons}
+                  name="confirmation-number"
+                  size={wp("6%")}
+                  color={"#FFFFFF"}
+                />
+                <Text
+                  style={styles.shareButtonText}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                >
+                  {I18n.t("festival")}
+                </Text>
               </TouchableOpacity>
             </View>
-            <ItemsList
-              data={{
-                items: itemsData,
-                type: type.value,
-                showSpotify: true,
-                mode: Filters.NORMAL_MODE,
-              }}
-            />
+            {limit === 50 && (
+              <Text style={styles.shareHint}>{I18n.t("top50ShareHint")}</Text>
+            )}
+            <View style={styles.listCard}>
+              <ItemsList
+                data={{
+                  items: itemsData,
+                  type: type.value,
+                  showSpotify: true,
+                  mode: Filters.NORMAL_MODE,
+                }}
+              />
+            </View>
             <FooterList />
           </>
         )}

@@ -4,19 +4,21 @@ import { AccessCodeProps, AccessTokenProps, RefreshedTokenProps } from '../../mo
 export async function getAccessCodeFromAPI( data : AccessCodeProps ) {
 
   const { clientId, scopes, scheme, path } = data
-  const discorery = await AppAuth.fetchDiscoveryAsync(
-    "https://accounts.spotify.com"
-  );
+  const redirectUri = AppAuth.makeRedirectUri({
+    scheme,
+    path,
+  });
+  const discovery = {
+    authorizationEndpoint: "https://accounts.spotify.com/authorize",
+    tokenEndpoint: "https://accounts.spotify.com/api/token",
+  };
   const config = {
     clientId,
     scopes,
-    redirectUri: AppAuth.makeRedirectUri({
-      scheme,
-      path,
-    }),
+    redirectUri,
   };
-  const request = await AppAuth.loadAsync(config, discorery);
-  const result = await request.promptAsync(discorery); //VERIFICAR  
+  const request = await AppAuth.loadAsync(config, discovery);
+  const result = await request.promptAsync(discovery);
   if (result.type === "success" && result.params && result.params.code) {
     const code = result.params.code;
     const redirectUri = request.redirectUri || "";
