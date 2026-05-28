@@ -60,7 +60,7 @@ export default function Presentation({ navigation }: NavigationProps) {
   const [range, setRange] = useState<DropdownItemProps>(defaultRange);
   const [limit, setLimit] = useState<TopItemsLimit>(20);
   const [profileData, setProfileData] = useState<ProfileProps>(
-    {} as ProfileProps
+    {} as ProfileProps,
   );
   const [itemsData, setItemsData] = useState<Items[]>();
   const { getAccessToken } = useContext(AuthContext);
@@ -73,7 +73,11 @@ export default function Presentation({ navigation }: NavigationProps) {
         setLoading(true);
         const profile = await getProfile(getAccessToken);
         setProfileData(profile);
-        const response = await fetchItems(defaultType.value, defaultRange.value, 20);
+        const response = await fetchItems(
+          defaultType.value,
+          defaultRange.value,
+          20,
+        );
         setItemsData(response);
       } catch (error) {
         if (error instanceof ErrorAuthenticating) {
@@ -93,7 +97,7 @@ export default function Presentation({ navigation }: NavigationProps) {
   async function fetchItems(
     typeValue: string,
     rangeValue: string,
-    limitValue: TopItemsLimit
+    limitValue: TopItemsLimit,
   ) {
     const filterData = {
       limit: limitValue,
@@ -120,7 +124,7 @@ export default function Presentation({ navigation }: NavigationProps) {
   async function loadItems(
     nextType: DropdownItemProps,
     nextRange: DropdownItemProps,
-    nextLimit: TopItemsLimit
+    nextLimit: TopItemsLimit,
   ) {
     try {
       setLoading(true);
@@ -128,7 +132,7 @@ export default function Presentation({ navigation }: NavigationProps) {
       const response = await fetchItems(
         nextType.value,
         nextRange.value,
-        nextLimit
+        nextLimit,
       );
       setType(nextType);
       setRange(nextRange);
@@ -155,20 +159,11 @@ export default function Presentation({ navigation }: NavigationProps) {
 
   async function goPreviewShareImage() {
     if (itemsData?.length) {
-      const shareLimit = getShareLimit(limit);
-      const shareItems = limit === 50 ? itemsData.slice(0, 20) : itemsData;
-
-      navigation.navigate(Pages.SHARE, {
-        items: shareItems,
+      navigation.navigate(Pages.SHARE_TRADITIONAL, {
+        items: itemsData,
         profileData,
         type,
         range,
-        customization: {
-          template: "list",
-          theme: "classic",
-          limit: shareLimit,
-          showImages: true,
-        },
       });
     } else {
       if (!toast.isActive(toastId)) {
@@ -268,8 +263,7 @@ export default function Presentation({ navigation }: NavigationProps) {
                 }}
               />
               <Text style={styles.rangeSummary}>
-                {range?.label} -{" "}
-                {I18n.t("topItemsCount", { count: limit })}
+                {range?.label} - {I18n.t("topItemsCount", { count: limit })}
               </Text>
             </View>
             <View style={styles.headerContent}>

@@ -64,29 +64,29 @@ export default function Share({
   ];
 
   const [template, setTemplate] = useState<ShareTemplate>(
-    customization?.template || "list"
+    customization?.template || "list",
   );
   const [theme, setTheme] = useState<ShareTheme>(
-    customization?.theme || "classic"
+    customization?.theme || "classic",
   );
   const [limit, setLimit] = useState<ShareLimit>(
-    asShareLimit(customization?.limit || 20)
+    asShareLimit(customization?.limit || 20),
   );
   const [showImages, setShowImages] = useState<boolean>(
-    customization?.showImages ?? true
+    customization?.showImages ?? true,
   );
   const [festivalName, setFestivalName] = useState(
     customization?.festivalName ||
       I18n.t("festivalNameDefault", {
         username: profileData?.username || "Stonetify",
-      })
+      }),
   );
   const [festivalCity, setFestivalCity] = useState(
-    customization?.festivalCity || I18n.t("festivalCityDefault")
+    customization?.festivalCity || I18n.t("festivalCityDefault"),
   );
   const [festivalDate, setFestivalDate] = useState(
     customization?.festivalDate ||
-      I18n.t("festivalDateDefault", { year: currentYear })
+      I18n.t("festivalDateDefault", { year: currentYear }),
   );
 
   const selectedTheme = getShareTheme(theme);
@@ -145,10 +145,6 @@ export default function Share({
       style={[styles.container, styles.mainBg]}
     >
       <View style={styles.editorHeader}>
-        <View>
-          <Text style={styles.editorEyebrow}>{I18n.t("share")}</Text>
-          <Text style={styles.editorTitle}>{I18n.t("customizeShare")}</Text>
-        </View>
         <TouchableOpacity style={styles.shareAction} onPress={shareImage}>
           <Icon as={MaterialIcons} name="ios-share" size={6} color={"#fff"} />
           <Text style={styles.shareActionText}>{I18n.t("share")}</Text>
@@ -251,10 +247,7 @@ export default function Share({
                     ))}
                   </View>
                   <Text
-                    style={[
-                      styles.themeLabel,
-                      { color: selectedTheme.text },
-                    ]}
+                    style={[styles.themeLabel, { color: selectedTheme.text }]}
                     numberOfLines={1}
                     adjustsFontSizeToFit
                   >
@@ -272,9 +265,7 @@ export default function Share({
               style={[
                 styles.sectionLabel,
                 {
-                  color: selectedTheme.isDark
-                    ? "#DADADA"
-                    : selectedTheme.muted,
+                  color: selectedTheme.isDark ? "#DADADA" : selectedTheme.muted,
                 },
               ]}
             >
@@ -342,9 +333,7 @@ export default function Share({
               style={[
                 styles.toggleText,
                 {
-                  color: showImages
-                    ? activeControlText
-                    : selectedTheme.text,
+                  color: showImages ? activeControlText : selectedTheme.text,
                 },
               ]}
               numberOfLines={1}
@@ -365,12 +354,7 @@ export default function Share({
               },
             ]}
           >
-            <Text
-              style={[
-                styles.sectionLabel,
-                { color: selectedTheme.text },
-              ]}
-            >
+            <Text style={[styles.sectionLabel, { color: selectedTheme.text }]}>
               {I18n.t("festivalDetails")}
             </Text>
             <View style={styles.fieldRow}>

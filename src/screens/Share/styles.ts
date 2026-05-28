@@ -12,7 +12,7 @@ export default StyleSheet.create({
   editorHeader: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     columnGap: SPACING.medium,
     marginBottom: SPACING.medium,
   },

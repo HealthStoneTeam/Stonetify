@@ -3,4 +3,5 @@ export enum Pages {
   LOGIN = "Login",
   PRESENTATION = "Presentation",
   ABOUT = "About",
+  SHARE_TRADITIONAL = "ShareTraditional",
 }
