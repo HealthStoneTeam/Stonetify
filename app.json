@@ -3,7 +3,7 @@
     "name": "Stonetify",
     "scheme": "stonetify",
     "slug": "Stonetify",
-    "version": "1.0.22",
+    "version": "1.0.23",
     "orientation": "portrait",
     "icon": "./assets/stonetifyNewLogo.png",
     "userInterfaceStyle": "dark",
@@ -33,7 +33,7 @@
       "supportsTablet": true
     },
     "android": {
-      "versionCode": 22,
+      "versionCode": 23,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#121212"
