@@ -10,11 +10,12 @@ import { Filters } from "../../models/enums/filters";
 export default function Item({ data }: GenericDataProps<ItemsProps>) {
   return (
     <View style={styles.item}>
-      {data.mode !== Filters.LITE_MODE && (
+      {data.mode !== Filters.LITE_MODE && data.item.image && (
         <Image
           source={{ uri: data.item.image }}
           size={"sm"}
-          alt="Ilustration"
+          resizeMode="contain"
+          alt="Illustration"
         />
       )}
       <View style={styles.details}>

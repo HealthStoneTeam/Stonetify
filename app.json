@@ -3,9 +3,9 @@
     "name": "Stonetify",
     "scheme": "stonetify",
     "slug": "Stonetify",
-    "version": "1.0.22",
+    "version": "1.0.23",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/stonetifyNewLogo.png",
     "userInterfaceStyle": "dark",
     "splash": {
       "image": "./assets/splash.png",
@@ -15,15 +15,45 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 35,
+            "targetSdkVersion": 35,
+            "buildToolsVersion": "35.0.0",
+            "useLegacyPackaging": false
+          }
+        }
+      ],
+      "expo-web-browser"
+    ],
     "ios": {
       "supportsTablet": true
     },
     "android": {
-      "versionCode": 22,
+      "versionCode": 23,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#121212"
       },
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": false,
+          "data": [
+            {
+              "scheme": "stonetify",
+              "host": "callback"
+            }
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
+      ],
       "package": "br.com.healthstoneteam.Stonetify"
     },
     "web": {

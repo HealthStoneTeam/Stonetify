@@ -1,17 +1,17 @@
 import React from "react";
-import { Text, View, Image } from "react-native";
+import { View } from "react-native";
+import SpotifyAttribution from "../spotifyAttribution";
 import styles from "./styles";
+import { SpotifyLogoTone } from "../../utils/shareTheme";
 
-export default function FooterList() {
+type FooterListProps = {
+  tone?: SpotifyLogoTone;
+};
+
+export default function FooterList({ tone = "white" }: FooterListProps) {
   return (
     <View style={styles.container}>
-      <View style={styles.spotifyIconContainer}>
-        <Image
-          style={styles.logoSpotify}
-          source={require("../../../assets/spotifyLogo.png")}
-          alt="Spotify"
-        />
-      </View>
+      <SpotifyAttribution tone={tone} />
     </View>
   );
 }

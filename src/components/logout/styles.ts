@@ -1,47 +1,59 @@
 import { StyleSheet } from "react-native";
+import { COLORS, FONTS, SPACING } from "../../models/constants";
 
 export default StyleSheet.create({
+  logoutButton: {
+    width: 44,
+    height: 44,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   centeredView: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    backgroundColor: "rgba(0, 0, 0, 0.62)",
+    padding: SPACING.medium,
   },
   modalView: {
-    backgroundColor: "#282828",
+    width: "100%",
+    maxWidth: 340,
+    backgroundColor: COLORS.cardBackground,
     borderRadius: 20,
-    padding: 35,
+    padding: SPACING.large,
     alignItems: "center",
     elevation: 5,
   },
   modalText: {
-    color: "white",
-    marginBottom: 20,
+    color: COLORS.white,
+    marginBottom: SPACING.large,
     textAlign: "center",
-    fontSize: 18,
+    fontSize: FONTS.medium,
+    fontWeight: "800",
   },
   containerButtons: {
     flexDirection: "row",
-    columnGap: 20,
+    columnGap: SPACING.small,
   },
   button: {
     borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-    width: 100,
+    paddingVertical: SPACING.small,
+    paddingHorizontal: SPACING.medium,
+    width: 112,
     alignItems: "center",
   },
   confirmButton: {
-    backgroundColor: "#1DB954",
+    backgroundColor: COLORS.primary,
   },
   cancelButton: {
-    borderColor: "#1DB954",
+    borderColor: COLORS.primary,
     borderWidth: 2,
     borderRadius: 25,
   },
   textStyle: {
-    color: "white",
-    fontWeight: "bold",
+    color: COLORS.white,
+    fontWeight: "900",
     textAlign: "center",
+    fontSize: FONTS.smallMedium,
   },
 });

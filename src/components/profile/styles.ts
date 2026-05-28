@@ -8,9 +8,12 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     marginBottom: SPACING.medium,
     marginLeft: SPACING.medium,
+    fontWeight: "normal",
+    maxWidth: 190,
   },
   avatar: {
     flexDirection: "row",
+    flex: 1,
   },
 });
 

@@ -2,21 +2,30 @@
   "build": {
     "development": {
       "developmentClient": false,
-      "distribution": "internal"
+      "distribution": "internal",
+      "android": {
+        "image": "latest",
+        "ndk": "28.0.13004108"
+      }
     },
     "preview": {
       "android": {
+        "image": "latest",
+        "ndk": "28.0.13004108",
         "buildType": "apk"
       }
     },
     "preview2": {
       "android": {
+        "image": "latest",
+        "ndk": "28.0.13004108",
         "gradleCommand": ":app:assembleRelease"
       }
     },
     "production": {
       "android": {
-        "image": "latest"
+        "image": "latest",
+        "ndk": "28.0.13004108"
       },
       "distribution": "store"
     }

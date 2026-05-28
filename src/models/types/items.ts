@@ -5,10 +5,14 @@ export type ItemsProps = {
 }
 
 export type Items = {
-  image: string,
+  id?: number,
+  image?: string | null,
   title: string,
   subtitle: string,
-  extraInfo: string,
+  extraInfo: string | number,
   uri: string,
-  link: string
+  link: string,
+  spotifyId?: string,
+  genres?: string[],
+  popularity?: number
 }

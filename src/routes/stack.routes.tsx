@@ -5,6 +5,7 @@ import About from "../screens/About";
 import Share from "../screens/Share";
 import Presentation from "../screens/Presentation";
 import { Pages } from "../models/enums/pages";
+import ShareTraditional from "../screens/ShareTraditional";
 
 const Stack = createStackNavigator();
 const headerStyle = {
@@ -29,6 +30,11 @@ export default function StackRoutes() {
       <Stack.Screen
         name={Pages.SHARE}
         component={Share}
+        options={headerStyle}
+      />
+      <Stack.Screen
+        name={Pages.SHARE_TRADITIONAL}
+        component={ShareTraditional}
         options={headerStyle}
       />
       <Stack.Screen

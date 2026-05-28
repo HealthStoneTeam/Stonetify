@@ -25,13 +25,17 @@ export default function Logout({ navigation }: NavigationProps) {
 
   return (
     <>
-      <Icon
-        as={MaterialCommunityIcons}
-        name="logout"
-        size={10}
-        color={"#1DB954"}
+      <TouchableOpacity
+        style={styles.logoutButton}
         onPress={() => setIsOpen(!isOpen)}
-      />
+      >
+        <Icon
+          as={MaterialCommunityIcons}
+          name="logout"
+          size={6}
+          color={"#1DB954"}
+        />
+      </TouchableOpacity>
       <Modal
         animationType="none"
         transparent={true}
